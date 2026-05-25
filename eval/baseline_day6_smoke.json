@@ -1,0 +1,115 @@
+{
+  "meta": {
+    "timestamp": "2026-05-21T09:42:31",
+    "today": "2026-05-20",
+    "tag": "day6_smoke",
+    "total_wall_time_sec": 80.6,
+    "use_rag": true,
+    "use_tools": true,
+    "use_agent": true,
+    "top_k": 5,
+    "max_tool_rounds": 3,
+    "max_repair_attempts": 2,
+    "avg_rag_latency_ms": 70372
+  },
+  "summary": {
+    "total_cases": 1,
+    "passed": 0,
+    "pass_rate": 0.0,
+    "by_difficulty": {
+      "L5": {
+        "total": 1,
+        "passed": 0,
+        "pass_rate": 0.0
+      }
+    },
+    "total_input_tokens": 1857,
+    "total_output_tokens": 668,
+    "avg_input_tokens": 1857,
+    "avg_output_tokens": 668,
+    "avg_latency_ms": 9432,
+    "tables_pass_rate": 0.0,
+    "must_have_pass_rate": 1.0,
+    "executable_pass_rate": 1.0,
+    "tool_calls_total": 0,
+    "cases_with_tool_call": 0,
+    "tool_usage_rate": 0.0,
+    "agent_repair_triggered": 0,
+    "agent_repair_succeeded": 0,
+    "agent_avg_attempts": 1
+  },
+  "cases": [
+    {
+      "id": "L5-03",
+      "difficulty": "L5",
+      "question": "对比 2025 年销售订单总额和采购订单总额，哪一边更高",
+      "sql": "SELECT SUM(NETWR) AS TOTAL_SALES FROM VBAK WHERE ERDAT >= '2025-01-01' AND ERDAT < '2026-01-01'",
+      "pass": false,
+      "tables_ok": false,
+      "must_have_ok": true,
+      "must_have_any_ok": true,
+      "executable_ok": true,
+      "missing_tables": [
+        "EKKO"
+      ],
+      "missing_must_have": [],
+      "missing_must_have_any": [],
+      "row_count": 1,
+      "sql_error": "",
+      "latency_ms": 9432,
+      "usage": {
+        "prompt_tokens": 1857,
+        "completion_tokens": 668,
+        "total_tokens": 2525
+      },
+      "model": "",
+      "rag": {
+        "enabled": true,
+        "top_k": 5,
+        "latency_ms": 70372,
+        "hits": [
+          {
+            "table": "VBAK",
+            "score": 0.5329
+          },
+          {
+            "table": "EKKO",
+            "score": 0.4754
+          },
+          {
+            "table": "VBAP",
+            "score": 0.473
+          },
+          {
+            "table": "EKPO",
+            "score": 0.4305
+          },
+          {
+            "table": "BKPF",
+            "score": 0.3848
+          }
+        ]
+      },
+      "tools": {
+        "enabled": true,
+        "rounds": 1,
+        "call_count": 0,
+        "looked_up_tables": []
+      },
+      "agent": {
+        "enabled": true,
+        "attempts": 1,
+        "repair_used": false,
+        "repair_succeeded": false,
+        "history": [
+          {
+            "attempt": 0,
+            "ok": true,
+            "error": "",
+            "row_count": 1
+          }
+        ]
+      }
+    }
+  ]
+}

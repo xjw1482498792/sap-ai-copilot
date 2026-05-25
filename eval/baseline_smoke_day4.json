@@ -1,0 +1,96 @@
+{
+  "meta": {
+    "timestamp": "2026-05-20T15:50:39",
+    "today": "2026-05-20",
+    "tag": "smoke_day4",
+    "total_wall_time_sec": 30.0,
+    "use_rag": true,
+    "use_tools": true,
+    "top_k": 5,
+    "max_tool_rounds": 3,
+    "avg_rag_latency_ms": 24592
+  },
+  "summary": {
+    "total_cases": 1,
+    "passed": 1,
+    "pass_rate": 1.0,
+    "by_difficulty": {
+      "L4": {
+        "total": 1,
+        "passed": 1,
+        "pass_rate": 1.0
+      }
+    },
+    "total_input_tokens": 3750,
+    "total_output_tokens": 135,
+    "avg_input_tokens": 3750,
+    "avg_output_tokens": 135,
+    "avg_latency_ms": 5404,
+    "tables_pass_rate": 1.0,
+    "must_have_pass_rate": 1.0,
+    "executable_pass_rate": 1.0,
+    "tool_calls_total": 1,
+    "cases_with_tool_call": 1,
+    "tool_usage_rate": 1.0
+  },
+  "cases": [
+    {
+      "id": "L4-01",
+      "difficulty": "L4",
+      "question": "销售数量最高的 5 个物料，列出物料编号、中文名称和销售总数量",
+      "sql": "SELECT VBAP.MATNR, MAKT.MAKTX AS 中文名称, SUM(VBAP.KWMENG) AS 销售总数量\nFROM VBAP\nLEFT JOIN MAKT ON VBAP.MATNR = MAKT.MATNR AND MAKT.SPRAS = '1'\nGROUP BY VBAP.MATNR, MAKT.MAKTX\nORDER BY 销售总数量 DESC\nLIMIT 5",
+      "pass": true,
+      "tables_ok": true,
+      "must_have_ok": true,
+      "must_have_any_ok": true,
+      "executable_ok": true,
+      "missing_tables": [],
+      "missing_must_have": [],
+      "missing_must_have_any": [],
+      "row_count": 5,
+      "sql_error": "",
+      "latency_ms": 5404,
+      "usage": {
+        "prompt_tokens": 3750,
+        "completion_tokens": 135,
+        "total_tokens": 3885
+      },
+      "model": "",
+      "rag": {
+        "enabled": true,
+        "top_k": 5,
+        "latency_ms": 24592,
+        "hits": [
+          {
+            "table": "VBAP",
+            "score": 0.5463
+          },
+          {
+            "table": "VBAK",
+            "score": 0.5309
+          },
+          {
+            "table": "MARA",
+            "score": 0.5092
+          },
+          {
+            "table": "EKPO",
+            "score": 0.484
+          },
+          {
+            "table": "KNA1",
+            "score": 0.4709
+          }
+        ]
+      },
+      "tools": {
+        "enabled": true,
+        "rounds": 2,
+        "call_count": 1,
+        "looked_up_tables": [
+          "MAKT"
+        ]
+      }
+    }
+  ]
+}

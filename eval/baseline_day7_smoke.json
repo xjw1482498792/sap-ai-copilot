@@ -1,0 +1,115 @@
+{
+  "meta": {
+    "timestamp": "2026-05-21T16:19:24",
+    "today": "2026-05-20",
+    "tag": "day7_smoke",
+    "total_wall_time_sec": 37.0,
+    "use_rag": true,
+    "use_tools": true,
+    "use_agent": true,
+    "top_k": 5,
+    "max_tool_rounds": 3,
+    "max_repair_attempts": 3,
+    "avg_rag_latency_ms": 28147
+  },
+  "summary": {
+    "total_cases": 1,
+    "passed": 1,
+    "pass_rate": 1.0,
+    "by_difficulty": {
+      "L5": {
+        "total": 1,
+        "passed": 1,
+        "pass_rate": 1.0
+      }
+    },
+    "total_input_tokens": 3876,
+    "total_output_tokens": 319,
+    "avg_input_tokens": 3876,
+    "avg_output_tokens": 319,
+    "avg_latency_ms": 8113,
+    "tables_pass_rate": 1.0,
+    "must_have_pass_rate": 1.0,
+    "executable_pass_rate": 1.0,
+    "tool_calls_total": 1,
+    "cases_with_tool_call": 1,
+    "tool_usage_rate": 1.0,
+    "agent_repair_triggered": 0,
+    "agent_repair_succeeded": 0,
+    "agent_avg_attempts": 1
+  },
+  "cases": [
+    {
+      "id": "D9-11",
+      "difficulty": "L5",
+      "question": "今年每月销售额的环比增长率",
+      "sql": "WITH monthly_sales AS (\n  SELECT\n    STRFTIME('%Y-%m', ERDAT) AS month,\n    SUM(NETWR) AS sales_amount\n  FROM VBAK\n  WHERE ERDAT >= '2026-01-01'\n    AND ERDAT < '2027-01-01'\n  GROUP BY STRFTIME('%Y-%m', ERDAT)\n)\nSELECT\n  month,\n  sales_amount,\n  CASE\n    WHEN LAG(sales_amount) OVER (ORDER BY month) IS NULL THEN NULL\n    ELSE ROUND((sales_amount - LAG(sales_amount) OVER (ORDER BY month)) / LAG(sales_amount) OVER (ORDER BY month) * 100, 2)\n  END AS growth_rate_pct\nFROM monthly_sales\nORDER BY month",
+      "pass": true,
+      "tables_ok": true,
+      "must_have_ok": true,
+      "must_have_any_ok": true,
+      "executable_ok": true,
+      "missing_tables": [],
+      "missing_must_have": [],
+      "missing_must_have_any": [],
+      "row_count": 5,
+      "sql_error": "",
+      "latency_ms": 8113,
+      "usage": {
+        "prompt_tokens": 3876,
+        "completion_tokens": 319,
+        "total_tokens": 4195
+      },
+      "model": "",
+      "rag": {
+        "enabled": true,
+        "top_k": 5,
+        "latency_ms": 28147,
+        "hits": [
+          {
+            "table": "VBAK",
+            "score": 0.4171
+          },
+          {
+            "table": "VBAP",
+            "score": 0.4034
+          },
+          {
+            "table": "BSEG",
+            "score": 0.3314
+          },
+          {
+            "table": "LFA1",
+            "score": 0.3167
+          },
+          {
+            "table": "KNA1",
+            "score": 0.3124
+          }
+        ]
+      },
+      "tools": {
+        "enabled": true,
+        "rounds": 2,
+        "call_count": 1,
+        "looked_up_tables": [
+          "MAKT"
+        ]
+      },
+      "agent": {
+        "enabled": true,
+        "attempts": 1,
+        "repair_used": false,
+        "repair_succeeded": false,
+        "history": [
+          {
+            "attempt": 0,
+            "ok": true,
+            "error": "",
+            "row_count": 5
+          }
+        ]
+      }
+    }
+  ]
+}

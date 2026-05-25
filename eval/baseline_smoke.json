@@ -1,0 +1,54 @@
+{
+  "meta": {
+    "timestamp": "2026-05-20T11:25:12",
+    "model": "deepseek-v4-flash",
+    "today": "2026-05-20",
+    "tag": "smoke",
+    "total_wall_time_sec": 3.6
+  },
+  "summary": {
+    "total_cases": 1,
+    "passed": 1,
+    "pass_rate": 1.0,
+    "by_difficulty": {
+      "L1": {
+        "total": 1,
+        "passed": 1,
+        "pass_rate": 1.0
+      }
+    },
+    "total_input_tokens": 1811,
+    "total_output_tokens": 14,
+    "avg_input_tokens": 1811,
+    "avg_output_tokens": 14,
+    "avg_latency_ms": 3563,
+    "tables_pass_rate": 1.0,
+    "must_have_pass_rate": 1.0,
+    "executable_pass_rate": 1.0
+  },
+  "cases": [
+    {
+      "id": "L1-01",
+      "difficulty": "L1",
+      "question": "目前数据库里一共有多少个客户？",
+      "sql": "SELECT COUNT(*) AS CUSTOMER_COUNT FROM KNA1;",
+      "pass": true,
+      "tables_ok": true,
+      "must_have_ok": true,
+      "must_have_any_ok": true,
+      "executable_ok": true,
+      "missing_tables": [],
+      "missing_must_have": [],
+      "missing_must_have_any": [],
+      "row_count": 1,
+      "sql_error": "",
+      "latency_ms": 3563,
+      "usage": {
+        "prompt_tokens": 1811,
+        "completion_tokens": 14,
+        "total_tokens": 1825
+      },
+      "model": "deepseek-v4-flash"
+    }
+  ]
+}

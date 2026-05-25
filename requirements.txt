@@ -1,0 +1,23 @@
+# Day 1-2: MVP
+openai>=1.30.0
+python-dotenv>=1.0.0
+faker>=24.0.0
+tabulate>=0.9.0
+
+# Day 3-5: Schema RAG
+chromadb>=0.4.24
+sentence-transformers>=2.5.0
+# torch 是 sentence-transformers 的传递依赖，首次安装会带上（CPU 版即可）
+
+# Day 6-8: Agent
+langgraph>=1.0.0
+# langchain-core 是 langgraph 的传递依赖，会自动带上
+
+# Day 9-11: Eval (取消注释)
+# pandas>=2.2.0
+# matplotlib>=3.8.0
+
+# Day 12-14: UI + API
+streamlit>=1.32.0
+# fastapi>=0.110.0
+# uvicorn>=0.27.0

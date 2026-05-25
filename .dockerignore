@@ -1,0 +1,43 @@
+# 虚拟环境
+.venv/
+venv/
+
+# 密钥（绝不进镜像，运行时通过 env 注入）
+.env
+*.key
+
+# 数据库 / Chroma 索引（构建时由 seed + build_index 重新生成）
+data/sap_mock.db
+data/chroma_db/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ipynb_checkpoints/
+
+# 日志（运行时挂 volume，不进镜像）
+logs/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Git
+.git/
+.gitignore
+
+# Docker 自身
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# 文档 / 评测中间产物（镜像里不需要）
+README.md
+eval/*.json
+eval/__pycache__/

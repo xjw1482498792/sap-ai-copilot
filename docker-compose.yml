@@ -1,0 +1,30 @@
+# SAP 智能查询助手 —— 一键启动
+#
+# 用法（本地或服务器都一样）：
+#   1. 复制 .env.example 为 .env 并填 DEEPSEEK_API_KEY / APP_PASSWORD
+#   2. docker compose up -d --build
+#   3. 浏览器开 http://<ip>:8501，输入 APP_PASSWORD 进入
+#
+# 重启策略 unless-stopped：开机自启 + 异常自动拉起，但 docker compose down 后不复活
+
+services:
+  sap-copilot:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: sap-ai-copilot:latest
+    container_name: sap-copilot
+    restart: unless-stopped
+    ports:
+      - "8501:8501"
+    env_file:
+      - .env
+    volumes:
+      # 日志挂出来便于排查（容器内 /app/logs 对应宿主 ./logs）
+      - ./logs:/app/logs
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://localhost:8501/_stcore/health"]
+      interval: 30s
+      timeout: 5s
+      start_period: 20s
+      retries: 3

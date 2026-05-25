@@ -1,0 +1,420 @@
+{
+  "meta": {
+    "version": "day9",
+    "description": "40 题 × L1-L5 难度的 text-to-SQL 评测集。基于 data/sap_mock.db 的 10 张 SAP 表设计，覆盖 SD/MM/FI 三个模块。Day 9 扩 25 道刁难题：列名易幻觉(A)/隐式过滤(B)/跨年度对比(C)/多表深 JOIN(D)/业务诱导(E) 五类。",
+    "today": "2026-05-21",
+    "scoring": {
+      "expected_tables": "SQL 必须 FROM/JOIN 中包含这些表（大小写不敏感），全中才得表分",
+      "must_have": "SQL 必须包含这些子串（大小写不敏感），缺一项就扣对应分",
+      "must_have_any": "每组备选只需要至少命中一个（OR 关系），用于处理 LLM 的多种合理写法",
+      "executable_required": "为 true 时 SQL 必须能在 SQLite 跑通且返回非空结果才算 pass"
+    }
+  },
+  "cases": [
+    {
+      "id": "L1-01",
+      "difficulty": "L1",
+      "question": "目前数据库里一共有多少个客户？",
+      "expected_tables": ["KNA1"],
+      "must_have": ["COUNT"],
+      "must_have_any": [],
+      "executable_required": true,
+      "notes": "最简单：单表 COUNT"
+    },
+    {
+      "id": "L1-02",
+      "difficulty": "L1",
+      "question": "销售订单一共有多少张？",
+      "expected_tables": ["VBAK"],
+      "must_have": ["COUNT"],
+      "must_have_any": [],
+      "executable_required": true,
+      "notes": "单表 COUNT，注意是 VBAK 抬头不是 VBAP"
+    },
+    {
+      "id": "L1-03",
+      "difficulty": "L1",
+      "question": "查一下所有供应商的编号和名称",
+      "expected_tables": ["LFA1"],
+      "must_have": ["LIFNR", "NAME1"],
+      "must_have_any": [],
+      "executable_required": true,
+      "notes": "单表 SELECT 多字段"
+    },
+    {
+      "id": "L2-01",
+      "difficulty": "L2",
+      "question": "查一下 2025 年的销售订单数量和总金额",
+      "expected_tables": ["VBAK"],
+      "must_have": ["COUNT", "SUM", "NETWR"],
+      "must_have_any": [["2025", "strftime"]],
+      "executable_required": true,
+      "notes": "单表 + 日期过滤 + 两个聚合"
+    },
+    {
+      "id": "L2-02",
+      "difficulty": "L2",
+      "question": "按物料类型统计每种类型的物料数量",
+      "expected_tables": ["MARA"],
+      "must_have": ["GROUP BY", "MTART", "COUNT"],
+      "must_have_any": [],
+      "executable_required": true,
+      "notes": "单表 GROUP BY"
+    },
+    {
+      "id": "L2-03",
+      "difficulty": "L2",
+      "question": "用 CNY 币种结算的销售订单一共多少张，总净额多少？",
+      "expected_tables": ["VBAK"],
+      "must_have": ["COUNT", "SUM", "NETWR", "WAERK", "CNY"],
+      "must_have_any": [],
+      "executable_required": true,
+      "notes": "单表 + 币种过滤 + 双聚合"
+    },
+    {
+      "id": "L3-01",
+      "difficulty": "L3",
+      "question": "销售额前 5 名的客户是谁，分别销售了多少钱？",
+      "expected_tables": ["VBAK", "KNA1"],
+      "must_have": ["JOIN", "KUNNR", "NAME1", "SUM", "NETWR", "ORDER BY", "LIMIT"],
+      "must_have_any": [["DESC"]],
+      "executable_required": true,
+      "notes": "两表 JOIN + 聚合排名"
+    },
+    {
+      "id": "L3-02",
+      "difficulty": "L3",
+      "question": "采购金额最高的 3 个供应商及其名称",
+      "expected_tables": ["EKKO", "EKPO", "LFA1"],
+      "must_have": ["JOIN", "LIFNR", "NAME1", "ORDER BY", "LIMIT"],
+      "must_have_any": [["NETPR", "MENGE"]],
+      "executable_required": true,
+      "notes": "采购金额需要 EKPO（NETPR * MENGE）或者直接 EKPO.NETPR 汇总；3 表 JOIN"
+    },
+    {
+      "id": "L3-03",
+      "difficulty": "L3",
+      "question": "今年（2026）每个月的销售订单数量分别是多少？",
+      "expected_tables": ["VBAK"],
+      "must_have": ["GROUP BY", "COUNT", "ERDAT"],
+      "must_have_any": [["strftime", "substr", "2026"]],
+      "executable_required": true,
+      "notes": "日期分组 + 聚合，SQLite 一般用 strftime('%m', ERDAT)"
+    },
+    {
+      "id": "L4-01",
+      "difficulty": "L4",
+      "question": "销售数量最高的 5 个物料，列出物料编号、中文名称和销售总数量",
+      "expected_tables": ["VBAP", "MAKT"],
+      "must_have": ["JOIN", "MATNR", "MAKTX", "SPRAS", "KWMENG", "SUM", "ORDER BY", "LIMIT"],
+      "must_have_any": [["'1'", "= 1", "='1'"]],
+      "executable_required": true,
+      "notes": "必须 JOIN MAKT 拿中文描述，且 SPRAS='1'"
+    },
+    {
+      "id": "L4-02",
+      "difficulty": "L4",
+      "question": "上个月（2026 年 4 月）销售净额最高的 5 个客户的名称、所在城市和销售总额",
+      "expected_tables": ["VBAK", "KNA1"],
+      "must_have": ["JOIN", "NAME1", "ORT01", "SUM", "NETWR", "ORDER BY", "LIMIT", "ERDAT"],
+      "must_have_any": [["2026-04", "strftime"]],
+      "executable_required": true,
+      "notes": "三个聚合维度 + 相对日期。客户城市在 KNA1.ORT01"
+    },
+    {
+      "id": "L4-03",
+      "difficulty": "L4",
+      "question": "查一下供应商 V010001 采购过哪些物料（要中文名称），以及每种物料采购了多少数量",
+      "expected_tables": ["EKKO", "EKPO", "MAKT"],
+      "must_have": ["JOIN", "LIFNR", "V010001", "MATNR", "MAKTX", "SUM", "MENGE", "GROUP BY"],
+      "must_have_any": [["SPRAS"]],
+      "executable_required": false,
+      "notes": "三表 JOIN，executable 不强求（V010001 可能不存在导致空结果）"
+    },
+    {
+      "id": "L5-01",
+      "difficulty": "L5",
+      "question": "今年销售额前 5 的客户，列出客户名称、订单数、总销售额和平均单笔金额",
+      "expected_tables": ["VBAK", "KNA1"],
+      "must_have": ["JOIN", "NAME1", "COUNT", "SUM", "NETWR", "GROUP BY", "ORDER BY", "LIMIT"],
+      "must_have_any": [["2026", "strftime"], ["AVG", "/ COUNT", "/COUNT"]],
+      "executable_required": true,
+      "notes": "多聚合 + 日期过滤 + JOIN + 排名。平均值允许 AVG 或 SUM/COUNT 等价写法"
+    },
+    {
+      "id": "L5-02",
+      "difficulty": "L5",
+      "question": "2025 年公司代码 1000 的财务凭证里，借方总金额是多少？",
+      "expected_tables": ["BKPF", "BSEG"],
+      "must_have": ["JOIN", "BUKRS", "1000", "SHKZG", "SUM", "DMBTR"],
+      "must_have_any": [["GJAHR", "2025", "BUDAT", "BLDAT"], ["'S'", "= 'S'"]],
+      "executable_required": true,
+      "notes": "财务双表 JOIN + 借贷标识过滤（SHKZG='S' 借方）"
+    },
+    {
+      "id": "L5-03",
+      "difficulty": "L5",
+      "question": "对比 2025 年销售订单总额和采购订单总额，哪一边更高",
+      "expected_tables": ["VBAK", "EKKO"],
+      "must_have": ["SUM"],
+      "must_have_any": [["UNION", "SELECT"], ["2025", "strftime"]],
+      "executable_required": true,
+      "notes": "需要分别聚合 SD 和 MM 两条业务流，可能 UNION ALL 或两个 subquery；采购金额需 JOIN EKPO 用 NETPR"
+    },
+
+    {
+      "id": "D9-01",
+      "difficulty": "L4",
+      "question": "采购订单总额前 3 的供应商，列出供应商名称和金额",
+      "expected_tables": ["EKKO", "EKPO", "LFA1"],
+      "must_have": ["JOIN", "LIFNR", "NAME1", "ORDER BY", "LIMIT", "SUM"],
+      "must_have_any": [["MENGE", "NETPR"]],
+      "executable_required": true,
+      "notes": "A 类列名幻觉：EKKO 无金额字段，必须 JOIN EKPO 用 MENGE*NETPR 或 SUM(NETPR*MENGE)。L5-03 同款陷阱"
+    },
+    {
+      "id": "D9-02",
+      "difficulty": "L4",
+      "question": "成品物料里毛重最大的前 5 种，给我物料编号、中文名称和毛重",
+      "expected_tables": ["MARA", "MAKT"],
+      "must_have": ["JOIN", "MTART", "FERT", "BRGEW", "MAKTX", "ORDER BY", "LIMIT"],
+      "must_have_any": [["SPRAS", "'1'"]],
+      "executable_required": true,
+      "notes": "A 类：BRGEW 在 MARA、中文名在 MAKT，必须双 JOIN + MTART='FERT' 过滤"
+    },
+    {
+      "id": "D9-03",
+      "difficulty": "L4",
+      "question": "财务凭证里凭证币种金额（原币）最大的 10 条记录，列出公司代码、凭证号、币种和金额",
+      "expected_tables": ["BSEG"],
+      "must_have": ["WRBTR", "WAERS", "ORDER BY", "LIMIT", "BUKRS", "BELNR"],
+      "must_have_any": [],
+      "executable_required": true,
+      "notes": "A 类：WRBTR 是凭证币种金额、DMBTR 是本位币，LLM 容易选错。题目明确说『原币』就该选 WRBTR"
+    },
+    {
+      "id": "D9-04",
+      "difficulty": "L4",
+      "question": "行项目数最多的 5 张销售订单，列出订单号和行项目数",
+      "expected_tables": ["VBAP"],
+      "must_have": ["COUNT", "GROUP BY", "VBELN", "ORDER BY", "LIMIT"],
+      "must_have_any": [["POSNR"]],
+      "executable_required": true,
+      "notes": "A 类：容易写成 SUM(KWMENG) 或 COUNT(*) 不 GROUP BY VBELN。正确应是 GROUP BY VBELN + COUNT(POSNR)"
+    },
+
+    {
+      "id": "D9-05",
+      "difficulty": "L4",
+      "question": "查一下我们的大客户名单",
+      "expected_tables": ["VBAK", "KNA1"],
+      "must_have": ["JOIN", "NAME1", "SUM", "NETWR", "GROUP BY"],
+      "must_have_any": [["HAVING", "WHERE", "LIMIT", "ORDER BY"]],
+      "executable_required": false,
+      "notes": "B 类隐式过滤：『大客户』可以是阈值(WHERE/HAVING)、Top-N(LIMIT)、或全量按销售额排序(ORDER BY) —— 三种业务定义都合理"
+    },
+    {
+      "id": "D9-06",
+      "difficulty": "L4",
+      "question": "查一下哪些物料从来没被销售过",
+      "expected_tables": ["MARA", "VBAP"],
+      "must_have": ["MATNR"],
+      "must_have_any": [["NOT IN", "LEFT JOIN", "NOT EXISTS", "EXCEPT"]],
+      "executable_required": false,
+      "notes": "B 类：滞销物料 = MARA 有但 VBAP 没有，反连接 / NOT IN / EXCEPT 都对。executable 不强求（mock 数据物料销售覆盖广，可能真无未售物料）"
+    },
+    {
+      "id": "D9-07",
+      "difficulty": "L4",
+      "question": "找出近两年没下过任何采购订单的僵尸供应商",
+      "expected_tables": ["LFA1", "EKKO"],
+      "must_have": ["LIFNR"],
+      "must_have_any": [["NOT IN", "LEFT JOIN", "NOT EXISTS", "EXCEPT"], ["2024", "2025", "AEDAT", "date"]],
+      "executable_required": false,
+      "notes": "B 类：『近两年』需推断为 2024-2026 区间。LFA1 反连接 EKKO + 时间窗。executable 不强求（mock 可能全活跃）"
+    },
+    {
+      "id": "D9-08",
+      "difficulty": "L5",
+      "question": "销售额排名在后 50% 的长尾客户有多少个",
+      "expected_tables": ["VBAK"],
+      "must_have": ["COUNT", "SUM", "NETWR"],
+      "must_have_any": [["NTILE", "PERCENT_RANK", "ROW_NUMBER", "WITH", "RANK", "ORDER BY"]],
+      "executable_required": true,
+      "notes": "B 类：长尾 = 后 50%，需要窗口函数或子查询排序。只问『多少个』不强求 JOIN KNA1，VBAK 自身的 KUNNR 足够计数"
+    },
+    {
+      "id": "D9-09",
+      "difficulty": "L4",
+      "question": "查一下有没有同名但客户编号不同的客户，可能是数据质量问题",
+      "expected_tables": ["KNA1"],
+      "must_have": ["NAME1"],
+      "must_have_any": [["GROUP BY", "JOIN"], ["HAVING", "<", ">", "!=", "<>"]],
+      "executable_required": false,
+      "notes": "B 类数据质量题：两种合理写法 —— (a) GROUP BY NAME1 HAVING COUNT(DISTINCT KUNNR)>1；(b) self-JOIN ON K1.NAME1=K2.NAME1 AND K1.KUNNR<K2.KUNNR。executable 不强求（Faker 同名概率低）"
+    },
+
+    {
+      "id": "D9-10",
+      "difficulty": "L5",
+      "question": "对比 2026 年和 2025 年，销售额同比增长最高的前 5 个客户",
+      "expected_tables": ["VBAK", "KNA1"],
+      "must_have": ["JOIN", "NAME1", "SUM", "NETWR", "GROUP BY", "ORDER BY", "LIMIT"],
+      "must_have_any": [["2026", "2025", "strftime"], ["CASE", "WHEN"]],
+      "executable_required": true,
+      "notes": "C 类跨年度对比：典型『先按客户 GROUP BY + CASE WHEN 分年聚合 + 计算增长率』结构。Day 6 Agent 易半截"
+    },
+    {
+      "id": "D9-11",
+      "difficulty": "L5",
+      "question": "今年每月销售额的环比增长率",
+      "expected_tables": ["VBAK"],
+      "must_have": ["SUM", "NETWR", "GROUP BY"],
+      "must_have_any": [["LAG", "WITH", "ROW_NUMBER", "JOIN"], ["2026", "strftime"]],
+      "executable_required": true,
+      "notes": "C 类环比：需要 LAG 窗口或自 JOIN 上月，且要按月分组"
+    },
+    {
+      "id": "D9-12",
+      "difficulty": "L5",
+      "question": "2025 和 2026 两年分别采购了多少种不同的物料",
+      "expected_tables": ["EKKO", "EKPO"],
+      "must_have": ["JOIN", "DISTINCT", "MATNR"],
+      "must_have_any": [["GROUP BY", "CASE", "UNION"], ["2025", "2026", "AEDAT", "strftime"]],
+      "executable_required": true,
+      "notes": "C 类：物料种类必须 DISTINCT MATNR，按年分组。容易漏 DISTINCT 写成 COUNT(MATNR)"
+    },
+    {
+      "id": "D9-13",
+      "difficulty": "L5",
+      "question": "对比 2026 年 Q1 和 2025 年 Q4 的销售订单数量",
+      "expected_tables": ["VBAK"],
+      "must_have": ["COUNT", "ERDAT"],
+      "must_have_any": [["CASE", "UNION", "WHEN"], ["2026-01", "2026-02", "2026-03", "2025-10", "2025-11", "2025-12", "BETWEEN"]],
+      "executable_required": true,
+      "notes": "C 类跨年季度：Q1 2026=2026-01~03，Q4 2025=2025-10~12"
+    },
+    {
+      "id": "D9-14",
+      "difficulty": "L5",
+      "question": "物料 M000001 在 2024、2025、2026 三年的采购单价分别是多少（按年取平均）",
+      "expected_tables": ["EKKO", "EKPO"],
+      "must_have": ["JOIN", "MATNR", "M000001", "AVG", "NETPR", "GROUP BY"],
+      "must_have_any": [["2024", "2025", "2026", "AEDAT", "strftime"]],
+      "executable_required": false,
+      "notes": "C 类：JOIN + 按年 GROUP + AVG。executable 不强求（M000001 可能 2024 无数据）"
+    },
+
+    {
+      "id": "D9-15",
+      "difficulty": "L5",
+      "question": "销售额前 10 的客户，列出客户名称、所在城市和销售总额",
+      "expected_tables": ["VBAK", "KNA1"],
+      "must_have": ["JOIN", "NAME1", "ORT01", "SUM", "NETWR", "GROUP BY", "ORDER BY", "LIMIT"],
+      "must_have_any": [],
+      "executable_required": true,
+      "notes": "D 类：2 表 JOIN + 多字段聚合 + 排名，相对温和的难度起步"
+    },
+    {
+      "id": "D9-16",
+      "difficulty": "L5",
+      "question": "每个供应商各采购了哪些物料类型，按供应商和物料类型分组统计采购数量",
+      "expected_tables": ["LFA1", "EKKO", "EKPO", "MARA"],
+      "must_have": ["JOIN", "LIFNR", "NAME1", "MTART", "SUM", "MENGE", "GROUP BY"],
+      "must_have_any": [],
+      "executable_required": true,
+      "notes": "D 类：4 表 JOIN（LFA1→EKKO→EKPO→MARA），按双维度分组"
+    },
+    {
+      "id": "D9-17",
+      "difficulty": "L5",
+      "question": "2025 年按物料类型分组，哪种物料类型的销售总额最高，列出物料类型和销售总额",
+      "expected_tables": ["VBAK", "VBAP", "MARA"],
+      "must_have": ["JOIN", "MTART", "SUM", "NETWR", "GROUP BY", "ORDER BY"],
+      "must_have_any": [["2025", "ERDAT", "strftime"], ["LIMIT", "DESC"]],
+      "executable_required": true,
+      "notes": "D 类 3 表 JOIN：VBAK(抬头时间过滤) → VBAP(行项目 MATNR) → MARA(MTART)。原 SD-FI 版本因 mock 无开票/发货表(VBRK/VBRP/LIKP/LIPS)，LLM 知识与数据失配，改为 SD 内三表 JOIN"
+    },
+    {
+      "id": "D9-18",
+      "difficulty": "L5",
+      "question": "在系统里建过档但 2026 年从没下过订单的客户有多少个",
+      "expected_tables": ["KNA1", "VBAK"],
+      "must_have": ["COUNT", "KUNNR"],
+      "must_have_any": [["LEFT JOIN", "NOT IN", "NOT EXISTS"], ["2026", "ERDAT", "strftime"]],
+      "executable_required": true,
+      "notes": "D 类：KNA1 反连接 VBAK + 时间过滤。注意 ERDAT 在两边都有，时间过滤必须落到 VBAK.ERDAT"
+    },
+    {
+      "id": "D9-19",
+      "difficulty": "L5",
+      "question": "既被销售过又被采购过的物料有多少种",
+      "expected_tables": ["VBAP", "EKPO"],
+      "must_have": ["MATNR"],
+      "must_have_any": [["INTERSECT", "INNER JOIN", "EXISTS", "IN"], ["DISTINCT", "COUNT"]],
+      "executable_required": true,
+      "notes": "D 类：集合交集。INTERSECT / 双 EXISTS / 内 JOIN DISTINCT 都对"
+    },
+
+    {
+      "id": "D9-20",
+      "difficulty": "L5",
+      "question": "2025 年的销售净额最高的前 5 个客户，列出客户名称和销售总额",
+      "expected_tables": ["VBAK", "KNA1"],
+      "must_have": ["JOIN", "NAME1", "SUM", "NETWR", "GROUP BY", "ORDER BY", "LIMIT"],
+      "must_have_any": [["2025", "strftime", "ERDAT"]],
+      "executable_required": true,
+      "notes": "E 类基线（不诱导版本）：标准 SD 排名，给 D9-21/22 做对比锚"
+    },
+    {
+      "id": "D9-21",
+      "difficulty": "L5",
+      "question": "销售订单的平均单笔金额是多少",
+      "expected_tables": ["VBAK"],
+      "must_have": ["NETWR"],
+      "must_have_any": [["AVG", "SUM", "COUNT"]],
+      "executable_required": true,
+      "notes": "E 类语义诱导：『平均单笔』= AVG(VBAK.NETWR)，但容易被诱导成 SUM(VBAP.NETWR)/COUNT(VBAP)。只要算的是 VBAK 层均值就 OK"
+    },
+    {
+      "id": "D9-22",
+      "difficulty": "L5",
+      "question": "采购订单里最常同时被一起采购的两种物料是哪两种",
+      "expected_tables": ["EKPO"],
+      "must_have": ["EBELN", "MATNR", "COUNT", "GROUP BY", "ORDER BY", "LIMIT"],
+      "must_have_any": [["JOIN", "SELF"], ["<", ">"]],
+      "executable_required": false,
+      "notes": "E 类关联规则：EKPO 自 JOIN ON 同 EBELN AND a.MATNR<b.MATNR，再 GROUP BY 物料对。LLM 难度高"
+    },
+    {
+      "id": "D9-23",
+      "difficulty": "L5",
+      "question": "财务凭证里有没有借贷不平衡的记录（每张凭证借方总额应等于贷方总额）",
+      "expected_tables": ["BSEG"],
+      "must_have": ["BUKRS", "BELNR", "GROUP BY", "SHKZG", "DMBTR"],
+      "must_have_any": [["HAVING", "SUM", "CASE"], ["'S'", "'H'"]],
+      "executable_required": false,
+      "notes": "E 类数据校验：GROUP BY 凭证 + SUM(借)-SUM(贷)<>0 / HAVING。mock 数据可能全平衡，executable 不强求"
+    },
+    {
+      "id": "D9-24",
+      "difficulty": "L5",
+      "question": "销售订单抬头的净额和它所有行项目净额之和不一致的订单有哪些",
+      "expected_tables": ["VBAK", "VBAP"],
+      "must_have": ["VBELN", "NETWR", "JOIN", "SUM", "GROUP BY"],
+      "must_have_any": [["HAVING", "WHERE"], ["<>", "!=", "ABS"]],
+      "executable_required": false,
+      "notes": "E 类数据一致性校验：VBAK.NETWR vs SUM(VBAP.NETWR) per VBELN。mock 数据未必有不一致，executable 不强求"
+    },
+    {
+      "id": "D9-25",
+      "difficulty": "L5",
+      "question": "2026 年销售业绩最好的销售员前 5 名（排除测试账号 TEST 开头的）",
+      "expected_tables": ["VBAK"],
+      "must_have": ["ERNAM", "SUM", "NETWR", "GROUP BY", "ORDER BY", "LIMIT"],
+      "must_have_any": [["TEST", "LIKE", "NOT"], ["2026", "ERDAT", "strftime"]],
+      "executable_required": true,
+      "notes": "E 类隐式过滤：题目明示 TEST 开头要排除，LLM 应写 ERNAM NOT LIKE 'TEST%'"
+    }
+  ]
+}
