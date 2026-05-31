@@ -34,7 +34,7 @@ RUN sed -i 's/deb.debian.org/mirrors.aliyun.com/g' /etc/apt/sources.list.d/debia
 # === 第一层：torch CPU 版 ===
 # 单独装 CPU 版避免拉 CUDA 全家桶（~2GB）；国内服务器走清华镜像加速
 RUN pip install --no-cache-dir --timeout 300 \
-        --index-url https://mirrors.tuna.tsinghua.edu.cn/pytorch-wheels/cpu \
+        --index-url https://download.pytorch.org/whl/cpu \
         torch==2.4.1+cpu
 
 # === 第二层：业务依赖（走阿里云 pip 镜像，国内快）===
