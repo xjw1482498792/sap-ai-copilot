@@ -32,9 +32,9 @@ RUN sed -i 's/deb.debian.org/mirrors.aliyun.com/g' /etc/apt/sources.list.d/debia
     && rm -rf /var/lib/apt/lists/*
 
 # === 第一层：torch CPU 版 ===
-# PyPI 默认装 CUDA 版（~2GB），必须指定官方 WHL 索引 + +cpu 后缀；--timeout 300 应对慢速连接
+# 单独装 CPU 版避免拉 CUDA 全家桶（~2GB）；国内服务器走清华镜像加速
 RUN pip install --no-cache-dir --timeout 300 \
-        --index-url https://download.pytorch.org/whl/cpu \
+        --index-url https://mirrors.tuna.tsinghua.edu.cn/pytorch-wheels/cpu \
         torch==2.4.1+cpu
 
 # === 第二层：业务依赖（走阿里云 pip 镜像，国内快）===
