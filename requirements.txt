@@ -6,7 +6,7 @@ tabulate>=0.9.0
 
 # Day 3-5: Schema RAG
 chromadb>=0.4.24
-sentence-transformers>=2.5.0
+sentence-transformers>=2.5.0,<3.0.0
 # torch 是 sentence-transformers 的传递依赖，首次安装会带上（CPU 版即可）
 
 # Day 6-8: Agent
