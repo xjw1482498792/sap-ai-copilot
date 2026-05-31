@@ -10,13 +10,13 @@
 #   5. 镜像最终 ~1.5GB（torch CPU 占大头）
 FROM python:3.12-slim-bookworm
 
-# 系统环境
 ENV PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1 \
     PIP_NO_CACHE_DIR=1 \
     PIP_DISABLE_PIP_VERSION_CHECK=1 \
     HF_HUB_DISABLE_SYMLINKS_WARNING=1 \
     HF_HOME=/app/.cache/huggingface \
+    HF_ENDPOINT=https://hf-mirror.com \
     STREAMLIT_SERVER_HEADLESS=true \
     STREAMLIT_SERVER_PORT=8501 \
     STREAMLIT_SERVER_ADDRESS=0.0.0.0 \
@@ -24,24 +24,28 @@ ENV PYTHONUNBUFFERED=1 \
 
 WORKDIR /app
 
-# 系统级依赖：编译 chromadb 的 hnswlib 需要 build-essential，装完即删
-RUN apt-get update && apt-get install -y --no-install-recommends \
+# 换阿里云 apt 源；编译 chromadb 的 hnswlib 需要 build-essential
+RUN sed -i 's/deb.debian.org/mirrors.aliyun.com/g' /etc/apt/sources.list.d/debian.sources \
+    && apt-get update && apt-get install -y --no-install-recommends \
         build-essential \
         curl \
     && rm -rf /var/lib/apt/lists/*
 
 # === 第一层：torch CPU 版 ===
-# 单独装 + 走 CPU index，避免拉 CUDA 全家桶（默认 PyPI 那个是 GPU 版 ~2GB）
-RUN pip install --no-cache-dir \
+# PyPI 默认装 CUDA 版（~2GB），必须指定官方 WHL 索引 + +cpu 后缀；--timeout 300 应对慢速连接
+RUN pip install --no-cache-dir --timeout 300 \
         --index-url https://download.pytorch.org/whl/cpu \
-        torch==2.4.1
+        torch==2.4.1+cpu
 
-# === 第二层：业务依赖 ===
+# === 第二层：业务依赖（走阿里云 pip 镜像，国内快）===
 # requirements.txt 改动时上面的 torch 层仍能复用缓存
 COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir \
+        -i https://mirrors.aliyun.com/pypi/simple/ \
+        --trusted-host mirrors.aliyun.com \
+        -r requirements.txt
 
-# 装完即可卸 build-essential 进一步瘦身（chromadb 已编译好不再需要）
+# chromadb 已编译好，卸掉编译工具瘦身
 RUN apt-get purge -y build-essential && apt-get autoremove -y
 
 # === 第三层：源代码 ===
@@ -51,23 +55,20 @@ COPY data/__init__.py data/seed_data.py ./data/
 COPY scripts/ ./scripts/
 
 # === 第四层：构建期预热 ===
-# 1) 预下载 BGE 模型到 HF_HOME，避免首次启动 25s 卡顿 + 部署后无需外网
-# 2) 生成 SQLite mock 数据（Faker seed=42，结果可复现）
-# 3) 构建 Chroma 向量索引
-# 这三步顺序很重要：先下模型，因为 build_index 也需要它
+# HF_ENDPOINT=hf-mirror.com 已在 ENV 里，sentence-transformers 自动走国内镜像下载 BGE
+# 顺序：先下模型（build_index 也需要它），再生成 SQLite，最后建 Chroma 索引
 RUN python -c "from sentence_transformers import SentenceTransformer; \
                SentenceTransformer('BAAI/bge-small-zh-v1.5')" \
     && python -m data.seed_data \
     && python -m scripts.build_index
 
-# 创建非 root 用户跑 Streamlit（运行时容器更安全）
+# 非 root 用户运行，容器更安全
 RUN useradd --create-home --shell /bin/bash appuser \
     && chown -R appuser:appuser /app
 USER appuser
 
 EXPOSE 8501
 
-# 健康检查：docker compose 重启策略可用
 HEALTHCHECK --interval=30s --timeout=5s --start-period=20s --retries=3 \
     CMD curl -fsS http://localhost:8501/_stcore/health || exit 1
 
