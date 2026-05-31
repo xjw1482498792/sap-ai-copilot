@@ -31,11 +31,11 @@ RUN sed -i 's/deb.debian.org/mirrors.aliyun.com/g' /etc/apt/sources.list.d/debia
         curl \
     && rm -rf /var/lib/apt/lists/*
 
-# === 第一层：torch（走阿里云 PyPI 镜像，国内快；不带 +cpu 后缀但在无 GPU 容器里行为一致）===
+# === 第一层：torch CPU 版 ===
+# PyPI（含阿里云镜像）只有 CUDA 版；CPU 版必须走官方 WHL 索引 + +cpu 后缀
 RUN pip install --no-cache-dir --timeout 300 \
-        -i https://mirrors.aliyun.com/pypi/simple/ \
-        --trusted-host mirrors.aliyun.com \
-        torch==2.4.1
+        --index-url https://download.pytorch.org/whl/cpu \
+        torch==2.4.1+cpu
 
 # === 第二层：业务依赖（走阿里云 pip 镜像，国内快）===
 # requirements.txt 改动时上面的 torch 层仍能复用缓存
