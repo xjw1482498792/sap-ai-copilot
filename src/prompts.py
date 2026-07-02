@@ -15,6 +15,7 @@ build_sql_messages() 兼容三种模式：
   - schema_text 非空 + with_tool_catalog=False  →  Day 3 纯 RAG
   - schema_text 非空 + with_tool_catalog=True   →  Day 4，附带全表目录 + tool 指引
 """
+import json
 from typing import Optional
 
 from src.schemas import SCHEMAS, all_schemas_prompt
@@ -148,7 +149,11 @@ def _format_repeat_warning(repeat_count: int, error_signature: str) -> str:
 
 
 def _format_repair_history(history: list[dict]) -> str:
-    """把历次失败尝试拼成一段可读文本贴进 user message。"""
+    """把历次失败尝试拼成一段可读文本贴进 user message。
+
+    每条记录包含：本轮调用的 tool 结果（如有）、生成的 SQL、执行结果/错误。
+    tool 结果完整透传，让修复轮无需重复查表。
+    """
     if not history:
         return ""
     lines = []
@@ -158,7 +163,21 @@ def _format_repair_history(history: list[dict]) -> str:
         err = (h.get("error") or "").strip()
         row_count = h.get("row_count", 0)
         ok = h.get("ok", False)
+        tool_calls = h.get("tool_calls", [])
+
         lines.append(f"--- 第 {attempt + 1} 次尝试 ---")
+
+        if tool_calls:
+            lines.append("本轮工具调用：")
+            for tc in tool_calls:
+                try:
+                    args = json.loads(tc["arguments"]) if tc["arguments"] else {}
+                except (json.JSONDecodeError, TypeError):
+                    args = tc["arguments"]
+                result = tc.get("result") or tc.get("result_preview", "")
+                lines.append(f"  {tc['name']}({args}) 返回：")
+                lines.append(f"  {result}")
+
         lines.append(f"SQL：\n{sql}")
         if ok:
             lines.append(f"执行结果：成功但返回 {row_count} 行（疑似过滤过严或语义偏差）")

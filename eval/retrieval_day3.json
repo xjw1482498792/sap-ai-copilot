@@ -1,388 +1,18 @@
 {
   "meta": {
-    "timestamp": "2026-05-20T14:12:51",
+    "timestamp": "2026-06-16T01:56:39",
     "model": "BAAI/bge-small-zh-v1.5",
     "tag": "day3_retrieval",
     "n_tables_in_index": 10,
-    "n_cases": 15
+    "n_cases": 40
   },
   "reports": [
     {
-      "top_k": 1,
-      "total": 15,
-      "hit": 5,
-      "hit_rate": 0.333,
-      "avg_recall": 0.578,
-      "by_difficulty": {
-        "L1": {
-          "total": 3,
-          "hit": 2,
-          "hit_rate": 0.667,
-          "avg_recall": 0.667
-        },
-        "L2": {
-          "total": 3,
-          "hit": 2,
-          "hit_rate": 0.667,
-          "avg_recall": 0.667
-        },
-        "L3": {
-          "total": 3,
-          "hit": 1,
-          "hit_rate": 0.333,
-          "avg_recall": 0.611
-        },
-        "L4": {
-          "total": 3,
-          "hit": 0,
-          "hit_rate": 0.0,
-          "avg_recall": 0.444
-        },
-        "L5": {
-          "total": 3,
-          "hit": 0,
-          "hit_rate": 0.0,
-          "avg_recall": 0.5
-        }
-      },
-      "elapsed_sec": 27.22,
-      "cases": [
-        {
-          "id": "L1-01",
-          "difficulty": "L1",
-          "question": "目前数据库里一共有多少个客户？",
-          "expected_tables": [
-            "KNA1"
-          ],
-          "top_k_hits": [
-            {
-              "table": "KNA1",
-              "score": 0.572
-            }
-          ],
-          "hit": true,
-          "recall": 1.0,
-          "matched": [
-            "KNA1"
-          ],
-          "missing": []
-        },
-        {
-          "id": "L1-02",
-          "difficulty": "L1",
-          "question": "销售订单一共有多少张？",
-          "expected_tables": [
-            "VBAK"
-          ],
-          "top_k_hits": [
-            {
-              "table": "VBAP",
-              "score": 0.583
-            }
-          ],
-          "hit": false,
-          "recall": 0.0,
-          "matched": [],
-          "missing": [
-            "VBAK"
-          ]
-        },
-        {
-          "id": "L1-03",
-          "difficulty": "L1",
-          "question": "查一下所有供应商的编号和名称",
-          "expected_tables": [
-            "LFA1"
-          ],
-          "top_k_hits": [
-            {
-              "table": "LFA1",
-              "score": 0.6026
-            }
-          ],
-          "hit": true,
-          "recall": 1.0,
-          "matched": [
-            "LFA1"
-          ],
-          "missing": []
-        },
-        {
-          "id": "L2-01",
-          "difficulty": "L2",
-          "question": "查一下 2025 年的销售订单数量和总金额",
-          "expected_tables": [
-            "VBAK"
-          ],
-          "top_k_hits": [
-            {
-              "table": "VBAK",
-              "score": 0.5262
-            }
-          ],
-          "hit": true,
-          "recall": 1.0,
-          "matched": [
-            "VBAK"
-          ],
-          "missing": []
-        },
-        {
-          "id": "L2-02",
-          "difficulty": "L2",
-          "question": "按物料类型统计每种类型的物料数量",
-          "expected_tables": [
-            "MARA"
-          ],
-          "top_k_hits": [
-            {
-              "table": "MARA",
-              "score": 0.547
-            }
-          ],
-          "hit": true,
-          "recall": 1.0,
-          "matched": [
-            "MARA"
-          ],
-          "missing": []
-        },
-        {
-          "id": "L2-03",
-          "difficulty": "L2",
-          "question": "用 CNY 币种结算的销售订单一共多少张，总净额多少？",
-          "expected_tables": [
-            "VBAK"
-          ],
-          "top_k_hits": [
-            {
-              "table": "VBAP",
-              "score": 0.5571
-            }
-          ],
-          "hit": false,
-          "recall": 0.0,
-          "matched": [],
-          "missing": [
-            "VBAK"
-          ]
-        },
-        {
-          "id": "L3-01",
-          "difficulty": "L3",
-          "question": "销售额前 5 名的客户是谁，分别销售了多少钱？",
-          "expected_tables": [
-            "VBAK",
-            "KNA1"
-          ],
-          "top_k_hits": [
-            {
-              "table": "VBAK",
-              "score": 0.4906
-            }
-          ],
-          "hit": false,
-          "recall": 0.5,
-          "matched": [
-            "VBAK"
-          ],
-          "missing": [
-            "KNA1"
-          ]
-        },
-        {
-          "id": "L3-02",
-          "difficulty": "L3",
-          "question": "采购金额最高的 3 个供应商及其名称",
-          "expected_tables": [
-            "EKKO",
-            "EKPO",
-            "LFA1"
-          ],
-          "top_k_hits": [
-            {
-              "table": "EKKO",
-              "score": 0.5212
-            }
-          ],
-          "hit": false,
-          "recall": 0.333,
-          "matched": [
-            "EKKO"
-          ],
-          "missing": [
-            "EKPO",
-            "LFA1"
-          ]
-        },
-        {
-          "id": "L3-03",
-          "difficulty": "L3",
-          "question": "今年（2026）每个月的销售订单数量分别是多少？",
-          "expected_tables": [
-            "VBAK"
-          ],
-          "top_k_hits": [
-            {
-              "table": "VBAK",
-              "score": 0.5439
-            }
-          ],
-          "hit": true,
-          "recall": 1.0,
-          "matched": [
-            "VBAK"
-          ],
-          "missing": []
-        },
-        {
-          "id": "L4-01",
-          "difficulty": "L4",
-          "question": "销售数量最高的 5 个物料，列出物料编号、中文名称和销售总数量",
-          "expected_tables": [
-            "VBAP",
-            "MAKT"
-          ],
-          "top_k_hits": [
-            {
-              "table": "VBAP",
-              "score": 0.5463
-            }
-          ],
-          "hit": false,
-          "recall": 0.5,
-          "matched": [
-            "VBAP"
-          ],
-          "missing": [
-            "MAKT"
-          ]
-        },
-        {
-          "id": "L4-02",
-          "difficulty": "L4",
-          "question": "上个月（2026 年 4 月）销售净额最高的 5 个客户的名称、所在城市和销售总额",
-          "expected_tables": [
-            "VBAK",
-            "KNA1"
-          ],
-          "top_k_hits": [
-            {
-              "table": "VBAK",
-              "score": 0.4899
-            }
-          ],
-          "hit": false,
-          "recall": 0.5,
-          "matched": [
-            "VBAK"
-          ],
-          "missing": [
-            "KNA1"
-          ]
-        },
-        {
-          "id": "L4-03",
-          "difficulty": "L4",
-          "question": "查一下供应商 V010001 采购过哪些物料（要中文名称），以及每种物料采购了多少数量",
-          "expected_tables": [
-            "EKKO",
-            "EKPO",
-            "MAKT"
-          ],
-          "top_k_hits": [
-            {
-              "table": "EKPO",
-              "score": 0.5811
-            }
-          ],
-          "hit": false,
-          "recall": 0.333,
-          "matched": [
-            "EKPO"
-          ],
-          "missing": [
-            "EKKO",
-            "MAKT"
-          ]
-        },
-        {
-          "id": "L5-01",
-          "difficulty": "L5",
-          "question": "今年销售额前 5 的客户，列出客户名称、订单数、总销售额和平均单笔金额",
-          "expected_tables": [
-            "VBAK",
-            "KNA1"
-          ],
-          "top_k_hits": [
-            {
-              "table": "VBAK",
-              "score": 0.5423
-            }
-          ],
-          "hit": false,
-          "recall": 0.5,
-          "matched": [
-            "VBAK"
-          ],
-          "missing": [
-            "KNA1"
-          ]
-        },
-        {
-          "id": "L5-02",
-          "difficulty": "L5",
-          "question": "2025 年公司代码 1000 的财务凭证里，借方总金额是多少？",
-          "expected_tables": [
-            "BKPF",
-            "BSEG"
-          ],
-          "top_k_hits": [
-            {
-              "table": "BSEG",
-              "score": 0.5705
-            }
-          ],
-          "hit": false,
-          "recall": 0.5,
-          "matched": [
-            "BSEG"
-          ],
-          "missing": [
-            "BKPF"
-          ]
-        },
-        {
-          "id": "L5-03",
-          "difficulty": "L5",
-          "question": "对比 2025 年销售订单总额和采购订单总额，哪一边更高",
-          "expected_tables": [
-            "VBAK",
-            "EKKO"
-          ],
-          "top_k_hits": [
-            {
-              "table": "VBAK",
-              "score": 0.5329
-            }
-          ],
-          "hit": false,
-          "recall": 0.5,
-          "matched": [
-            "VBAK"
-          ],
-          "missing": [
-            "EKKO"
-          ]
-        }
-      ]
-    },
-    {
       "top_k": 3,
-      "total": 15,
-      "hit": 12,
+      "total": 40,
+      "hit": 32,
       "hit_rate": 0.8,
-      "avg_recall": 0.922,
+      "avg_recall": 0.904,
       "by_difficulty": {
         "L1": {
           "total": 3,
@@ -403,19 +33,19 @@
           "avg_recall": 0.889
         },
         "L4": {
-          "total": 3,
-          "hit": 1,
-          "hit_rate": 0.333,
-          "avg_recall": 0.722
+          "total": 11,
+          "hit": 6,
+          "hit_rate": 0.545,
+          "avg_recall": 0.773
         },
         "L5": {
-          "total": 3,
-          "hit": 3,
-          "hit_rate": 1.0,
-          "avg_recall": 1.0
+          "total": 20,
+          "hit": 18,
+          "hit_rate": 0.9,
+          "avg_recall": 0.95
         }
       },
-      "elapsed_sec": 0.24,
+      "elapsed_sec": 19.36,
       "cases": [
         {
           "id": "L1-01",
@@ -859,15 +489,758 @@
             "VBAK"
           ],
           "missing": []
+        },
+        {
+          "id": "D9-01",
+          "difficulty": "L4",
+          "question": "采购订单总额前 3 的供应商，列出供应商名称和金额",
+          "expected_tables": [
+            "EKKO",
+            "EKPO",
+            "LFA1"
+          ],
+          "top_k_hits": [
+            {
+              "table": "VBAK",
+              "score": 0.5527
+            },
+            {
+              "table": "VBAP",
+              "score": 0.5435
+            },
+            {
+              "table": "EKPO",
+              "score": 0.5232
+            }
+          ],
+          "hit": false,
+          "recall": 0.333,
+          "matched": [
+            "EKPO"
+          ],
+          "missing": [
+            "EKKO",
+            "LFA1"
+          ]
+        },
+        {
+          "id": "D9-02",
+          "difficulty": "L4",
+          "question": "成品物料里毛重最大的前 5 种，给我物料编号、中文名称和毛重",
+          "expected_tables": [
+            "MARA",
+            "MAKT"
+          ],
+          "top_k_hits": [
+            {
+              "table": "MARA",
+              "score": 0.5583
+            },
+            {
+              "table": "MAKT",
+              "score": 0.4786
+            },
+            {
+              "table": "EKPO",
+              "score": 0.4646
+            }
+          ],
+          "hit": true,
+          "recall": 1.0,
+          "matched": [
+            "MAKT",
+            "MARA"
+          ],
+          "missing": []
+        },
+        {
+          "id": "D9-03",
+          "difficulty": "L4",
+          "question": "财务凭证里凭证币种金额（原币）最大的 10 条记录，列出公司代码、凭证号、币种和金额",
+          "expected_tables": [
+            "BSEG"
+          ],
+          "top_k_hits": [
+            {
+              "table": "BSEG",
+              "score": 0.6664
+            },
+            {
+              "table": "BKPF",
+              "score": 0.5928
+            },
+            {
+              "table": "VBAP",
+              "score": 0.5348
+            }
+          ],
+          "hit": true,
+          "recall": 1.0,
+          "matched": [
+            "BSEG"
+          ],
+          "missing": []
+        },
+        {
+          "id": "D9-04",
+          "difficulty": "L4",
+          "question": "行项目数最多的 5 张销售订单，列出订单号和行项目数",
+          "expected_tables": [
+            "VBAP"
+          ],
+          "top_k_hits": [
+            {
+              "table": "VBAP",
+              "score": 0.7139
+            },
+            {
+              "table": "EKPO",
+              "score": 0.6204
+            },
+            {
+              "table": "VBAK",
+              "score": 0.616
+            }
+          ],
+          "hit": true,
+          "recall": 1.0,
+          "matched": [
+            "VBAP"
+          ],
+          "missing": []
+        },
+        {
+          "id": "D9-05",
+          "difficulty": "L4",
+          "question": "查一下我们的大客户名单",
+          "expected_tables": [
+            "VBAK",
+            "KNA1"
+          ],
+          "top_k_hits": [
+            {
+              "table": "KNA1",
+              "score": 0.5417
+            },
+            {
+              "table": "VBAP",
+              "score": 0.4937
+            },
+            {
+              "table": "EKPO",
+              "score": 0.4717
+            }
+          ],
+          "hit": false,
+          "recall": 0.5,
+          "matched": [
+            "KNA1"
+          ],
+          "missing": [
+            "VBAK"
+          ]
+        },
+        {
+          "id": "D9-06",
+          "difficulty": "L4",
+          "question": "查一下哪些物料从来没被销售过",
+          "expected_tables": [
+            "MARA",
+            "VBAP"
+          ],
+          "top_k_hits": [
+            {
+              "table": "VBAP",
+              "score": 0.4109
+            },
+            {
+              "table": "VBAK",
+              "score": 0.3755
+            },
+            {
+              "table": "MARA",
+              "score": 0.3667
+            }
+          ],
+          "hit": true,
+          "recall": 1.0,
+          "matched": [
+            "MARA",
+            "VBAP"
+          ],
+          "missing": []
+        },
+        {
+          "id": "D9-07",
+          "difficulty": "L4",
+          "question": "找出近两年没下过任何采购订单的僵尸供应商",
+          "expected_tables": [
+            "LFA1",
+            "EKKO"
+          ],
+          "top_k_hits": [
+            {
+              "table": "VBAP",
+              "score": 0.4434
+            },
+            {
+              "table": "EKKO",
+              "score": 0.4217
+            },
+            {
+              "table": "VBAK",
+              "score": 0.412
+            }
+          ],
+          "hit": false,
+          "recall": 0.5,
+          "matched": [
+            "EKKO"
+          ],
+          "missing": [
+            "LFA1"
+          ]
+        },
+        {
+          "id": "D9-08",
+          "difficulty": "L5",
+          "question": "销售额排名在后 50% 的长尾客户有多少个",
+          "expected_tables": [
+            "VBAK"
+          ],
+          "top_k_hits": [
+            {
+              "table": "VBAK",
+              "score": 0.4884
+            },
+            {
+              "table": "VBAP",
+              "score": 0.4443
+            },
+            {
+              "table": "KNA1",
+              "score": 0.4425
+            }
+          ],
+          "hit": true,
+          "recall": 1.0,
+          "matched": [
+            "VBAK"
+          ],
+          "missing": []
+        },
+        {
+          "id": "D9-09",
+          "difficulty": "L4",
+          "question": "查一下有没有同名但客户编号不同的客户，可能是数据质量问题",
+          "expected_tables": [
+            "KNA1"
+          ],
+          "top_k_hits": [
+            {
+              "table": "KNA1",
+              "score": 0.5763
+            },
+            {
+              "table": "VBAP",
+              "score": 0.4962
+            },
+            {
+              "table": "LFA1",
+              "score": 0.4944
+            }
+          ],
+          "hit": true,
+          "recall": 1.0,
+          "matched": [
+            "KNA1"
+          ],
+          "missing": []
+        },
+        {
+          "id": "D9-10",
+          "difficulty": "L5",
+          "question": "对比 2026 年和 2025 年，销售额同比增长最高的前 5 个客户",
+          "expected_tables": [
+            "VBAK",
+            "KNA1"
+          ],
+          "top_k_hits": [
+            {
+              "table": "VBAK",
+              "score": 0.4276
+            },
+            {
+              "table": "KNA1",
+              "score": 0.3816
+            },
+            {
+              "table": "VBAP",
+              "score": 0.3734
+            }
+          ],
+          "hit": true,
+          "recall": 1.0,
+          "matched": [
+            "KNA1",
+            "VBAK"
+          ],
+          "missing": []
+        },
+        {
+          "id": "D9-11",
+          "difficulty": "L5",
+          "question": "今年每月销售额的环比增长率",
+          "expected_tables": [
+            "VBAK"
+          ],
+          "top_k_hits": [
+            {
+              "table": "VBAK",
+              "score": 0.4171
+            },
+            {
+              "table": "VBAP",
+              "score": 0.4034
+            },
+            {
+              "table": "BSEG",
+              "score": 0.3314
+            }
+          ],
+          "hit": true,
+          "recall": 1.0,
+          "matched": [
+            "VBAK"
+          ],
+          "missing": []
+        },
+        {
+          "id": "D9-12",
+          "difficulty": "L5",
+          "question": "2025 和 2026 两年分别采购了多少种不同的物料",
+          "expected_tables": [
+            "EKKO",
+            "EKPO"
+          ],
+          "top_k_hits": [
+            {
+              "table": "EKKO",
+              "score": 0.4138
+            },
+            {
+              "table": "MARA",
+              "score": 0.4068
+            },
+            {
+              "table": "EKPO",
+              "score": 0.3989
+            }
+          ],
+          "hit": true,
+          "recall": 1.0,
+          "matched": [
+            "EKKO",
+            "EKPO"
+          ],
+          "missing": []
+        },
+        {
+          "id": "D9-13",
+          "difficulty": "L5",
+          "question": "对比 2026 年 Q1 和 2025 年 Q4 的销售订单数量",
+          "expected_tables": [
+            "VBAK"
+          ],
+          "top_k_hits": [
+            {
+              "table": "VBAK",
+              "score": 0.5098
+            },
+            {
+              "table": "VBAP",
+              "score": 0.4777
+            },
+            {
+              "table": "EKKO",
+              "score": 0.4215
+            }
+          ],
+          "hit": true,
+          "recall": 1.0,
+          "matched": [
+            "VBAK"
+          ],
+          "missing": []
+        },
+        {
+          "id": "D9-14",
+          "difficulty": "L5",
+          "question": "物料 M000001 在 2024、2025、2026 三年的采购单价分别是多少（按年取平均）",
+          "expected_tables": [
+            "EKKO",
+            "EKPO"
+          ],
+          "top_k_hits": [
+            {
+              "table": "MARA",
+              "score": 0.524
+            },
+            {
+              "table": "EKPO",
+              "score": 0.5088
+            },
+            {
+              "table": "VBAP",
+              "score": 0.4775
+            }
+          ],
+          "hit": false,
+          "recall": 0.5,
+          "matched": [
+            "EKPO"
+          ],
+          "missing": [
+            "EKKO"
+          ]
+        },
+        {
+          "id": "D9-15",
+          "difficulty": "L5",
+          "question": "销售额前 10 的客户，列出客户名称、所在城市和销售总额",
+          "expected_tables": [
+            "VBAK",
+            "KNA1"
+          ],
+          "top_k_hits": [
+            {
+              "table": "VBAK",
+              "score": 0.5132
+            },
+            {
+              "table": "VBAP",
+              "score": 0.492
+            },
+            {
+              "table": "KNA1",
+              "score": 0.4786
+            }
+          ],
+          "hit": true,
+          "recall": 1.0,
+          "matched": [
+            "KNA1",
+            "VBAK"
+          ],
+          "missing": []
+        },
+        {
+          "id": "D9-16",
+          "difficulty": "L5",
+          "question": "每个供应商各采购了哪些物料类型，按供应商和物料类型分组统计采购数量",
+          "expected_tables": [
+            "LFA1",
+            "EKKO",
+            "EKPO",
+            "MARA"
+          ],
+          "top_k_hits": [
+            {
+              "table": "EKPO",
+              "score": 0.5541
+            },
+            {
+              "table": "EKKO",
+              "score": 0.54
+            },
+            {
+              "table": "VBAP",
+              "score": 0.5281
+            }
+          ],
+          "hit": false,
+          "recall": 0.5,
+          "matched": [
+            "EKKO",
+            "EKPO"
+          ],
+          "missing": [
+            "LFA1",
+            "MARA"
+          ]
+        },
+        {
+          "id": "D9-17",
+          "difficulty": "L5",
+          "question": "2025 年按物料类型分组，哪种物料类型的销售总额最高，列出物料类型和销售总额",
+          "expected_tables": [
+            "VBAK",
+            "VBAP",
+            "MARA"
+          ],
+          "top_k_hits": [
+            {
+              "table": "MARA",
+              "score": 0.446
+            },
+            {
+              "table": "VBAP",
+              "score": 0.4445
+            },
+            {
+              "table": "VBAK",
+              "score": 0.4338
+            }
+          ],
+          "hit": true,
+          "recall": 1.0,
+          "matched": [
+            "MARA",
+            "VBAK",
+            "VBAP"
+          ],
+          "missing": []
+        },
+        {
+          "id": "D9-18",
+          "difficulty": "L5",
+          "question": "在系统里建过档但 2026 年从没下过订单的客户有多少个",
+          "expected_tables": [
+            "KNA1",
+            "VBAK"
+          ],
+          "top_k_hits": [
+            {
+              "table": "VBAP",
+              "score": 0.472
+            },
+            {
+              "table": "VBAK",
+              "score": 0.4502
+            },
+            {
+              "table": "KNA1",
+              "score": 0.4398
+            }
+          ],
+          "hit": true,
+          "recall": 1.0,
+          "matched": [
+            "KNA1",
+            "VBAK"
+          ],
+          "missing": []
+        },
+        {
+          "id": "D9-19",
+          "difficulty": "L5",
+          "question": "既被销售过又被采购过的物料有多少种",
+          "expected_tables": [
+            "VBAP",
+            "EKPO"
+          ],
+          "top_k_hits": [
+            {
+              "table": "VBAP",
+              "score": 0.508
+            },
+            {
+              "table": "EKPO",
+              "score": 0.4902
+            },
+            {
+              "table": "EKKO",
+              "score": 0.4728
+            }
+          ],
+          "hit": true,
+          "recall": 1.0,
+          "matched": [
+            "EKPO",
+            "VBAP"
+          ],
+          "missing": []
+        },
+        {
+          "id": "D9-20",
+          "difficulty": "L5",
+          "question": "2025 年的销售净额最高的前 5 个客户，列出客户名称和销售总额",
+          "expected_tables": [
+            "VBAK",
+            "KNA1"
+          ],
+          "top_k_hits": [
+            {
+              "table": "VBAK",
+              "score": 0.4606
+            },
+            {
+              "table": "KNA1",
+              "score": 0.4458
+            },
+            {
+              "table": "VBAP",
+              "score": 0.4247
+            }
+          ],
+          "hit": true,
+          "recall": 1.0,
+          "matched": [
+            "KNA1",
+            "VBAK"
+          ],
+          "missing": []
+        },
+        {
+          "id": "D9-21",
+          "difficulty": "L5",
+          "question": "销售订单的平均单笔金额是多少",
+          "expected_tables": [
+            "VBAK"
+          ],
+          "top_k_hits": [
+            {
+              "table": "VBAK",
+              "score": 0.6007
+            },
+            {
+              "table": "VBAP",
+              "score": 0.5785
+            },
+            {
+              "table": "EKKO",
+              "score": 0.5158
+            }
+          ],
+          "hit": true,
+          "recall": 1.0,
+          "matched": [
+            "VBAK"
+          ],
+          "missing": []
+        },
+        {
+          "id": "D9-22",
+          "difficulty": "L5",
+          "question": "采购订单里最常同时被一起采购的两种物料是哪两种",
+          "expected_tables": [
+            "EKPO"
+          ],
+          "top_k_hits": [
+            {
+              "table": "EKKO",
+              "score": 0.5775
+            },
+            {
+              "table": "EKPO",
+              "score": 0.5539
+            },
+            {
+              "table": "VBAP",
+              "score": 0.5236
+            }
+          ],
+          "hit": true,
+          "recall": 1.0,
+          "matched": [
+            "EKPO"
+          ],
+          "missing": []
+        },
+        {
+          "id": "D9-23",
+          "difficulty": "L5",
+          "question": "财务凭证里有没有借贷不平衡的记录（每张凭证借方总额应等于贷方总额）",
+          "expected_tables": [
+            "BSEG"
+          ],
+          "top_k_hits": [
+            {
+              "table": "BSEG",
+              "score": 0.6092
+            },
+            {
+              "table": "BKPF",
+              "score": 0.5104
+            },
+            {
+              "table": "KNA1",
+              "score": 0.4129
+            }
+          ],
+          "hit": true,
+          "recall": 1.0,
+          "matched": [
+            "BSEG"
+          ],
+          "missing": []
+        },
+        {
+          "id": "D9-24",
+          "difficulty": "L5",
+          "question": "销售订单抬头的净额和它所有行项目净额之和不一致的订单有哪些",
+          "expected_tables": [
+            "VBAK",
+            "VBAP"
+          ],
+          "top_k_hits": [
+            {
+              "table": "VBAK",
+              "score": 0.66
+            },
+            {
+              "table": "VBAP",
+              "score": 0.6084
+            },
+            {
+              "table": "EKKO",
+              "score": 0.567
+            }
+          ],
+          "hit": true,
+          "recall": 1.0,
+          "matched": [
+            "VBAK",
+            "VBAP"
+          ],
+          "missing": []
+        },
+        {
+          "id": "D9-25",
+          "difficulty": "L5",
+          "question": "2026 年销售业绩最好的销售员前 5 名（排除测试账号 TEST 开头的）",
+          "expected_tables": [
+            "VBAK"
+          ],
+          "top_k_hits": [
+            {
+              "table": "VBAK",
+              "score": 0.4758
+            },
+            {
+              "table": "VBAP",
+              "score": 0.4521
+            },
+            {
+              "table": "KNA1",
+              "score": 0.4441
+            }
+          ],
+          "hit": true,
+          "recall": 1.0,
+          "matched": [
+            "VBAK"
+          ],
+          "missing": []
         }
       ]
     },
     {
       "top_k": 5,
-      "total": 15,
-      "hit": 13,
-      "hit_rate": 0.867,
-      "avg_recall": 0.944,
+      "total": 40,
+      "hit": 37,
+      "hit_rate": 0.925,
+      "avg_recall": 0.973,
       "by_difficulty": {
         "L1": {
           "total": 3,
@@ -888,19 +1261,19 @@
           "avg_recall": 1.0
         },
         "L4": {
-          "total": 3,
-          "hit": 1,
-          "hit_rate": 0.333,
-          "avg_recall": 0.722
+          "total": 11,
+          "hit": 9,
+          "hit_rate": 0.818,
+          "avg_recall": 0.924
         },
         "L5": {
-          "total": 3,
-          "hit": 3,
-          "hit_rate": 1.0,
-          "avg_recall": 1.0
+          "total": 20,
+          "hit": 19,
+          "hit_rate": 0.95,
+          "avg_recall": 0.988
         }
       },
-      "elapsed_sec": 0.23,
+      "elapsed_sec": 0.52,
       "cases": [
         {
           "id": "L1-01",
@@ -1460,6 +1833,2965 @@
           "recall": 1.0,
           "matched": [
             "EKKO",
+            "VBAK"
+          ],
+          "missing": []
+        },
+        {
+          "id": "D9-01",
+          "difficulty": "L4",
+          "question": "采购订单总额前 3 的供应商，列出供应商名称和金额",
+          "expected_tables": [
+            "EKKO",
+            "EKPO",
+            "LFA1"
+          ],
+          "top_k_hits": [
+            {
+              "table": "VBAK",
+              "score": 0.5527
+            },
+            {
+              "table": "VBAP",
+              "score": 0.5435
+            },
+            {
+              "table": "EKPO",
+              "score": 0.5232
+            },
+            {
+              "table": "EKKO",
+              "score": 0.5143
+            },
+            {
+              "table": "LFA1",
+              "score": 0.4897
+            }
+          ],
+          "hit": true,
+          "recall": 1.0,
+          "matched": [
+            "EKKO",
+            "EKPO",
+            "LFA1"
+          ],
+          "missing": []
+        },
+        {
+          "id": "D9-02",
+          "difficulty": "L4",
+          "question": "成品物料里毛重最大的前 5 种，给我物料编号、中文名称和毛重",
+          "expected_tables": [
+            "MARA",
+            "MAKT"
+          ],
+          "top_k_hits": [
+            {
+              "table": "MARA",
+              "score": 0.5583
+            },
+            {
+              "table": "MAKT",
+              "score": 0.4786
+            },
+            {
+              "table": "EKPO",
+              "score": 0.4646
+            },
+            {
+              "table": "EKKO",
+              "score": 0.4598
+            },
+            {
+              "table": "KNA1",
+              "score": 0.4456
+            }
+          ],
+          "hit": true,
+          "recall": 1.0,
+          "matched": [
+            "MAKT",
+            "MARA"
+          ],
+          "missing": []
+        },
+        {
+          "id": "D9-03",
+          "difficulty": "L4",
+          "question": "财务凭证里凭证币种金额（原币）最大的 10 条记录，列出公司代码、凭证号、币种和金额",
+          "expected_tables": [
+            "BSEG"
+          ],
+          "top_k_hits": [
+            {
+              "table": "BSEG",
+              "score": 0.6664
+            },
+            {
+              "table": "BKPF",
+              "score": 0.5928
+            },
+            {
+              "table": "VBAP",
+              "score": 0.5348
+            },
+            {
+              "table": "KNA1",
+              "score": 0.5119
+            },
+            {
+              "table": "EKPO",
+              "score": 0.482
+            }
+          ],
+          "hit": true,
+          "recall": 1.0,
+          "matched": [
+            "BSEG"
+          ],
+          "missing": []
+        },
+        {
+          "id": "D9-04",
+          "difficulty": "L4",
+          "question": "行项目数最多的 5 张销售订单，列出订单号和行项目数",
+          "expected_tables": [
+            "VBAP"
+          ],
+          "top_k_hits": [
+            {
+              "table": "VBAP",
+              "score": 0.7139
+            },
+            {
+              "table": "EKPO",
+              "score": 0.6204
+            },
+            {
+              "table": "VBAK",
+              "score": 0.616
+            },
+            {
+              "table": "BSEG",
+              "score": 0.5325
+            },
+            {
+              "table": "EKKO",
+              "score": 0.5259
+            }
+          ],
+          "hit": true,
+          "recall": 1.0,
+          "matched": [
+            "VBAP"
+          ],
+          "missing": []
+        },
+        {
+          "id": "D9-05",
+          "difficulty": "L4",
+          "question": "查一下我们的大客户名单",
+          "expected_tables": [
+            "VBAK",
+            "KNA1"
+          ],
+          "top_k_hits": [
+            {
+              "table": "KNA1",
+              "score": 0.5417
+            },
+            {
+              "table": "VBAP",
+              "score": 0.4937
+            },
+            {
+              "table": "EKPO",
+              "score": 0.4717
+            },
+            {
+              "table": "VBAK",
+              "score": 0.4645
+            },
+            {
+              "table": "BSEG",
+              "score": 0.4567
+            }
+          ],
+          "hit": true,
+          "recall": 1.0,
+          "matched": [
+            "KNA1",
+            "VBAK"
+          ],
+          "missing": []
+        },
+        {
+          "id": "D9-06",
+          "difficulty": "L4",
+          "question": "查一下哪些物料从来没被销售过",
+          "expected_tables": [
+            "MARA",
+            "VBAP"
+          ],
+          "top_k_hits": [
+            {
+              "table": "VBAP",
+              "score": 0.4109
+            },
+            {
+              "table": "VBAK",
+              "score": 0.3755
+            },
+            {
+              "table": "MARA",
+              "score": 0.3667
+            },
+            {
+              "table": "EKPO",
+              "score": 0.3654
+            },
+            {
+              "table": "BSEG",
+              "score": 0.3521
+            }
+          ],
+          "hit": true,
+          "recall": 1.0,
+          "matched": [
+            "MARA",
+            "VBAP"
+          ],
+          "missing": []
+        },
+        {
+          "id": "D9-07",
+          "difficulty": "L4",
+          "question": "找出近两年没下过任何采购订单的僵尸供应商",
+          "expected_tables": [
+            "LFA1",
+            "EKKO"
+          ],
+          "top_k_hits": [
+            {
+              "table": "VBAP",
+              "score": 0.4434
+            },
+            {
+              "table": "EKKO",
+              "score": 0.4217
+            },
+            {
+              "table": "VBAK",
+              "score": 0.412
+            },
+            {
+              "table": "EKPO",
+              "score": 0.4083
+            },
+            {
+              "table": "LFA1",
+              "score": 0.386
+            }
+          ],
+          "hit": true,
+          "recall": 1.0,
+          "matched": [
+            "EKKO",
+            "LFA1"
+          ],
+          "missing": []
+        },
+        {
+          "id": "D9-08",
+          "difficulty": "L5",
+          "question": "销售额排名在后 50% 的长尾客户有多少个",
+          "expected_tables": [
+            "VBAK"
+          ],
+          "top_k_hits": [
+            {
+              "table": "VBAK",
+              "score": 0.4884
+            },
+            {
+              "table": "VBAP",
+              "score": 0.4443
+            },
+            {
+              "table": "KNA1",
+              "score": 0.4425
+            },
+            {
+              "table": "EKKO",
+              "score": 0.4087
+            },
+            {
+              "table": "EKPO",
+              "score": 0.3728
+            }
+          ],
+          "hit": true,
+          "recall": 1.0,
+          "matched": [
+            "VBAK"
+          ],
+          "missing": []
+        },
+        {
+          "id": "D9-09",
+          "difficulty": "L4",
+          "question": "查一下有没有同名但客户编号不同的客户，可能是数据质量问题",
+          "expected_tables": [
+            "KNA1"
+          ],
+          "top_k_hits": [
+            {
+              "table": "KNA1",
+              "score": 0.5763
+            },
+            {
+              "table": "VBAP",
+              "score": 0.4962
+            },
+            {
+              "table": "LFA1",
+              "score": 0.4944
+            },
+            {
+              "table": "VBAK",
+              "score": 0.4878
+            },
+            {
+              "table": "BSEG",
+              "score": 0.4583
+            }
+          ],
+          "hit": true,
+          "recall": 1.0,
+          "matched": [
+            "KNA1"
+          ],
+          "missing": []
+        },
+        {
+          "id": "D9-10",
+          "difficulty": "L5",
+          "question": "对比 2026 年和 2025 年，销售额同比增长最高的前 5 个客户",
+          "expected_tables": [
+            "VBAK",
+            "KNA1"
+          ],
+          "top_k_hits": [
+            {
+              "table": "VBAK",
+              "score": 0.4276
+            },
+            {
+              "table": "KNA1",
+              "score": 0.3816
+            },
+            {
+              "table": "VBAP",
+              "score": 0.3734
+            },
+            {
+              "table": "BKPF",
+              "score": 0.3471
+            },
+            {
+              "table": "EKKO",
+              "score": 0.3396
+            }
+          ],
+          "hit": true,
+          "recall": 1.0,
+          "matched": [
+            "KNA1",
+            "VBAK"
+          ],
+          "missing": []
+        },
+        {
+          "id": "D9-11",
+          "difficulty": "L5",
+          "question": "今年每月销售额的环比增长率",
+          "expected_tables": [
+            "VBAK"
+          ],
+          "top_k_hits": [
+            {
+              "table": "VBAK",
+              "score": 0.4171
+            },
+            {
+              "table": "VBAP",
+              "score": 0.4034
+            },
+            {
+              "table": "BSEG",
+              "score": 0.3314
+            },
+            {
+              "table": "LFA1",
+              "score": 0.3167
+            },
+            {
+              "table": "KNA1",
+              "score": 0.3124
+            }
+          ],
+          "hit": true,
+          "recall": 1.0,
+          "matched": [
+            "VBAK"
+          ],
+          "missing": []
+        },
+        {
+          "id": "D9-12",
+          "difficulty": "L5",
+          "question": "2025 和 2026 两年分别采购了多少种不同的物料",
+          "expected_tables": [
+            "EKKO",
+            "EKPO"
+          ],
+          "top_k_hits": [
+            {
+              "table": "EKKO",
+              "score": 0.4138
+            },
+            {
+              "table": "MARA",
+              "score": 0.4068
+            },
+            {
+              "table": "EKPO",
+              "score": 0.3989
+            },
+            {
+              "table": "VBAP",
+              "score": 0.3742
+            },
+            {
+              "table": "VBAK",
+              "score": 0.353
+            }
+          ],
+          "hit": true,
+          "recall": 1.0,
+          "matched": [
+            "EKKO",
+            "EKPO"
+          ],
+          "missing": []
+        },
+        {
+          "id": "D9-13",
+          "difficulty": "L5",
+          "question": "对比 2026 年 Q1 和 2025 年 Q4 的销售订单数量",
+          "expected_tables": [
+            "VBAK"
+          ],
+          "top_k_hits": [
+            {
+              "table": "VBAK",
+              "score": 0.5098
+            },
+            {
+              "table": "VBAP",
+              "score": 0.4777
+            },
+            {
+              "table": "EKKO",
+              "score": 0.4215
+            },
+            {
+              "table": "LFA1",
+              "score": 0.4177
+            },
+            {
+              "table": "EKPO",
+              "score": 0.4084
+            }
+          ],
+          "hit": true,
+          "recall": 1.0,
+          "matched": [
+            "VBAK"
+          ],
+          "missing": []
+        },
+        {
+          "id": "D9-14",
+          "difficulty": "L5",
+          "question": "物料 M000001 在 2024、2025、2026 三年的采购单价分别是多少（按年取平均）",
+          "expected_tables": [
+            "EKKO",
+            "EKPO"
+          ],
+          "top_k_hits": [
+            {
+              "table": "MARA",
+              "score": 0.524
+            },
+            {
+              "table": "EKPO",
+              "score": 0.5088
+            },
+            {
+              "table": "VBAP",
+              "score": 0.4775
+            },
+            {
+              "table": "EKKO",
+              "score": 0.4761
+            },
+            {
+              "table": "BSEG",
+              "score": 0.4479
+            }
+          ],
+          "hit": true,
+          "recall": 1.0,
+          "matched": [
+            "EKKO",
+            "EKPO"
+          ],
+          "missing": []
+        },
+        {
+          "id": "D9-15",
+          "difficulty": "L5",
+          "question": "销售额前 10 的客户，列出客户名称、所在城市和销售总额",
+          "expected_tables": [
+            "VBAK",
+            "KNA1"
+          ],
+          "top_k_hits": [
+            {
+              "table": "VBAK",
+              "score": 0.5132
+            },
+            {
+              "table": "VBAP",
+              "score": 0.492
+            },
+            {
+              "table": "KNA1",
+              "score": 0.4786
+            },
+            {
+              "table": "LFA1",
+              "score": 0.4116
+            },
+            {
+              "table": "EKPO",
+              "score": 0.4094
+            }
+          ],
+          "hit": true,
+          "recall": 1.0,
+          "matched": [
+            "KNA1",
+            "VBAK"
+          ],
+          "missing": []
+        },
+        {
+          "id": "D9-16",
+          "difficulty": "L5",
+          "question": "每个供应商各采购了哪些物料类型，按供应商和物料类型分组统计采购数量",
+          "expected_tables": [
+            "LFA1",
+            "EKKO",
+            "EKPO",
+            "MARA"
+          ],
+          "top_k_hits": [
+            {
+              "table": "EKPO",
+              "score": 0.5541
+            },
+            {
+              "table": "EKKO",
+              "score": 0.54
+            },
+            {
+              "table": "VBAP",
+              "score": 0.5281
+            },
+            {
+              "table": "VBAK",
+              "score": 0.5203
+            },
+            {
+              "table": "MARA",
+              "score": 0.5104
+            }
+          ],
+          "hit": false,
+          "recall": 0.75,
+          "matched": [
+            "EKKO",
+            "EKPO",
+            "MARA"
+          ],
+          "missing": [
+            "LFA1"
+          ]
+        },
+        {
+          "id": "D9-17",
+          "difficulty": "L5",
+          "question": "2025 年按物料类型分组，哪种物料类型的销售总额最高，列出物料类型和销售总额",
+          "expected_tables": [
+            "VBAK",
+            "VBAP",
+            "MARA"
+          ],
+          "top_k_hits": [
+            {
+              "table": "MARA",
+              "score": 0.446
+            },
+            {
+              "table": "VBAP",
+              "score": 0.4445
+            },
+            {
+              "table": "VBAK",
+              "score": 0.4338
+            },
+            {
+              "table": "EKPO",
+              "score": 0.4054
+            },
+            {
+              "table": "BSEG",
+              "score": 0.4039
+            }
+          ],
+          "hit": true,
+          "recall": 1.0,
+          "matched": [
+            "MARA",
+            "VBAK",
+            "VBAP"
+          ],
+          "missing": []
+        },
+        {
+          "id": "D9-18",
+          "difficulty": "L5",
+          "question": "在系统里建过档但 2026 年从没下过订单的客户有多少个",
+          "expected_tables": [
+            "KNA1",
+            "VBAK"
+          ],
+          "top_k_hits": [
+            {
+              "table": "VBAP",
+              "score": 0.472
+            },
+            {
+              "table": "VBAK",
+              "score": 0.4502
+            },
+            {
+              "table": "KNA1",
+              "score": 0.4398
+            },
+            {
+              "table": "LFA1",
+              "score": 0.4154
+            },
+            {
+              "table": "EKKO",
+              "score": 0.3954
+            }
+          ],
+          "hit": true,
+          "recall": 1.0,
+          "matched": [
+            "KNA1",
+            "VBAK"
+          ],
+          "missing": []
+        },
+        {
+          "id": "D9-19",
+          "difficulty": "L5",
+          "question": "既被销售过又被采购过的物料有多少种",
+          "expected_tables": [
+            "VBAP",
+            "EKPO"
+          ],
+          "top_k_hits": [
+            {
+              "table": "VBAP",
+              "score": 0.508
+            },
+            {
+              "table": "EKPO",
+              "score": 0.4902
+            },
+            {
+              "table": "EKKO",
+              "score": 0.4728
+            },
+            {
+              "table": "VBAK",
+              "score": 0.4692
+            },
+            {
+              "table": "MARA",
+              "score": 0.4474
+            }
+          ],
+          "hit": true,
+          "recall": 1.0,
+          "matched": [
+            "EKPO",
+            "VBAP"
+          ],
+          "missing": []
+        },
+        {
+          "id": "D9-20",
+          "difficulty": "L5",
+          "question": "2025 年的销售净额最高的前 5 个客户，列出客户名称和销售总额",
+          "expected_tables": [
+            "VBAK",
+            "KNA1"
+          ],
+          "top_k_hits": [
+            {
+              "table": "VBAK",
+              "score": 0.4606
+            },
+            {
+              "table": "KNA1",
+              "score": 0.4458
+            },
+            {
+              "table": "VBAP",
+              "score": 0.4247
+            },
+            {
+              "table": "BSEG",
+              "score": 0.368
+            },
+            {
+              "table": "EKPO",
+              "score": 0.3578
+            }
+          ],
+          "hit": true,
+          "recall": 1.0,
+          "matched": [
+            "KNA1",
+            "VBAK"
+          ],
+          "missing": []
+        },
+        {
+          "id": "D9-21",
+          "difficulty": "L5",
+          "question": "销售订单的平均单笔金额是多少",
+          "expected_tables": [
+            "VBAK"
+          ],
+          "top_k_hits": [
+            {
+              "table": "VBAK",
+              "score": 0.6007
+            },
+            {
+              "table": "VBAP",
+              "score": 0.5785
+            },
+            {
+              "table": "EKKO",
+              "score": 0.5158
+            },
+            {
+              "table": "EKPO",
+              "score": 0.5084
+            },
+            {
+              "table": "BSEG",
+              "score": 0.4473
+            }
+          ],
+          "hit": true,
+          "recall": 1.0,
+          "matched": [
+            "VBAK"
+          ],
+          "missing": []
+        },
+        {
+          "id": "D9-22",
+          "difficulty": "L5",
+          "question": "采购订单里最常同时被一起采购的两种物料是哪两种",
+          "expected_tables": [
+            "EKPO"
+          ],
+          "top_k_hits": [
+            {
+              "table": "EKKO",
+              "score": 0.5775
+            },
+            {
+              "table": "EKPO",
+              "score": 0.5539
+            },
+            {
+              "table": "VBAP",
+              "score": 0.5236
+            },
+            {
+              "table": "VBAK",
+              "score": 0.5169
+            },
+            {
+              "table": "MARA",
+              "score": 0.4424
+            }
+          ],
+          "hit": true,
+          "recall": 1.0,
+          "matched": [
+            "EKPO"
+          ],
+          "missing": []
+        },
+        {
+          "id": "D9-23",
+          "difficulty": "L5",
+          "question": "财务凭证里有没有借贷不平衡的记录（每张凭证借方总额应等于贷方总额）",
+          "expected_tables": [
+            "BSEG"
+          ],
+          "top_k_hits": [
+            {
+              "table": "BSEG",
+              "score": 0.6092
+            },
+            {
+              "table": "BKPF",
+              "score": 0.5104
+            },
+            {
+              "table": "KNA1",
+              "score": 0.4129
+            },
+            {
+              "table": "VBAP",
+              "score": 0.4111
+            },
+            {
+              "table": "VBAK",
+              "score": 0.4094
+            }
+          ],
+          "hit": true,
+          "recall": 1.0,
+          "matched": [
+            "BSEG"
+          ],
+          "missing": []
+        },
+        {
+          "id": "D9-24",
+          "difficulty": "L5",
+          "question": "销售订单抬头的净额和它所有行项目净额之和不一致的订单有哪些",
+          "expected_tables": [
+            "VBAK",
+            "VBAP"
+          ],
+          "top_k_hits": [
+            {
+              "table": "VBAK",
+              "score": 0.66
+            },
+            {
+              "table": "VBAP",
+              "score": 0.6084
+            },
+            {
+              "table": "EKKO",
+              "score": 0.567
+            },
+            {
+              "table": "BKPF",
+              "score": 0.5208
+            },
+            {
+              "table": "EKPO",
+              "score": 0.5156
+            }
+          ],
+          "hit": true,
+          "recall": 1.0,
+          "matched": [
+            "VBAK",
+            "VBAP"
+          ],
+          "missing": []
+        },
+        {
+          "id": "D9-25",
+          "difficulty": "L5",
+          "question": "2026 年销售业绩最好的销售员前 5 名（排除测试账号 TEST 开头的）",
+          "expected_tables": [
+            "VBAK"
+          ],
+          "top_k_hits": [
+            {
+              "table": "VBAK",
+              "score": 0.4758
+            },
+            {
+              "table": "VBAP",
+              "score": 0.4521
+            },
+            {
+              "table": "KNA1",
+              "score": 0.4441
+            },
+            {
+              "table": "BKPF",
+              "score": 0.4101
+            },
+            {
+              "table": "LFA1",
+              "score": 0.3964
+            }
+          ],
+          "hit": true,
+          "recall": 1.0,
+          "matched": [
+            "VBAK"
+          ],
+          "missing": []
+        }
+      ]
+    },
+    {
+      "top_k": 8,
+      "total": 40,
+      "hit": 40,
+      "hit_rate": 1.0,
+      "avg_recall": 1.0,
+      "by_difficulty": {
+        "L1": {
+          "total": 3,
+          "hit": 3,
+          "hit_rate": 1.0,
+          "avg_recall": 1.0
+        },
+        "L2": {
+          "total": 3,
+          "hit": 3,
+          "hit_rate": 1.0,
+          "avg_recall": 1.0
+        },
+        "L3": {
+          "total": 3,
+          "hit": 3,
+          "hit_rate": 1.0,
+          "avg_recall": 1.0
+        },
+        "L4": {
+          "total": 11,
+          "hit": 11,
+          "hit_rate": 1.0,
+          "avg_recall": 1.0
+        },
+        "L5": {
+          "total": 20,
+          "hit": 20,
+          "hit_rate": 1.0,
+          "avg_recall": 1.0
+        }
+      },
+      "elapsed_sec": 0.54,
+      "cases": [
+        {
+          "id": "L1-01",
+          "difficulty": "L1",
+          "question": "目前数据库里一共有多少个客户？",
+          "expected_tables": [
+            "KNA1"
+          ],
+          "top_k_hits": [
+            {
+              "table": "KNA1",
+              "score": 0.572
+            },
+            {
+              "table": "VBAP",
+              "score": 0.5139
+            },
+            {
+              "table": "LFA1",
+              "score": 0.501
+            },
+            {
+              "table": "VBAK",
+              "score": 0.4907
+            },
+            {
+              "table": "EKPO",
+              "score": 0.4316
+            },
+            {
+              "table": "EKKO",
+              "score": 0.4236
+            },
+            {
+              "table": "BSEG",
+              "score": 0.4008
+            },
+            {
+              "table": "MARA",
+              "score": 0.395
+            }
+          ],
+          "hit": true,
+          "recall": 1.0,
+          "matched": [
+            "KNA1"
+          ],
+          "missing": []
+        },
+        {
+          "id": "L1-02",
+          "difficulty": "L1",
+          "question": "销售订单一共有多少张？",
+          "expected_tables": [
+            "VBAK"
+          ],
+          "top_k_hits": [
+            {
+              "table": "VBAP",
+              "score": 0.583
+            },
+            {
+              "table": "VBAK",
+              "score": 0.5783
+            },
+            {
+              "table": "EKPO",
+              "score": 0.4804
+            },
+            {
+              "table": "EKKO",
+              "score": 0.4765
+            },
+            {
+              "table": "KNA1",
+              "score": 0.4462
+            },
+            {
+              "table": "LFA1",
+              "score": 0.4345
+            },
+            {
+              "table": "BSEG",
+              "score": 0.4139
+            },
+            {
+              "table": "BKPF",
+              "score": 0.3961
+            }
+          ],
+          "hit": true,
+          "recall": 1.0,
+          "matched": [
+            "VBAK"
+          ],
+          "missing": []
+        },
+        {
+          "id": "L1-03",
+          "difficulty": "L1",
+          "question": "查一下所有供应商的编号和名称",
+          "expected_tables": [
+            "LFA1"
+          ],
+          "top_k_hits": [
+            {
+              "table": "LFA1",
+              "score": 0.6026
+            },
+            {
+              "table": "EKPO",
+              "score": 0.5213
+            },
+            {
+              "table": "KNA1",
+              "score": 0.5166
+            },
+            {
+              "table": "EKKO",
+              "score": 0.502
+            },
+            {
+              "table": "VBAK",
+              "score": 0.5018
+            },
+            {
+              "table": "VBAP",
+              "score": 0.5001
+            },
+            {
+              "table": "BSEG",
+              "score": 0.4671
+            },
+            {
+              "table": "MARA",
+              "score": 0.4373
+            }
+          ],
+          "hit": true,
+          "recall": 1.0,
+          "matched": [
+            "LFA1"
+          ],
+          "missing": []
+        },
+        {
+          "id": "L2-01",
+          "difficulty": "L2",
+          "question": "查一下 2025 年的销售订单数量和总金额",
+          "expected_tables": [
+            "VBAK"
+          ],
+          "top_k_hits": [
+            {
+              "table": "VBAK",
+              "score": 0.5262
+            },
+            {
+              "table": "VBAP",
+              "score": 0.5144
+            },
+            {
+              "table": "EKPO",
+              "score": 0.4376
+            },
+            {
+              "table": "EKKO",
+              "score": 0.4245
+            },
+            {
+              "table": "KNA1",
+              "score": 0.4231
+            },
+            {
+              "table": "BSEG",
+              "score": 0.4157
+            },
+            {
+              "table": "LFA1",
+              "score": 0.398
+            },
+            {
+              "table": "BKPF",
+              "score": 0.3729
+            }
+          ],
+          "hit": true,
+          "recall": 1.0,
+          "matched": [
+            "VBAK"
+          ],
+          "missing": []
+        },
+        {
+          "id": "L2-02",
+          "difficulty": "L2",
+          "question": "按物料类型统计每种类型的物料数量",
+          "expected_tables": [
+            "MARA"
+          ],
+          "top_k_hits": [
+            {
+              "table": "MARA",
+              "score": 0.547
+            },
+            {
+              "table": "MAKT",
+              "score": 0.4637
+            },
+            {
+              "table": "VBAP",
+              "score": 0.4359
+            },
+            {
+              "table": "EKPO",
+              "score": 0.4238
+            },
+            {
+              "table": "EKKO",
+              "score": 0.4164
+            },
+            {
+              "table": "LFA1",
+              "score": 0.3994
+            },
+            {
+              "table": "VBAK",
+              "score": 0.3961
+            },
+            {
+              "table": "KNA1",
+              "score": 0.3952
+            }
+          ],
+          "hit": true,
+          "recall": 1.0,
+          "matched": [
+            "MARA"
+          ],
+          "missing": []
+        },
+        {
+          "id": "L2-03",
+          "difficulty": "L2",
+          "question": "用 CNY 币种结算的销售订单一共多少张，总净额多少？",
+          "expected_tables": [
+            "VBAK"
+          ],
+          "top_k_hits": [
+            {
+              "table": "VBAP",
+              "score": 0.5571
+            },
+            {
+              "table": "VBAK",
+              "score": 0.5344
+            },
+            {
+              "table": "EKPO",
+              "score": 0.5129
+            },
+            {
+              "table": "BSEG",
+              "score": 0.506
+            },
+            {
+              "table": "EKKO",
+              "score": 0.4921
+            },
+            {
+              "table": "BKPF",
+              "score": 0.4531
+            },
+            {
+              "table": "KNA1",
+              "score": 0.4505
+            },
+            {
+              "table": "LFA1",
+              "score": 0.4395
+            }
+          ],
+          "hit": true,
+          "recall": 1.0,
+          "matched": [
+            "VBAK"
+          ],
+          "missing": []
+        },
+        {
+          "id": "L3-01",
+          "difficulty": "L3",
+          "question": "销售额前 5 名的客户是谁，分别销售了多少钱？",
+          "expected_tables": [
+            "VBAK",
+            "KNA1"
+          ],
+          "top_k_hits": [
+            {
+              "table": "VBAK",
+              "score": 0.4906
+            },
+            {
+              "table": "VBAP",
+              "score": 0.4644
+            },
+            {
+              "table": "KNA1",
+              "score": 0.4477
+            },
+            {
+              "table": "EKPO",
+              "score": 0.4004
+            },
+            {
+              "table": "EKKO",
+              "score": 0.3961
+            },
+            {
+              "table": "BSEG",
+              "score": 0.3878
+            },
+            {
+              "table": "BKPF",
+              "score": 0.3584
+            },
+            {
+              "table": "LFA1",
+              "score": 0.355
+            }
+          ],
+          "hit": true,
+          "recall": 1.0,
+          "matched": [
+            "KNA1",
+            "VBAK"
+          ],
+          "missing": []
+        },
+        {
+          "id": "L3-02",
+          "difficulty": "L3",
+          "question": "采购金额最高的 3 个供应商及其名称",
+          "expected_tables": [
+            "EKKO",
+            "EKPO",
+            "LFA1"
+          ],
+          "top_k_hits": [
+            {
+              "table": "EKKO",
+              "score": 0.5212
+            },
+            {
+              "table": "VBAK",
+              "score": 0.5097
+            },
+            {
+              "table": "EKPO",
+              "score": 0.5075
+            },
+            {
+              "table": "VBAP",
+              "score": 0.4923
+            },
+            {
+              "table": "LFA1",
+              "score": 0.4838
+            },
+            {
+              "table": "KNA1",
+              "score": 0.4274
+            },
+            {
+              "table": "BSEG",
+              "score": 0.4208
+            },
+            {
+              "table": "MARA",
+              "score": 0.391
+            }
+          ],
+          "hit": true,
+          "recall": 1.0,
+          "matched": [
+            "EKKO",
+            "EKPO",
+            "LFA1"
+          ],
+          "missing": []
+        },
+        {
+          "id": "L3-03",
+          "difficulty": "L3",
+          "question": "今年（2026）每个月的销售订单数量分别是多少？",
+          "expected_tables": [
+            "VBAK"
+          ],
+          "top_k_hits": [
+            {
+              "table": "VBAK",
+              "score": 0.5439
+            },
+            {
+              "table": "VBAP",
+              "score": 0.5218
+            },
+            {
+              "table": "EKPO",
+              "score": 0.4404
+            },
+            {
+              "table": "EKKO",
+              "score": 0.4346
+            },
+            {
+              "table": "LFA1",
+              "score": 0.4111
+            },
+            {
+              "table": "KNA1",
+              "score": 0.3935
+            },
+            {
+              "table": "BKPF",
+              "score": 0.3512
+            },
+            {
+              "table": "BSEG",
+              "score": 0.3482
+            }
+          ],
+          "hit": true,
+          "recall": 1.0,
+          "matched": [
+            "VBAK"
+          ],
+          "missing": []
+        },
+        {
+          "id": "L4-01",
+          "difficulty": "L4",
+          "question": "销售数量最高的 5 个物料，列出物料编号、中文名称和销售总数量",
+          "expected_tables": [
+            "VBAP",
+            "MAKT"
+          ],
+          "top_k_hits": [
+            {
+              "table": "VBAP",
+              "score": 0.5463
+            },
+            {
+              "table": "VBAK",
+              "score": 0.5309
+            },
+            {
+              "table": "MARA",
+              "score": 0.5092
+            },
+            {
+              "table": "EKPO",
+              "score": 0.484
+            },
+            {
+              "table": "KNA1",
+              "score": 0.4709
+            },
+            {
+              "table": "MAKT",
+              "score": 0.4679
+            },
+            {
+              "table": "EKKO",
+              "score": 0.4641
+            },
+            {
+              "table": "LFA1",
+              "score": 0.4497
+            }
+          ],
+          "hit": true,
+          "recall": 1.0,
+          "matched": [
+            "MAKT",
+            "VBAP"
+          ],
+          "missing": []
+        },
+        {
+          "id": "L4-02",
+          "difficulty": "L4",
+          "question": "上个月（2026 年 4 月）销售净额最高的 5 个客户的名称、所在城市和销售总额",
+          "expected_tables": [
+            "VBAK",
+            "KNA1"
+          ],
+          "top_k_hits": [
+            {
+              "table": "VBAK",
+              "score": 0.4899
+            },
+            {
+              "table": "VBAP",
+              "score": 0.4601
+            },
+            {
+              "table": "KNA1",
+              "score": 0.4406
+            },
+            {
+              "table": "LFA1",
+              "score": 0.4103
+            },
+            {
+              "table": "EKPO",
+              "score": 0.3916
+            },
+            {
+              "table": "BSEG",
+              "score": 0.3886
+            },
+            {
+              "table": "BKPF",
+              "score": 0.3664
+            },
+            {
+              "table": "EKKO",
+              "score": 0.3618
+            }
+          ],
+          "hit": true,
+          "recall": 1.0,
+          "matched": [
+            "KNA1",
+            "VBAK"
+          ],
+          "missing": []
+        },
+        {
+          "id": "L4-03",
+          "difficulty": "L4",
+          "question": "查一下供应商 V010001 采购过哪些物料（要中文名称），以及每种物料采购了多少数量",
+          "expected_tables": [
+            "EKKO",
+            "EKPO",
+            "MAKT"
+          ],
+          "top_k_hits": [
+            {
+              "table": "EKPO",
+              "score": 0.5811
+            },
+            {
+              "table": "VBAP",
+              "score": 0.5756
+            },
+            {
+              "table": "EKKO",
+              "score": 0.557
+            },
+            {
+              "table": "VBAK",
+              "score": 0.5435
+            },
+            {
+              "table": "LFA1",
+              "score": 0.5346
+            },
+            {
+              "table": "MARA",
+              "score": 0.53
+            },
+            {
+              "table": "KNA1",
+              "score": 0.4799
+            },
+            {
+              "table": "MAKT",
+              "score": 0.476
+            }
+          ],
+          "hit": true,
+          "recall": 1.0,
+          "matched": [
+            "EKKO",
+            "EKPO",
+            "MAKT"
+          ],
+          "missing": []
+        },
+        {
+          "id": "L5-01",
+          "difficulty": "L5",
+          "question": "今年销售额前 5 的客户，列出客户名称、订单数、总销售额和平均单笔金额",
+          "expected_tables": [
+            "VBAK",
+            "KNA1"
+          ],
+          "top_k_hits": [
+            {
+              "table": "VBAK",
+              "score": 0.5423
+            },
+            {
+              "table": "VBAP",
+              "score": 0.5241
+            },
+            {
+              "table": "KNA1",
+              "score": 0.4706
+            },
+            {
+              "table": "EKPO",
+              "score": 0.4514
+            },
+            {
+              "table": "EKKO",
+              "score": 0.4346
+            },
+            {
+              "table": "BSEG",
+              "score": 0.4169
+            },
+            {
+              "table": "BKPF",
+              "score": 0.399
+            },
+            {
+              "table": "LFA1",
+              "score": 0.3593
+            }
+          ],
+          "hit": true,
+          "recall": 1.0,
+          "matched": [
+            "KNA1",
+            "VBAK"
+          ],
+          "missing": []
+        },
+        {
+          "id": "L5-02",
+          "difficulty": "L5",
+          "question": "2025 年公司代码 1000 的财务凭证里，借方总金额是多少？",
+          "expected_tables": [
+            "BKPF",
+            "BSEG"
+          ],
+          "top_k_hits": [
+            {
+              "table": "BSEG",
+              "score": 0.5705
+            },
+            {
+              "table": "BKPF",
+              "score": 0.4606
+            },
+            {
+              "table": "VBAP",
+              "score": 0.4519
+            },
+            {
+              "table": "KNA1",
+              "score": 0.4483
+            },
+            {
+              "table": "LFA1",
+              "score": 0.4218
+            },
+            {
+              "table": "VBAK",
+              "score": 0.4139
+            },
+            {
+              "table": "EKPO",
+              "score": 0.3865
+            },
+            {
+              "table": "EKKO",
+              "score": 0.3719
+            }
+          ],
+          "hit": true,
+          "recall": 1.0,
+          "matched": [
+            "BKPF",
+            "BSEG"
+          ],
+          "missing": []
+        },
+        {
+          "id": "L5-03",
+          "difficulty": "L5",
+          "question": "对比 2025 年销售订单总额和采购订单总额，哪一边更高",
+          "expected_tables": [
+            "VBAK",
+            "EKKO"
+          ],
+          "top_k_hits": [
+            {
+              "table": "VBAK",
+              "score": 0.5329
+            },
+            {
+              "table": "EKKO",
+              "score": 0.4754
+            },
+            {
+              "table": "VBAP",
+              "score": 0.473
+            },
+            {
+              "table": "EKPO",
+              "score": 0.4305
+            },
+            {
+              "table": "BKPF",
+              "score": 0.3848
+            },
+            {
+              "table": "KNA1",
+              "score": 0.3805
+            },
+            {
+              "table": "LFA1",
+              "score": 0.3765
+            },
+            {
+              "table": "BSEG",
+              "score": 0.3753
+            }
+          ],
+          "hit": true,
+          "recall": 1.0,
+          "matched": [
+            "EKKO",
+            "VBAK"
+          ],
+          "missing": []
+        },
+        {
+          "id": "D9-01",
+          "difficulty": "L4",
+          "question": "采购订单总额前 3 的供应商，列出供应商名称和金额",
+          "expected_tables": [
+            "EKKO",
+            "EKPO",
+            "LFA1"
+          ],
+          "top_k_hits": [
+            {
+              "table": "VBAK",
+              "score": 0.5527
+            },
+            {
+              "table": "VBAP",
+              "score": 0.5435
+            },
+            {
+              "table": "EKPO",
+              "score": 0.5232
+            },
+            {
+              "table": "EKKO",
+              "score": 0.5143
+            },
+            {
+              "table": "LFA1",
+              "score": 0.4897
+            },
+            {
+              "table": "KNA1",
+              "score": 0.45
+            },
+            {
+              "table": "BSEG",
+              "score": 0.441
+            },
+            {
+              "table": "BKPF",
+              "score": 0.4076
+            }
+          ],
+          "hit": true,
+          "recall": 1.0,
+          "matched": [
+            "EKKO",
+            "EKPO",
+            "LFA1"
+          ],
+          "missing": []
+        },
+        {
+          "id": "D9-02",
+          "difficulty": "L4",
+          "question": "成品物料里毛重最大的前 5 种，给我物料编号、中文名称和毛重",
+          "expected_tables": [
+            "MARA",
+            "MAKT"
+          ],
+          "top_k_hits": [
+            {
+              "table": "MARA",
+              "score": 0.5583
+            },
+            {
+              "table": "MAKT",
+              "score": 0.4786
+            },
+            {
+              "table": "EKPO",
+              "score": 0.4646
+            },
+            {
+              "table": "EKKO",
+              "score": 0.4598
+            },
+            {
+              "table": "KNA1",
+              "score": 0.4456
+            },
+            {
+              "table": "VBAP",
+              "score": 0.4455
+            },
+            {
+              "table": "VBAK",
+              "score": 0.4334
+            },
+            {
+              "table": "BKPF",
+              "score": 0.4252
+            }
+          ],
+          "hit": true,
+          "recall": 1.0,
+          "matched": [
+            "MAKT",
+            "MARA"
+          ],
+          "missing": []
+        },
+        {
+          "id": "D9-03",
+          "difficulty": "L4",
+          "question": "财务凭证里凭证币种金额（原币）最大的 10 条记录，列出公司代码、凭证号、币种和金额",
+          "expected_tables": [
+            "BSEG"
+          ],
+          "top_k_hits": [
+            {
+              "table": "BSEG",
+              "score": 0.6664
+            },
+            {
+              "table": "BKPF",
+              "score": 0.5928
+            },
+            {
+              "table": "VBAP",
+              "score": 0.5348
+            },
+            {
+              "table": "KNA1",
+              "score": 0.5119
+            },
+            {
+              "table": "EKPO",
+              "score": 0.482
+            },
+            {
+              "table": "MARA",
+              "score": 0.4694
+            },
+            {
+              "table": "VBAK",
+              "score": 0.4637
+            },
+            {
+              "table": "LFA1",
+              "score": 0.456
+            }
+          ],
+          "hit": true,
+          "recall": 1.0,
+          "matched": [
+            "BSEG"
+          ],
+          "missing": []
+        },
+        {
+          "id": "D9-04",
+          "difficulty": "L4",
+          "question": "行项目数最多的 5 张销售订单，列出订单号和行项目数",
+          "expected_tables": [
+            "VBAP"
+          ],
+          "top_k_hits": [
+            {
+              "table": "VBAP",
+              "score": 0.7139
+            },
+            {
+              "table": "EKPO",
+              "score": 0.6204
+            },
+            {
+              "table": "VBAK",
+              "score": 0.616
+            },
+            {
+              "table": "BSEG",
+              "score": 0.5325
+            },
+            {
+              "table": "EKKO",
+              "score": 0.5259
+            },
+            {
+              "table": "KNA1",
+              "score": 0.4828
+            },
+            {
+              "table": "LFA1",
+              "score": 0.4661
+            },
+            {
+              "table": "BKPF",
+              "score": 0.441
+            }
+          ],
+          "hit": true,
+          "recall": 1.0,
+          "matched": [
+            "VBAP"
+          ],
+          "missing": []
+        },
+        {
+          "id": "D9-05",
+          "difficulty": "L4",
+          "question": "查一下我们的大客户名单",
+          "expected_tables": [
+            "VBAK",
+            "KNA1"
+          ],
+          "top_k_hits": [
+            {
+              "table": "KNA1",
+              "score": 0.5417
+            },
+            {
+              "table": "VBAP",
+              "score": 0.4937
+            },
+            {
+              "table": "EKPO",
+              "score": 0.4717
+            },
+            {
+              "table": "VBAK",
+              "score": 0.4645
+            },
+            {
+              "table": "BSEG",
+              "score": 0.4567
+            },
+            {
+              "table": "EKKO",
+              "score": 0.4468
+            },
+            {
+              "table": "LFA1",
+              "score": 0.4391
+            },
+            {
+              "table": "BKPF",
+              "score": 0.424
+            }
+          ],
+          "hit": true,
+          "recall": 1.0,
+          "matched": [
+            "KNA1",
+            "VBAK"
+          ],
+          "missing": []
+        },
+        {
+          "id": "D9-06",
+          "difficulty": "L4",
+          "question": "查一下哪些物料从来没被销售过",
+          "expected_tables": [
+            "MARA",
+            "VBAP"
+          ],
+          "top_k_hits": [
+            {
+              "table": "VBAP",
+              "score": 0.4109
+            },
+            {
+              "table": "VBAK",
+              "score": 0.3755
+            },
+            {
+              "table": "MARA",
+              "score": 0.3667
+            },
+            {
+              "table": "EKPO",
+              "score": 0.3654
+            },
+            {
+              "table": "BSEG",
+              "score": 0.3521
+            },
+            {
+              "table": "MAKT",
+              "score": 0.3515
+            },
+            {
+              "table": "KNA1",
+              "score": 0.3465
+            },
+            {
+              "table": "EKKO",
+              "score": 0.3248
+            }
+          ],
+          "hit": true,
+          "recall": 1.0,
+          "matched": [
+            "MARA",
+            "VBAP"
+          ],
+          "missing": []
+        },
+        {
+          "id": "D9-07",
+          "difficulty": "L4",
+          "question": "找出近两年没下过任何采购订单的僵尸供应商",
+          "expected_tables": [
+            "LFA1",
+            "EKKO"
+          ],
+          "top_k_hits": [
+            {
+              "table": "VBAP",
+              "score": 0.4434
+            },
+            {
+              "table": "EKKO",
+              "score": 0.4217
+            },
+            {
+              "table": "VBAK",
+              "score": 0.412
+            },
+            {
+              "table": "EKPO",
+              "score": 0.4083
+            },
+            {
+              "table": "LFA1",
+              "score": 0.386
+            },
+            {
+              "table": "KNA1",
+              "score": 0.3556
+            },
+            {
+              "table": "BSEG",
+              "score": 0.3449
+            },
+            {
+              "table": "BKPF",
+              "score": 0.3099
+            }
+          ],
+          "hit": true,
+          "recall": 1.0,
+          "matched": [
+            "EKKO",
+            "LFA1"
+          ],
+          "missing": []
+        },
+        {
+          "id": "D9-08",
+          "difficulty": "L5",
+          "question": "销售额排名在后 50% 的长尾客户有多少个",
+          "expected_tables": [
+            "VBAK"
+          ],
+          "top_k_hits": [
+            {
+              "table": "VBAK",
+              "score": 0.4884
+            },
+            {
+              "table": "VBAP",
+              "score": 0.4443
+            },
+            {
+              "table": "KNA1",
+              "score": 0.4425
+            },
+            {
+              "table": "EKKO",
+              "score": 0.4087
+            },
+            {
+              "table": "EKPO",
+              "score": 0.3728
+            },
+            {
+              "table": "BKPF",
+              "score": 0.3615
+            },
+            {
+              "table": "LFA1",
+              "score": 0.3554
+            },
+            {
+              "table": "BSEG",
+              "score": 0.3553
+            }
+          ],
+          "hit": true,
+          "recall": 1.0,
+          "matched": [
+            "VBAK"
+          ],
+          "missing": []
+        },
+        {
+          "id": "D9-09",
+          "difficulty": "L4",
+          "question": "查一下有没有同名但客户编号不同的客户，可能是数据质量问题",
+          "expected_tables": [
+            "KNA1"
+          ],
+          "top_k_hits": [
+            {
+              "table": "KNA1",
+              "score": 0.5763
+            },
+            {
+              "table": "VBAP",
+              "score": 0.4962
+            },
+            {
+              "table": "LFA1",
+              "score": 0.4944
+            },
+            {
+              "table": "VBAK",
+              "score": 0.4878
+            },
+            {
+              "table": "BSEG",
+              "score": 0.4583
+            },
+            {
+              "table": "EKPO",
+              "score": 0.4539
+            },
+            {
+              "table": "BKPF",
+              "score": 0.4436
+            },
+            {
+              "table": "EKKO",
+              "score": 0.4404
+            }
+          ],
+          "hit": true,
+          "recall": 1.0,
+          "matched": [
+            "KNA1"
+          ],
+          "missing": []
+        },
+        {
+          "id": "D9-10",
+          "difficulty": "L5",
+          "question": "对比 2026 年和 2025 年，销售额同比增长最高的前 5 个客户",
+          "expected_tables": [
+            "VBAK",
+            "KNA1"
+          ],
+          "top_k_hits": [
+            {
+              "table": "VBAK",
+              "score": 0.4276
+            },
+            {
+              "table": "KNA1",
+              "score": 0.3816
+            },
+            {
+              "table": "VBAP",
+              "score": 0.3734
+            },
+            {
+              "table": "BKPF",
+              "score": 0.3471
+            },
+            {
+              "table": "EKKO",
+              "score": 0.3396
+            },
+            {
+              "table": "BSEG",
+              "score": 0.3267
+            },
+            {
+              "table": "LFA1",
+              "score": 0.3028
+            },
+            {
+              "table": "EKPO",
+              "score": 0.302
+            }
+          ],
+          "hit": true,
+          "recall": 1.0,
+          "matched": [
+            "KNA1",
+            "VBAK"
+          ],
+          "missing": []
+        },
+        {
+          "id": "D9-11",
+          "difficulty": "L5",
+          "question": "今年每月销售额的环比增长率",
+          "expected_tables": [
+            "VBAK"
+          ],
+          "top_k_hits": [
+            {
+              "table": "VBAK",
+              "score": 0.4171
+            },
+            {
+              "table": "VBAP",
+              "score": 0.4034
+            },
+            {
+              "table": "BSEG",
+              "score": 0.3314
+            },
+            {
+              "table": "LFA1",
+              "score": 0.3167
+            },
+            {
+              "table": "KNA1",
+              "score": 0.3124
+            },
+            {
+              "table": "EKPO",
+              "score": 0.3085
+            },
+            {
+              "table": "EKKO",
+              "score": 0.2925
+            },
+            {
+              "table": "BKPF",
+              "score": 0.2668
+            }
+          ],
+          "hit": true,
+          "recall": 1.0,
+          "matched": [
+            "VBAK"
+          ],
+          "missing": []
+        },
+        {
+          "id": "D9-12",
+          "difficulty": "L5",
+          "question": "2025 和 2026 两年分别采购了多少种不同的物料",
+          "expected_tables": [
+            "EKKO",
+            "EKPO"
+          ],
+          "top_k_hits": [
+            {
+              "table": "EKKO",
+              "score": 0.4138
+            },
+            {
+              "table": "MARA",
+              "score": 0.4068
+            },
+            {
+              "table": "EKPO",
+              "score": 0.3989
+            },
+            {
+              "table": "VBAP",
+              "score": 0.3742
+            },
+            {
+              "table": "VBAK",
+              "score": 0.353
+            },
+            {
+              "table": "BSEG",
+              "score": 0.3438
+            },
+            {
+              "table": "MAKT",
+              "score": 0.3369
+            },
+            {
+              "table": "LFA1",
+              "score": 0.333
+            }
+          ],
+          "hit": true,
+          "recall": 1.0,
+          "matched": [
+            "EKKO",
+            "EKPO"
+          ],
+          "missing": []
+        },
+        {
+          "id": "D9-13",
+          "difficulty": "L5",
+          "question": "对比 2026 年 Q1 和 2025 年 Q4 的销售订单数量",
+          "expected_tables": [
+            "VBAK"
+          ],
+          "top_k_hits": [
+            {
+              "table": "VBAK",
+              "score": 0.5098
+            },
+            {
+              "table": "VBAP",
+              "score": 0.4777
+            },
+            {
+              "table": "EKKO",
+              "score": 0.4215
+            },
+            {
+              "table": "LFA1",
+              "score": 0.4177
+            },
+            {
+              "table": "EKPO",
+              "score": 0.4084
+            },
+            {
+              "table": "KNA1",
+              "score": 0.3942
+            },
+            {
+              "table": "BKPF",
+              "score": 0.376
+            },
+            {
+              "table": "BSEG",
+              "score": 0.3664
+            }
+          ],
+          "hit": true,
+          "recall": 1.0,
+          "matched": [
+            "VBAK"
+          ],
+          "missing": []
+        },
+        {
+          "id": "D9-14",
+          "difficulty": "L5",
+          "question": "物料 M000001 在 2024、2025、2026 三年的采购单价分别是多少（按年取平均）",
+          "expected_tables": [
+            "EKKO",
+            "EKPO"
+          ],
+          "top_k_hits": [
+            {
+              "table": "MARA",
+              "score": 0.524
+            },
+            {
+              "table": "EKPO",
+              "score": 0.5088
+            },
+            {
+              "table": "VBAP",
+              "score": 0.4775
+            },
+            {
+              "table": "EKKO",
+              "score": 0.4761
+            },
+            {
+              "table": "BSEG",
+              "score": 0.4479
+            },
+            {
+              "table": "MAKT",
+              "score": 0.4442
+            },
+            {
+              "table": "KNA1",
+              "score": 0.4405
+            },
+            {
+              "table": "VBAK",
+              "score": 0.4345
+            }
+          ],
+          "hit": true,
+          "recall": 1.0,
+          "matched": [
+            "EKKO",
+            "EKPO"
+          ],
+          "missing": []
+        },
+        {
+          "id": "D9-15",
+          "difficulty": "L5",
+          "question": "销售额前 10 的客户，列出客户名称、所在城市和销售总额",
+          "expected_tables": [
+            "VBAK",
+            "KNA1"
+          ],
+          "top_k_hits": [
+            {
+              "table": "VBAK",
+              "score": 0.5132
+            },
+            {
+              "table": "VBAP",
+              "score": 0.492
+            },
+            {
+              "table": "KNA1",
+              "score": 0.4786
+            },
+            {
+              "table": "LFA1",
+              "score": 0.4116
+            },
+            {
+              "table": "EKPO",
+              "score": 0.4094
+            },
+            {
+              "table": "BSEG",
+              "score": 0.3799
+            },
+            {
+              "table": "EKKO",
+              "score": 0.3797
+            },
+            {
+              "table": "BKPF",
+              "score": 0.3562
+            }
+          ],
+          "hit": true,
+          "recall": 1.0,
+          "matched": [
+            "KNA1",
+            "VBAK"
+          ],
+          "missing": []
+        },
+        {
+          "id": "D9-16",
+          "difficulty": "L5",
+          "question": "每个供应商各采购了哪些物料类型，按供应商和物料类型分组统计采购数量",
+          "expected_tables": [
+            "LFA1",
+            "EKKO",
+            "EKPO",
+            "MARA"
+          ],
+          "top_k_hits": [
+            {
+              "table": "EKPO",
+              "score": 0.5541
+            },
+            {
+              "table": "EKKO",
+              "score": 0.54
+            },
+            {
+              "table": "VBAP",
+              "score": 0.5281
+            },
+            {
+              "table": "VBAK",
+              "score": 0.5203
+            },
+            {
+              "table": "MARA",
+              "score": 0.5104
+            },
+            {
+              "table": "LFA1",
+              "score": 0.5083
+            },
+            {
+              "table": "KNA1",
+              "score": 0.4508
+            },
+            {
+              "table": "MAKT",
+              "score": 0.4396
+            }
+          ],
+          "hit": true,
+          "recall": 1.0,
+          "matched": [
+            "EKKO",
+            "EKPO",
+            "LFA1",
+            "MARA"
+          ],
+          "missing": []
+        },
+        {
+          "id": "D9-17",
+          "difficulty": "L5",
+          "question": "2025 年按物料类型分组，哪种物料类型的销售总额最高，列出物料类型和销售总额",
+          "expected_tables": [
+            "VBAK",
+            "VBAP",
+            "MARA"
+          ],
+          "top_k_hits": [
+            {
+              "table": "MARA",
+              "score": 0.446
+            },
+            {
+              "table": "VBAP",
+              "score": 0.4445
+            },
+            {
+              "table": "VBAK",
+              "score": 0.4338
+            },
+            {
+              "table": "EKPO",
+              "score": 0.4054
+            },
+            {
+              "table": "BSEG",
+              "score": 0.4039
+            },
+            {
+              "table": "EKKO",
+              "score": 0.3966
+            },
+            {
+              "table": "BKPF",
+              "score": 0.3789
+            },
+            {
+              "table": "MAKT",
+              "score": 0.3651
+            }
+          ],
+          "hit": true,
+          "recall": 1.0,
+          "matched": [
+            "MARA",
+            "VBAK",
+            "VBAP"
+          ],
+          "missing": []
+        },
+        {
+          "id": "D9-18",
+          "difficulty": "L5",
+          "question": "在系统里建过档但 2026 年从没下过订单的客户有多少个",
+          "expected_tables": [
+            "KNA1",
+            "VBAK"
+          ],
+          "top_k_hits": [
+            {
+              "table": "VBAP",
+              "score": 0.472
+            },
+            {
+              "table": "VBAK",
+              "score": 0.4502
+            },
+            {
+              "table": "KNA1",
+              "score": 0.4398
+            },
+            {
+              "table": "LFA1",
+              "score": 0.4154
+            },
+            {
+              "table": "EKKO",
+              "score": 0.3954
+            },
+            {
+              "table": "EKPO",
+              "score": 0.3918
+            },
+            {
+              "table": "BSEG",
+              "score": 0.3753
+            },
+            {
+              "table": "BKPF",
+              "score": 0.3702
+            }
+          ],
+          "hit": true,
+          "recall": 1.0,
+          "matched": [
+            "KNA1",
+            "VBAK"
+          ],
+          "missing": []
+        },
+        {
+          "id": "D9-19",
+          "difficulty": "L5",
+          "question": "既被销售过又被采购过的物料有多少种",
+          "expected_tables": [
+            "VBAP",
+            "EKPO"
+          ],
+          "top_k_hits": [
+            {
+              "table": "VBAP",
+              "score": 0.508
+            },
+            {
+              "table": "EKPO",
+              "score": 0.4902
+            },
+            {
+              "table": "EKKO",
+              "score": 0.4728
+            },
+            {
+              "table": "VBAK",
+              "score": 0.4692
+            },
+            {
+              "table": "MARA",
+              "score": 0.4474
+            },
+            {
+              "table": "MAKT",
+              "score": 0.4154
+            },
+            {
+              "table": "BSEG",
+              "score": 0.3871
+            },
+            {
+              "table": "LFA1",
+              "score": 0.3828
+            }
+          ],
+          "hit": true,
+          "recall": 1.0,
+          "matched": [
+            "EKPO",
+            "VBAP"
+          ],
+          "missing": []
+        },
+        {
+          "id": "D9-20",
+          "difficulty": "L5",
+          "question": "2025 年的销售净额最高的前 5 个客户，列出客户名称和销售总额",
+          "expected_tables": [
+            "VBAK",
+            "KNA1"
+          ],
+          "top_k_hits": [
+            {
+              "table": "VBAK",
+              "score": 0.4606
+            },
+            {
+              "table": "KNA1",
+              "score": 0.4458
+            },
+            {
+              "table": "VBAP",
+              "score": 0.4247
+            },
+            {
+              "table": "BSEG",
+              "score": 0.368
+            },
+            {
+              "table": "EKPO",
+              "score": 0.3578
+            },
+            {
+              "table": "LFA1",
+              "score": 0.353
+            },
+            {
+              "table": "EKKO",
+              "score": 0.3504
+            },
+            {
+              "table": "BKPF",
+              "score": 0.3476
+            }
+          ],
+          "hit": true,
+          "recall": 1.0,
+          "matched": [
+            "KNA1",
+            "VBAK"
+          ],
+          "missing": []
+        },
+        {
+          "id": "D9-21",
+          "difficulty": "L5",
+          "question": "销售订单的平均单笔金额是多少",
+          "expected_tables": [
+            "VBAK"
+          ],
+          "top_k_hits": [
+            {
+              "table": "VBAK",
+              "score": 0.6007
+            },
+            {
+              "table": "VBAP",
+              "score": 0.5785
+            },
+            {
+              "table": "EKKO",
+              "score": 0.5158
+            },
+            {
+              "table": "EKPO",
+              "score": 0.5084
+            },
+            {
+              "table": "BSEG",
+              "score": 0.4473
+            },
+            {
+              "table": "KNA1",
+              "score": 0.4356
+            },
+            {
+              "table": "BKPF",
+              "score": 0.4147
+            },
+            {
+              "table": "LFA1",
+              "score": 0.3934
+            }
+          ],
+          "hit": true,
+          "recall": 1.0,
+          "matched": [
+            "VBAK"
+          ],
+          "missing": []
+        },
+        {
+          "id": "D9-22",
+          "difficulty": "L5",
+          "question": "采购订单里最常同时被一起采购的两种物料是哪两种",
+          "expected_tables": [
+            "EKPO"
+          ],
+          "top_k_hits": [
+            {
+              "table": "EKKO",
+              "score": 0.5775
+            },
+            {
+              "table": "EKPO",
+              "score": 0.5539
+            },
+            {
+              "table": "VBAP",
+              "score": 0.5236
+            },
+            {
+              "table": "VBAK",
+              "score": 0.5169
+            },
+            {
+              "table": "MARA",
+              "score": 0.4424
+            },
+            {
+              "table": "MAKT",
+              "score": 0.4313
+            },
+            {
+              "table": "BKPF",
+              "score": 0.4245
+            },
+            {
+              "table": "BSEG",
+              "score": 0.4231
+            }
+          ],
+          "hit": true,
+          "recall": 1.0,
+          "matched": [
+            "EKPO"
+          ],
+          "missing": []
+        },
+        {
+          "id": "D9-23",
+          "difficulty": "L5",
+          "question": "财务凭证里有没有借贷不平衡的记录（每张凭证借方总额应等于贷方总额）",
+          "expected_tables": [
+            "BSEG"
+          ],
+          "top_k_hits": [
+            {
+              "table": "BSEG",
+              "score": 0.6092
+            },
+            {
+              "table": "BKPF",
+              "score": 0.5104
+            },
+            {
+              "table": "KNA1",
+              "score": 0.4129
+            },
+            {
+              "table": "VBAP",
+              "score": 0.4111
+            },
+            {
+              "table": "VBAK",
+              "score": 0.4094
+            },
+            {
+              "table": "LFA1",
+              "score": 0.3723
+            },
+            {
+              "table": "EKPO",
+              "score": 0.3594
+            },
+            {
+              "table": "EKKO",
+              "score": 0.3564
+            }
+          ],
+          "hit": true,
+          "recall": 1.0,
+          "matched": [
+            "BSEG"
+          ],
+          "missing": []
+        },
+        {
+          "id": "D9-24",
+          "difficulty": "L5",
+          "question": "销售订单抬头的净额和它所有行项目净额之和不一致的订单有哪些",
+          "expected_tables": [
+            "VBAK",
+            "VBAP"
+          ],
+          "top_k_hits": [
+            {
+              "table": "VBAK",
+              "score": 0.66
+            },
+            {
+              "table": "VBAP",
+              "score": 0.6084
+            },
+            {
+              "table": "EKKO",
+              "score": 0.567
+            },
+            {
+              "table": "BKPF",
+              "score": 0.5208
+            },
+            {
+              "table": "EKPO",
+              "score": 0.5156
+            },
+            {
+              "table": "BSEG",
+              "score": 0.487
+            },
+            {
+              "table": "LFA1",
+              "score": 0.4328
+            },
+            {
+              "table": "KNA1",
+              "score": 0.4036
+            }
+          ],
+          "hit": true,
+          "recall": 1.0,
+          "matched": [
+            "VBAK",
+            "VBAP"
+          ],
+          "missing": []
+        },
+        {
+          "id": "D9-25",
+          "difficulty": "L5",
+          "question": "2026 年销售业绩最好的销售员前 5 名（排除测试账号 TEST 开头的）",
+          "expected_tables": [
+            "VBAK"
+          ],
+          "top_k_hits": [
+            {
+              "table": "VBAK",
+              "score": 0.4758
+            },
+            {
+              "table": "VBAP",
+              "score": 0.4521
+            },
+            {
+              "table": "KNA1",
+              "score": 0.4441
+            },
+            {
+              "table": "BKPF",
+              "score": 0.4101
+            },
+            {
+              "table": "LFA1",
+              "score": 0.3964
+            },
+            {
+              "table": "EKPO",
+              "score": 0.3946
+            },
+            {
+              "table": "BSEG",
+              "score": 0.3806
+            },
+            {
+              "table": "EKKO",
+              "score": 0.3697
+            }
+          ],
+          "hit": true,
+          "recall": 1.0,
+          "matched": [
             "VBAK"
           ],
           "missing": []

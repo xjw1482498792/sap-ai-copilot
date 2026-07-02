@@ -32,9 +32,9 @@ import time
 from datetime import date
 
 # Windows 控制台默认 GBK，强制 UTF-8 避免中文乱码
-if sys.platform == "win32":
-    sys.stdout.reconfigure(encoding="utf-8")
-    sys.stderr.reconfigure(encoding="utf-8")
+# if sys.platform == "win32":
+#     sys.stdout.reconfigure(encoding="utf-8")
+#     sys.stderr.reconfigure(encoding="utf-8")
 
 from tabulate import tabulate
 
@@ -198,6 +198,7 @@ def generate_sql_with_tools(
             tool_calls_record.append({
                 "name": tc["name"],
                 "arguments": tc["arguments"],
+                "result": tool_result,
                 "result_preview": tool_result[:200],
             })
             messages.append({

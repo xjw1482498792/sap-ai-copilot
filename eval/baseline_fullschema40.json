@@ -1,0 +1,1759 @@
+{
+  "meta": {
+    "timestamp": "2026-06-15T00:41:27",
+    "today": "2026-05-20",
+    "tag": "fullschema40",
+    "total_wall_time_sec": 79.9,
+    "use_rag": false,
+    "use_tools": false,
+    "use_agent": false,
+    "top_k": 0,
+    "max_tool_rounds": 3,
+    "max_repair_attempts": 3,
+    "avg_rag_latency_ms": 0
+  },
+  "summary": {
+    "total_cases": 40,
+    "passed": 38,
+    "pass_rate": 0.95,
+    "by_difficulty": {
+      "L1": {
+        "total": 3,
+        "passed": 3,
+        "pass_rate": 1.0
+      },
+      "L2": {
+        "total": 3,
+        "passed": 3,
+        "pass_rate": 1.0
+      },
+      "L3": {
+        "total": 3,
+        "passed": 3,
+        "pass_rate": 1.0
+      },
+      "L4": {
+        "total": 11,
+        "passed": 10,
+        "pass_rate": 0.909
+      },
+      "L5": {
+        "total": 20,
+        "passed": 19,
+        "pass_rate": 0.95
+      }
+    },
+    "total_input_tokens": 78641,
+    "total_output_tokens": 4185,
+    "avg_input_tokens": 1966,
+    "avg_output_tokens": 105,
+    "avg_latency_ms": 1992,
+    "tables_pass_rate": 0.975,
+    "must_have_pass_rate": 0.975,
+    "executable_pass_rate": 0.975,
+    "tool_calls_total": 0,
+    "cases_with_tool_call": 0,
+    "tool_usage_rate": 0.0,
+    "agent_repair_triggered": 0,
+    "agent_repair_succeeded": 0,
+    "agent_avg_attempts": 1
+  },
+  "cases": [
+    {
+      "id": "L1-01",
+      "difficulty": "L1",
+      "question": "目前数据库里一共有多少个客户？",
+      "sql": "SELECT COUNT(*) AS CUSTOMER_COUNT FROM KNA1",
+      "pass": true,
+      "tables_ok": true,
+      "must_have_ok": true,
+      "must_have_any_ok": true,
+      "executable_ok": true,
+      "missing_tables": [],
+      "missing_must_have": [],
+      "missing_must_have_any": [],
+      "row_count": 1,
+      "sql_error": "",
+      "latency_ms": 3155,
+      "usage": {
+        "prompt_tokens": 1957,
+        "completion_tokens": 14,
+        "total_tokens": 1971
+      },
+      "model": "",
+      "rag": {
+        "enabled": false,
+        "top_k": 0,
+        "latency_ms": 0,
+        "hits": []
+      },
+      "tools": {
+        "enabled": false,
+        "rounds": 1,
+        "call_count": 0,
+        "looked_up_tables": []
+      },
+      "agent": {
+        "enabled": false,
+        "attempts": 1,
+        "repair_used": false,
+        "repair_succeeded": false,
+        "history": []
+      }
+    },
+    {
+      "id": "L1-02",
+      "difficulty": "L1",
+      "question": "销售订单一共有多少张？",
+      "sql": "SELECT COUNT(*) AS 订单总数 FROM VBAK",
+      "pass": true,
+      "tables_ok": true,
+      "must_have_ok": true,
+      "must_have_any_ok": true,
+      "executable_ok": true,
+      "missing_tables": [],
+      "missing_must_have": [],
+      "missing_must_have_any": [],
+      "row_count": 1,
+      "sql_error": "",
+      "latency_ms": 1466,
+      "usage": {
+        "prompt_tokens": 1957,
+        "completion_tokens": 12,
+        "total_tokens": 1969
+      },
+      "model": "",
+      "rag": {
+        "enabled": false,
+        "top_k": 0,
+        "latency_ms": 0,
+        "hits": []
+      },
+      "tools": {
+        "enabled": false,
+        "rounds": 1,
+        "call_count": 0,
+        "looked_up_tables": []
+      },
+      "agent": {
+        "enabled": false,
+        "attempts": 1,
+        "repair_used": false,
+        "repair_succeeded": false,
+        "history": []
+      }
+    },
+    {
+      "id": "L1-03",
+      "difficulty": "L1",
+      "question": "查一下所有供应商的编号和名称",
+      "sql": "SELECT LIFNR, NAME1 FROM LFA1",
+      "pass": true,
+      "tables_ok": true,
+      "must_have_ok": true,
+      "must_have_any_ok": true,
+      "executable_ok": true,
+      "missing_tables": [],
+      "missing_must_have": [],
+      "missing_must_have_any": [],
+      "row_count": 50,
+      "sql_error": "",
+      "latency_ms": 1396,
+      "usage": {
+        "prompt_tokens": 1958,
+        "completion_tokens": 12,
+        "total_tokens": 1970
+      },
+      "model": "",
+      "rag": {
+        "enabled": false,
+        "top_k": 0,
+        "latency_ms": 0,
+        "hits": []
+      },
+      "tools": {
+        "enabled": false,
+        "rounds": 1,
+        "call_count": 0,
+        "looked_up_tables": []
+      },
+      "agent": {
+        "enabled": false,
+        "attempts": 1,
+        "repair_used": false,
+        "repair_succeeded": false,
+        "history": []
+      }
+    },
+    {
+      "id": "L2-01",
+      "difficulty": "L2",
+      "question": "查一下 2025 年的销售订单数量和总金额",
+      "sql": "SELECT \n    COUNT(DISTINCT VBAK.VBELN) AS 订单数量,\n    SUM(VBAK.NETWR) AS 总金额\nFROM VBAK\nWHERE VBAK.ERDAT >= '2025-01-01' \n  AND VBAK.ERDAT < '2026-01-01'",
+      "pass": true,
+      "tables_ok": true,
+      "must_have_ok": true,
+      "must_have_any_ok": true,
+      "executable_ok": true,
+      "missing_tables": [],
+      "missing_must_have": [],
+      "missing_must_have_any": [],
+      "row_count": 1,
+      "sql_error": "",
+      "latency_ms": 1716,
+      "usage": {
+        "prompt_tokens": 1962,
+        "completion_tokens": 71,
+        "total_tokens": 2033
+      },
+      "model": "",
+      "rag": {
+        "enabled": false,
+        "top_k": 0,
+        "latency_ms": 0,
+        "hits": []
+      },
+      "tools": {
+        "enabled": false,
+        "rounds": 1,
+        "call_count": 0,
+        "looked_up_tables": []
+      },
+      "agent": {
+        "enabled": false,
+        "attempts": 1,
+        "repair_used": false,
+        "repair_succeeded": false,
+        "history": []
+      }
+    },
+    {
+      "id": "L2-02",
+      "difficulty": "L2",
+      "question": "按物料类型统计每种类型的物料数量",
+      "sql": "SELECT\n    MARA.MTART AS 物料类型,\n    COUNT(MARA.MATNR) AS 物料数量\nFROM MARA\nGROUP BY MARA.MTART\nORDER BY MARA.MTART",
+      "pass": true,
+      "tables_ok": true,
+      "must_have_ok": true,
+      "must_have_any_ok": true,
+      "executable_ok": true,
+      "missing_tables": [],
+      "missing_must_have": [],
+      "missing_must_have_any": [],
+      "row_count": 4,
+      "sql_error": "",
+      "latency_ms": 1601,
+      "usage": {
+        "prompt_tokens": 1958,
+        "completion_tokens": 46,
+        "total_tokens": 2004
+      },
+      "model": "",
+      "rag": {
+        "enabled": false,
+        "top_k": 0,
+        "latency_ms": 0,
+        "hits": []
+      },
+      "tools": {
+        "enabled": false,
+        "rounds": 1,
+        "call_count": 0,
+        "looked_up_tables": []
+      },
+      "agent": {
+        "enabled": false,
+        "attempts": 1,
+        "repair_used": false,
+        "repair_succeeded": false,
+        "history": []
+      }
+    },
+    {
+      "id": "L2-03",
+      "difficulty": "L2",
+      "question": "用 CNY 币种结算的销售订单一共多少张，总净额多少？",
+      "sql": "SELECT COUNT(DISTINCT VBAK.VBELN) AS 订单数量, SUM(VBAK.NETWR) AS 总净额\nFROM VBAK\nWHERE VBAK.WAERK = 'CNY'",
+      "pass": true,
+      "tables_ok": true,
+      "must_have_ok": true,
+      "must_have_any_ok": true,
+      "executable_ok": true,
+      "missing_tables": [],
+      "missing_must_have": [],
+      "missing_must_have_any": [],
+      "row_count": 1,
+      "sql_error": "",
+      "latency_ms": 1693,
+      "usage": {
+        "prompt_tokens": 1969,
+        "completion_tokens": 48,
+        "total_tokens": 2017
+      },
+      "model": "",
+      "rag": {
+        "enabled": false,
+        "top_k": 0,
+        "latency_ms": 0,
+        "hits": []
+      },
+      "tools": {
+        "enabled": false,
+        "rounds": 1,
+        "call_count": 0,
+        "looked_up_tables": []
+      },
+      "agent": {
+        "enabled": false,
+        "attempts": 1,
+        "repair_used": false,
+        "repair_succeeded": false,
+        "history": []
+      }
+    },
+    {
+      "id": "L3-01",
+      "difficulty": "L3",
+      "question": "销售额前 5 名的客户是谁，分别销售了多少钱？",
+      "sql": "SELECT \n    KNA1.KUNNR,\n    KNA1.NAME1,\n    SUM(VBAK.NETWR) AS TOTAL_SALES\nFROM VBAK\nJOIN KNA1 ON VBAK.KUNNR = KNA1.KUNNR\nGROUP BY KNA1.KUNNR, KNA1.NAME1\nORDER BY TOTAL_SALES DESC\nLIMIT 5",
+      "pass": true,
+      "tables_ok": true,
+      "must_have_ok": true,
+      "must_have_any_ok": true,
+      "executable_ok": true,
+      "missing_tables": [],
+      "missing_must_have": [],
+      "missing_must_have_any": [],
+      "row_count": 5,
+      "sql_error": "",
+      "latency_ms": 1834,
+      "usage": {
+        "prompt_tokens": 1964,
+        "completion_tokens": 84,
+        "total_tokens": 2048
+      },
+      "model": "",
+      "rag": {
+        "enabled": false,
+        "top_k": 0,
+        "latency_ms": 0,
+        "hits": []
+      },
+      "tools": {
+        "enabled": false,
+        "rounds": 1,
+        "call_count": 0,
+        "looked_up_tables": []
+      },
+      "agent": {
+        "enabled": false,
+        "attempts": 1,
+        "repair_used": false,
+        "repair_succeeded": false,
+        "history": []
+      }
+    },
+    {
+      "id": "L3-02",
+      "difficulty": "L3",
+      "question": "采购金额最高的 3 个供应商及其名称",
+      "sql": "SELECT LFA1.LIFNR, LFA1.NAME1, SUM(EKPO.NETPR * EKPO.MENGE) AS TOTAL_AMOUNT\nFROM EKKO\nJOIN EKPO ON EKKO.EBELN = EKPO.EBELN\nJOIN LFA1 ON EKKO.LIFNR = LFA1.LIFNR\nGROUP BY LFA1.LIFNR, LFA1.NAME1\nORDER BY TOTAL_AMOUNT DESC\nLIMIT 3",
+      "pass": true,
+      "tables_ok": true,
+      "must_have_ok": true,
+      "must_have_any_ok": true,
+      "executable_ok": true,
+      "missing_tables": [],
+      "missing_must_have": [],
+      "missing_must_have_any": [],
+      "row_count": 3,
+      "sql_error": "",
+      "latency_ms": 2007,
+      "usage": {
+        "prompt_tokens": 1960,
+        "completion_tokens": 110,
+        "total_tokens": 2070
+      },
+      "model": "",
+      "rag": {
+        "enabled": false,
+        "top_k": 0,
+        "latency_ms": 0,
+        "hits": []
+      },
+      "tools": {
+        "enabled": false,
+        "rounds": 1,
+        "call_count": 0,
+        "looked_up_tables": []
+      },
+      "agent": {
+        "enabled": false,
+        "attempts": 1,
+        "repair_used": false,
+        "repair_succeeded": false,
+        "history": []
+      }
+    },
+    {
+      "id": "L3-03",
+      "difficulty": "L3",
+      "question": "今年（2026）每个月的销售订单数量分别是多少？",
+      "sql": "SELECT \n  strftime('%Y-%m', ERDAT) AS 月份,\n  COUNT(*) AS 订单数量\nFROM VBAK\nWHERE ERDAT >= '2026-01-01' AND ERDAT < '2027-01-01'\nGROUP BY strftime('%Y-%m', ERDAT)\nORDER BY 月份",
+      "pass": true,
+      "tables_ok": true,
+      "must_have_ok": true,
+      "must_have_any_ok": true,
+      "executable_ok": true,
+      "missing_tables": [],
+      "missing_must_have": [],
+      "missing_must_have_any": [],
+      "row_count": 5,
+      "sql_error": "",
+      "latency_ms": 1490,
+      "usage": {
+        "prompt_tokens": 1963,
+        "completion_tokens": 71,
+        "total_tokens": 2034
+      },
+      "model": "",
+      "rag": {
+        "enabled": false,
+        "top_k": 0,
+        "latency_ms": 0,
+        "hits": []
+      },
+      "tools": {
+        "enabled": false,
+        "rounds": 1,
+        "call_count": 0,
+        "looked_up_tables": []
+      },
+      "agent": {
+        "enabled": false,
+        "attempts": 1,
+        "repair_used": false,
+        "repair_succeeded": false,
+        "history": []
+      }
+    },
+    {
+      "id": "L4-01",
+      "difficulty": "L4",
+      "question": "销售数量最高的 5 个物料，列出物料编号、中文名称和销售总数量",
+      "sql": "SELECT \n    VBAP.MATNR AS 物料编号,\n    MAKT.MAKTX AS 中文名称,\n    SUM(VBAP.KWMENG) AS 销售总数量\nFROM VBAP\nLEFT JOIN MAKT ON VBAP.MATNR = MAKT.MATNR AND MAKT.SPRAS = '1'\nGROUP BY VBAP.MATNR, MAKT.MAKTX\nORDER BY 销售总数量 DESC\nLIMIT 5",
+      "pass": true,
+      "tables_ok": true,
+      "must_have_ok": true,
+      "must_have_any_ok": true,
+      "executable_ok": true,
+      "missing_tables": [],
+      "missing_must_have": [],
+      "missing_must_have_any": [],
+      "row_count": 5,
+      "sql_error": "",
+      "latency_ms": 1758,
+      "usage": {
+        "prompt_tokens": 1969,
+        "completion_tokens": 95,
+        "total_tokens": 2064
+      },
+      "model": "",
+      "rag": {
+        "enabled": false,
+        "top_k": 0,
+        "latency_ms": 0,
+        "hits": []
+      },
+      "tools": {
+        "enabled": false,
+        "rounds": 1,
+        "call_count": 0,
+        "looked_up_tables": []
+      },
+      "agent": {
+        "enabled": false,
+        "attempts": 1,
+        "repair_used": false,
+        "repair_succeeded": false,
+        "history": []
+      }
+    },
+    {
+      "id": "L4-02",
+      "difficulty": "L4",
+      "question": "上个月（2026 年 4 月）销售净额最高的 5 个客户的名称、所在城市和销售总额",
+      "sql": "SELECT KNA1.NAME1, KNA1.ORT01, SUM(VBAK.NETWR) AS TOTAL_NETWR\nFROM VBAK\nJOIN KNA1 ON VBAK.KUNNR = KNA1.KUNNR\nWHERE VBAK.ERDAT >= '2026-04-01' AND VBAK.ERDAT < '2026-05-01'\nGROUP BY KNA1.KUNNR\nORDER BY TOTAL_NETWR DESC\nLIMIT 5",
+      "pass": true,
+      "tables_ok": true,
+      "must_have_ok": true,
+      "must_have_any_ok": true,
+      "executable_ok": true,
+      "missing_tables": [],
+      "missing_must_have": [],
+      "missing_must_have_any": [],
+      "row_count": 5,
+      "sql_error": "",
+      "latency_ms": 1893,
+      "usage": {
+        "prompt_tokens": 1978,
+        "completion_tokens": 106,
+        "total_tokens": 2084
+      },
+      "model": "",
+      "rag": {
+        "enabled": false,
+        "top_k": 0,
+        "latency_ms": 0,
+        "hits": []
+      },
+      "tools": {
+        "enabled": false,
+        "rounds": 1,
+        "call_count": 0,
+        "looked_up_tables": []
+      },
+      "agent": {
+        "enabled": false,
+        "attempts": 1,
+        "repair_used": false,
+        "repair_succeeded": false,
+        "history": []
+      }
+    },
+    {
+      "id": "L4-03",
+      "difficulty": "L4",
+      "question": "查一下供应商 V010001 采购过哪些物料（要中文名称），以及每种物料采购了多少数量",
+      "sql": "SELECT \n    EKPO.MATNR,\n    MAKT.MAKTX AS 物料中文名称,\n    SUM(EKPO.MENGE) AS 采购总数量\nFROM EKKO\nJOIN EKPO ON EKKO.EBELN = EKPO.EBELN\nLEFT JOIN MAKT ON EKPO.MATNR = MAKT.MATNR AND MAKT.SPRAS = '1'\nWHERE EKKO.LIFNR = 'V010001'\nGROUP BY EKPO.MATNR, MAKT.MAKTX",
+      "pass": true,
+      "tables_ok": true,
+      "must_have_ok": true,
+      "must_have_any_ok": true,
+      "executable_ok": true,
+      "missing_tables": [],
+      "missing_must_have": [],
+      "missing_must_have_any": [],
+      "row_count": 95,
+      "sql_error": "",
+      "latency_ms": 1755,
+      "usage": {
+        "prompt_tokens": 1972,
+        "completion_tokens": 117,
+        "total_tokens": 2089
+      },
+      "model": "",
+      "rag": {
+        "enabled": false,
+        "top_k": 0,
+        "latency_ms": 0,
+        "hits": []
+      },
+      "tools": {
+        "enabled": false,
+        "rounds": 1,
+        "call_count": 0,
+        "looked_up_tables": []
+      },
+      "agent": {
+        "enabled": false,
+        "attempts": 1,
+        "repair_used": false,
+        "repair_succeeded": false,
+        "history": []
+      }
+    },
+    {
+      "id": "L5-01",
+      "difficulty": "L5",
+      "question": "今年销售额前 5 的客户，列出客户名称、订单数、总销售额和平均单笔金额",
+      "sql": "SELECT \n    K.NAME1 AS 客户名称,\n    COUNT(DISTINCT V.VBELN) AS 订单数,\n    SUM(V.NETWR) AS 总销售额,\n    SUM(V.NETWR) / COUNT(DISTINCT V.VBELN) AS 平均单笔金额\nFROM VBAK V\nJOIN KNA1 K ON V.KUNNR = K.KUNNR\nWHERE V.ERDAT >= '2026-01-01' AND V.ERDAT < '2027-01-01'\nGROUP BY K.KUNNR, K.NAME1\nORDER BY 总销售额 DESC\nLIMIT 5",
+      "pass": true,
+      "tables_ok": true,
+      "must_have_ok": true,
+      "must_have_any_ok": true,
+      "executable_ok": true,
+      "missing_tables": [],
+      "missing_must_have": [],
+      "missing_must_have_any": [],
+      "row_count": 5,
+      "sql_error": "",
+      "latency_ms": 1897,
+      "usage": {
+        "prompt_tokens": 1973,
+        "completion_tokens": 135,
+        "total_tokens": 2108
+      },
+      "model": "",
+      "rag": {
+        "enabled": false,
+        "top_k": 0,
+        "latency_ms": 0,
+        "hits": []
+      },
+      "tools": {
+        "enabled": false,
+        "rounds": 1,
+        "call_count": 0,
+        "looked_up_tables": []
+      },
+      "agent": {
+        "enabled": false,
+        "attempts": 1,
+        "repair_used": false,
+        "repair_succeeded": false,
+        "history": []
+      }
+    },
+    {
+      "id": "L5-02",
+      "difficulty": "L5",
+      "question": "2025 年公司代码 1000 的财务凭证里，借方总金额是多少？",
+      "sql": "SELECT \n    SUM(BSEG.DMBTR) AS 借方总金额\nFROM BKPF\nJOIN BSEG ON BKPF.BUKRS = BSEG.BUKRS \n    AND BKPF.BELNR = BSEG.BELNR \n    AND BKPF.GJAHR = BSEG.GJAHR\nWHERE BKPF.BUKRS = '1000'\n    AND BKPF.BUDAT >= '2025-01-01'\n    AND BKPF.BUDAT < '2026-01-01'\n    AND BSEG.SHKZG = 'S'",
+      "pass": true,
+      "tables_ok": true,
+      "must_have_ok": true,
+      "must_have_any_ok": true,
+      "executable_ok": true,
+      "missing_tables": [],
+      "missing_must_have": [],
+      "missing_must_have_any": [],
+      "row_count": 1,
+      "sql_error": "",
+      "latency_ms": 1931,
+      "usage": {
+        "prompt_tokens": 1970,
+        "completion_tokens": 125,
+        "total_tokens": 2095
+      },
+      "model": "",
+      "rag": {
+        "enabled": false,
+        "top_k": 0,
+        "latency_ms": 0,
+        "hits": []
+      },
+      "tools": {
+        "enabled": false,
+        "rounds": 1,
+        "call_count": 0,
+        "looked_up_tables": []
+      },
+      "agent": {
+        "enabled": false,
+        "attempts": 1,
+        "repair_used": false,
+        "repair_succeeded": false,
+        "history": []
+      }
+    },
+    {
+      "id": "L5-03",
+      "difficulty": "L5",
+      "question": "对比 2025 年销售订单总额和采购订单总额，哪一边更高",
+      "sql": "SELECT \n    'Sales' AS order_type,\n    SUM(VBAK.NETWR) AS total_amount\nFROM VBAK\nWHERE VBAK.ERDAT >= '2025-01-01' AND VBAK.ERDAT <= '2025-12-31'\nUNION ALL\nSELECT \n    'Purchase' AS order_type,\n    SUM(EKKO.WAERS * EKPO.MENGE * EKPO.NETPR) AS total_amount\nFROM EKKO\nJOIN EKPO ON EKKO.EBELN = EKPO.EBELN\nWHERE EKKO.AEDAT >= '2025-01-01' AND EKKO.AEDAT <= '2025-12-31'",
+      "pass": true,
+      "tables_ok": true,
+      "must_have_ok": true,
+      "must_have_any_ok": true,
+      "executable_ok": true,
+      "missing_tables": [],
+      "missing_must_have": [],
+      "missing_must_have_any": [],
+      "row_count": 2,
+      "sql_error": "",
+      "latency_ms": 2344,
+      "usage": {
+        "prompt_tokens": 1967,
+        "completion_tokens": 156,
+        "total_tokens": 2123
+      },
+      "model": "",
+      "rag": {
+        "enabled": false,
+        "top_k": 0,
+        "latency_ms": 0,
+        "hits": []
+      },
+      "tools": {
+        "enabled": false,
+        "rounds": 1,
+        "call_count": 0,
+        "looked_up_tables": []
+      },
+      "agent": {
+        "enabled": false,
+        "attempts": 1,
+        "repair_used": false,
+        "repair_succeeded": false,
+        "history": []
+      }
+    },
+    {
+      "id": "D9-01",
+      "difficulty": "L4",
+      "question": "采购订单总额前 3 的供应商，列出供应商名称和金额",
+      "sql": "SELECT LFA1.NAME1 AS 供应商名称, SUM(EKPO.NETPR * EKPO.MENGE) AS 采购总额\nFROM EKKO\nJOIN EKPO ON EKKO.EBELN = EKPO.EBELN\nJOIN LFA1 ON EKKO.LIFNR = LFA1.LIFNR\nGROUP BY LFA1.LIFNR, LFA1.NAME1\nORDER BY 采购总额 DESC\nLIMIT 3",
+      "pass": true,
+      "tables_ok": true,
+      "must_have_ok": true,
+      "must_have_any_ok": true,
+      "executable_ok": true,
+      "missing_tables": [],
+      "missing_must_have": [],
+      "missing_must_have_any": [],
+      "row_count": 3,
+      "sql_error": "",
+      "latency_ms": 2112,
+      "usage": {
+        "prompt_tokens": 1965,
+        "completion_tokens": 103,
+        "total_tokens": 2068
+      },
+      "model": "",
+      "rag": {
+        "enabled": false,
+        "top_k": 0,
+        "latency_ms": 0,
+        "hits": []
+      },
+      "tools": {
+        "enabled": false,
+        "rounds": 1,
+        "call_count": 0,
+        "looked_up_tables": []
+      },
+      "agent": {
+        "enabled": false,
+        "attempts": 1,
+        "repair_used": false,
+        "repair_succeeded": false,
+        "history": []
+      }
+    },
+    {
+      "id": "D9-02",
+      "difficulty": "L4",
+      "question": "成品物料里毛重最大的前 5 种，给我物料编号、中文名称和毛重",
+      "sql": "SELECT M.MATNR, T.MAKTX, M.BRGEW\nFROM MARA M\nJOIN MAKT T ON M.MATNR = T.MATNR AND T.SPRAS = '1'\nWHERE M.MTART = 'FERT'\nORDER BY M.BRGEW DESC\nLIMIT 5",
+      "pass": true,
+      "tables_ok": true,
+      "must_have_ok": true,
+      "must_have_any_ok": true,
+      "executable_ok": true,
+      "missing_tables": [],
+      "missing_must_have": [],
+      "missing_must_have_any": [],
+      "row_count": 5,
+      "sql_error": "",
+      "latency_ms": 1776,
+      "usage": {
+        "prompt_tokens": 1971,
+        "completion_tokens": 67,
+        "total_tokens": 2038
+      },
+      "model": "",
+      "rag": {
+        "enabled": false,
+        "top_k": 0,
+        "latency_ms": 0,
+        "hits": []
+      },
+      "tools": {
+        "enabled": false,
+        "rounds": 1,
+        "call_count": 0,
+        "looked_up_tables": []
+      },
+      "agent": {
+        "enabled": false,
+        "attempts": 1,
+        "repair_used": false,
+        "repair_succeeded": false,
+        "history": []
+      }
+    },
+    {
+      "id": "D9-03",
+      "difficulty": "L4",
+      "question": "财务凭证里凭证币种金额（原币）最大的 10 条记录，列出公司代码、凭证号、币种和金额",
+      "sql": "SELECT B.BUKRS, B.BELNR, B.WAERS, S.WRBTR FROM BKPF B JOIN BSEG S ON B.BUKRS = S.BUKRS AND B.BELNR = S.BELNR AND B.GJAHR = S.GJAHR ORDER BY S.WRBTR DESC LIMIT 10",
+      "pass": true,
+      "tables_ok": true,
+      "must_have_ok": true,
+      "must_have_any_ok": true,
+      "executable_ok": true,
+      "missing_tables": [],
+      "missing_must_have": [],
+      "missing_must_have_any": [],
+      "row_count": 10,
+      "sql_error": "",
+      "latency_ms": 1597,
+      "usage": {
+        "prompt_tokens": 1979,
+        "completion_tokens": 70,
+        "total_tokens": 2049
+      },
+      "model": "",
+      "rag": {
+        "enabled": false,
+        "top_k": 0,
+        "latency_ms": 0,
+        "hits": []
+      },
+      "tools": {
+        "enabled": false,
+        "rounds": 1,
+        "call_count": 0,
+        "looked_up_tables": []
+      },
+      "agent": {
+        "enabled": false,
+        "attempts": 1,
+        "repair_used": false,
+        "repair_succeeded": false,
+        "history": []
+      }
+    },
+    {
+      "id": "D9-04",
+      "difficulty": "L4",
+      "question": "行项目数最多的 5 张销售订单，列出订单号和行项目数",
+      "sql": "SELECT VBAK.VBELN AS 订单号, COUNT(VBAP.POSNR) AS 行项目数\nFROM VBAK\nJOIN VBAP ON VBAK.VBELN = VBAP.VBELN\nGROUP BY VBAK.VBELN\nORDER BY 行项目数 DESC\nLIMIT 5",
+      "pass": true,
+      "tables_ok": true,
+      "must_have_ok": true,
+      "must_have_any_ok": true,
+      "executable_ok": true,
+      "missing_tables": [],
+      "missing_must_have": [],
+      "missing_must_have_any": [],
+      "row_count": 5,
+      "sql_error": "",
+      "latency_ms": 1750,
+      "usage": {
+        "prompt_tokens": 1967,
+        "completion_tokens": 70,
+        "total_tokens": 2037
+      },
+      "model": "",
+      "rag": {
+        "enabled": false,
+        "top_k": 0,
+        "latency_ms": 0,
+        "hits": []
+      },
+      "tools": {
+        "enabled": false,
+        "rounds": 1,
+        "call_count": 0,
+        "looked_up_tables": []
+      },
+      "agent": {
+        "enabled": false,
+        "attempts": 1,
+        "repair_used": false,
+        "repair_succeeded": false,
+        "history": []
+      }
+    },
+    {
+      "id": "D9-05",
+      "difficulty": "L4",
+      "question": "查一下我们的大客户名单",
+      "sql": "SELECT \n    KNA1.KUNNR AS 客户编号,\n    KNA1.NAME1 AS 客户名称,\n    KNA1.LAND1 AS 国家,\n    KNA1.ORT01 AS 城市,\n    KNA1.REGIO AS 省州,\n    KNA1.TELF1 AS 电话\nFROM KNA1\nORDER BY KNA1.NAME1",
+      "pass": false,
+      "tables_ok": false,
+      "must_have_ok": false,
+      "must_have_any_ok": true,
+      "executable_ok": true,
+      "missing_tables": [
+        "VBAK"
+      ],
+      "missing_must_have": [
+        "JOIN",
+        "SUM",
+        "NETWR",
+        "GROUP BY"
+      ],
+      "missing_must_have_any": [],
+      "row_count": 100,
+      "sql_error": "",
+      "latency_ms": 1959,
+      "usage": {
+        "prompt_tokens": 1956,
+        "completion_tokens": 85,
+        "total_tokens": 2041
+      },
+      "model": "",
+      "rag": {
+        "enabled": false,
+        "top_k": 0,
+        "latency_ms": 0,
+        "hits": []
+      },
+      "tools": {
+        "enabled": false,
+        "rounds": 1,
+        "call_count": 0,
+        "looked_up_tables": []
+      },
+      "agent": {
+        "enabled": false,
+        "attempts": 1,
+        "repair_used": false,
+        "repair_succeeded": false,
+        "history": []
+      }
+    },
+    {
+      "id": "D9-06",
+      "difficulty": "L4",
+      "question": "查一下哪些物料从来没被销售过",
+      "sql": "SELECT M.MATNR, M.MTART, M.MATKL, T.MAKTX AS MATERIAL_DESC\nFROM MARA M\nLEFT JOIN MAKT T ON M.MATNR = T.MATNR AND T.SPRAS = '1'\nWHERE M.MATNR NOT IN (\n    SELECT DISTINCT MATNR\n    FROM VBAP\n    WHERE MATNR IS NOT NULL\n)",
+      "pass": true,
+      "tables_ok": true,
+      "must_have_ok": true,
+      "must_have_any_ok": true,
+      "executable_ok": true,
+      "missing_tables": [],
+      "missing_must_have": [],
+      "missing_must_have_any": [],
+      "row_count": 0,
+      "sql_error": "",
+      "latency_ms": 1839,
+      "usage": {
+        "prompt_tokens": 1958,
+        "completion_tokens": 83,
+        "total_tokens": 2041
+      },
+      "model": "",
+      "rag": {
+        "enabled": false,
+        "top_k": 0,
+        "latency_ms": 0,
+        "hits": []
+      },
+      "tools": {
+        "enabled": false,
+        "rounds": 1,
+        "call_count": 0,
+        "looked_up_tables": []
+      },
+      "agent": {
+        "enabled": false,
+        "attempts": 1,
+        "repair_used": false,
+        "repair_succeeded": false,
+        "history": []
+      }
+    },
+    {
+      "id": "D9-07",
+      "difficulty": "L4",
+      "question": "找出近两年没下过任何采购订单的僵尸供应商",
+      "sql": "SELECT \n    L.LIFNR AS 供应商编号,\n    L.NAME1 AS 供应商名称,\n    L.ORT01 AS 城市,\n    L.LAND1 AS 国家\nFROM LFA1 L\nWHERE L.LIFNR NOT IN (\n    SELECT DISTINCT E.LIFNR\n    FROM EKKO E\n    WHERE E.AEDAT >= '2024-05-20'\n)\nORDER BY L.LIFNR",
+      "pass": true,
+      "tables_ok": true,
+      "must_have_ok": true,
+      "must_have_any_ok": true,
+      "executable_ok": true,
+      "missing_tables": [],
+      "missing_must_have": [],
+      "missing_must_have_any": [],
+      "row_count": 0,
+      "sql_error": "",
+      "latency_ms": 2209,
+      "usage": {
+        "prompt_tokens": 1962,
+        "completion_tokens": 93,
+        "total_tokens": 2055
+      },
+      "model": "",
+      "rag": {
+        "enabled": false,
+        "top_k": 0,
+        "latency_ms": 0,
+        "hits": []
+      },
+      "tools": {
+        "enabled": false,
+        "rounds": 1,
+        "call_count": 0,
+        "looked_up_tables": []
+      },
+      "agent": {
+        "enabled": false,
+        "attempts": 1,
+        "repair_used": false,
+        "repair_succeeded": false,
+        "history": []
+      }
+    },
+    {
+      "id": "D9-08",
+      "difficulty": "L5",
+      "question": "销售额排名在后 50% 的长尾客户有多少个",
+      "sql": "SELECT COUNT(*) AS long_tail_customer_count\nFROM (\n    SELECT KUNNR, SUM(NETWR) AS total_sales\n    FROM VBAK\n    WHERE ERDAT >= '2025-01-01' AND ERDAT < '2026-01-01'\n    GROUP BY KUNNR\n) AS customer_sales\nWHERE total_sales < (\n    SELECT MEDIAN(total_sales) FROM (\n        SELECT SUM(NETWR) AS total_sales\n        FROM VBAK\n        WHERE ERDAT >= '2025-01-01' AND ERDAT < '2026-01-01'\n        GROUP BY KUNNR\n    )\n)",
+      "pass": false,
+      "tables_ok": true,
+      "must_have_ok": true,
+      "must_have_any_ok": false,
+      "executable_ok": false,
+      "missing_tables": [],
+      "missing_must_have": [],
+      "missing_must_have_any": [
+        [
+          "NTILE",
+          "PERCENT_RANK",
+          "ROW_NUMBER",
+          "WITH",
+          "RANK",
+          "ORDER BY"
+        ]
+      ],
+      "row_count": 0,
+      "sql_error": "no such function: MEDIAN",
+      "latency_ms": 2162,
+      "usage": {
+        "prompt_tokens": 1962,
+        "completion_tokens": 142,
+        "total_tokens": 2104
+      },
+      "model": "",
+      "rag": {
+        "enabled": false,
+        "top_k": 0,
+        "latency_ms": 0,
+        "hits": []
+      },
+      "tools": {
+        "enabled": false,
+        "rounds": 1,
+        "call_count": 0,
+        "looked_up_tables": []
+      },
+      "agent": {
+        "enabled": false,
+        "attempts": 1,
+        "repair_used": false,
+        "repair_succeeded": false,
+        "history": []
+      }
+    },
+    {
+      "id": "D9-09",
+      "difficulty": "L4",
+      "question": "查一下有没有同名但客户编号不同的客户，可能是数据质量问题",
+      "sql": "SELECT KNA1.NAME1, COUNT(DISTINCT KNA1.KUNNR) AS CUSTOMER_COUNT\nFROM KNA1\nGROUP BY KNA1.NAME1\nHAVING COUNT(DISTINCT KNA1.KUNNR) > 1",
+      "pass": true,
+      "tables_ok": true,
+      "must_have_ok": true,
+      "must_have_any_ok": true,
+      "executable_ok": true,
+      "missing_tables": [],
+      "missing_must_have": [],
+      "missing_must_have_any": [],
+      "row_count": 8,
+      "sql_error": "",
+      "latency_ms": 1648,
+      "usage": {
+        "prompt_tokens": 1963,
+        "completion_tokens": 58,
+        "total_tokens": 2021
+      },
+      "model": "",
+      "rag": {
+        "enabled": false,
+        "top_k": 0,
+        "latency_ms": 0,
+        "hits": []
+      },
+      "tools": {
+        "enabled": false,
+        "rounds": 1,
+        "call_count": 0,
+        "looked_up_tables": []
+      },
+      "agent": {
+        "enabled": false,
+        "attempts": 1,
+        "repair_used": false,
+        "repair_succeeded": false,
+        "history": []
+      }
+    },
+    {
+      "id": "D9-10",
+      "difficulty": "L5",
+      "question": "对比 2026 年和 2025 年，销售额同比增长最高的前 5 个客户",
+      "sql": "SELECT \n    K.KUNNR,\n    K.NAME1,\n    SUM(CASE WHEN V.ERDAT >= '2026-01-01' AND V.ERDAT < '2027-01-01' THEN V.NETWR ELSE 0 END) AS SALES_2026,\n    SUM(CASE WHEN V.ERDAT >= '2025-01-01' AND V.ERDAT < '2026-01-01' THEN V.NETWR ELSE 0 END) AS SALES_2025,\n    (SUM(CASE WHEN V.ERDAT >= '2026-01-01' AND V.ERDAT < '2027-01-01' THEN V.NETWR ELSE 0 END) - \n     SUM(CASE WHEN V.ERDAT >= '2025-01-01' AND V.ERDAT < '2026-01-01' THEN V.NETWR ELSE 0 END)) * 1.0 / \n     NULLIF(SUM(CASE WHEN V.ERDAT >= '2025-01-01' AND V.ERDAT < '2026-01-01' THEN V.NETWR ELSE 0 END), 0) AS GROWTH_RATE\nFROM VBAK V\nJOIN KNA1 K ON V.KUNNR = K.KUNNR\nWHERE V.ERDAT >= '2025-01-01' AND V.ERDAT < '2027-01-01'\nGROUP BY K.KUNNR, K.NAME1\nHAVING SUM(CASE WHEN V.ERDAT >= '2025-01-01' AND V.ERDAT < '2026-01-01' THEN V.NETWR ELSE 0 END) > 0\nORDER BY GROWTH_RATE DESC\nLIMIT 5",
+      "pass": true,
+      "tables_ok": true,
+      "must_have_ok": true,
+      "must_have_any_ok": true,
+      "executable_ok": true,
+      "missing_tables": [],
+      "missing_must_have": [],
+      "missing_must_have_any": [],
+      "row_count": 5,
+      "sql_error": "",
+      "latency_ms": 3283,
+      "usage": {
+        "prompt_tokens": 1971,
+        "completion_tokens": 379,
+        "total_tokens": 2350
+      },
+      "model": "",
+      "rag": {
+        "enabled": false,
+        "top_k": 0,
+        "latency_ms": 0,
+        "hits": []
+      },
+      "tools": {
+        "enabled": false,
+        "rounds": 1,
+        "call_count": 0,
+        "looked_up_tables": []
+      },
+      "agent": {
+        "enabled": false,
+        "attempts": 1,
+        "repair_used": false,
+        "repair_succeeded": false,
+        "history": []
+      }
+    },
+    {
+      "id": "D9-11",
+      "difficulty": "L5",
+      "question": "今年每月销售额的环比增长率",
+      "sql": "SELECT \n    strftime('%Y-%m', VBAK.ERDAT) AS 月份,\n    ROUND(SUM(VBAK.NETWR), 2) AS 当月销售额,\n    ROUND(\n        (SUM(VBAK.NETWR) - LAG(SUM(VBAK.NETWR), 1) OVER (ORDER BY strftime('%Y-%m', VBAK.ERDAT))) \n        / LAG(SUM(VBAK.NETWR), 1) OVER (ORDER BY strftime('%Y-%m', VBAK.ERDAT)) * 100, \n        2\n    ) AS 环比增长率\nFROM VBAK\nWHERE VBAK.ERDAT >= '2026-01-01' \n  AND VBAK.ERDAT < '2027-01-01'\n  AND VBAK.AUART = 'OR'\nGROUP BY strftime('%Y-%m', VBAK.ERDAT)\nORDER BY 月份",
+      "pass": true,
+      "tables_ok": true,
+      "must_have_ok": true,
+      "must_have_any_ok": true,
+      "executable_ok": true,
+      "missing_tables": [],
+      "missing_must_have": [],
+      "missing_must_have_any": [],
+      "row_count": 5,
+      "sql_error": "",
+      "latency_ms": 2473,
+      "usage": {
+        "prompt_tokens": 1956,
+        "completion_tokens": 206,
+        "total_tokens": 2162
+      },
+      "model": "",
+      "rag": {
+        "enabled": false,
+        "top_k": 0,
+        "latency_ms": 0,
+        "hits": []
+      },
+      "tools": {
+        "enabled": false,
+        "rounds": 1,
+        "call_count": 0,
+        "looked_up_tables": []
+      },
+      "agent": {
+        "enabled": false,
+        "attempts": 1,
+        "repair_used": false,
+        "repair_succeeded": false,
+        "history": []
+      }
+    },
+    {
+      "id": "D9-12",
+      "difficulty": "L5",
+      "question": "2025 和 2026 两年分别采购了多少种不同的物料",
+      "sql": "SELECT \n    strftime('%Y', EKKO.AEDAT) AS 年份,\n    COUNT(DISTINCT EKPO.MATNR) AS 不同物料数量\nFROM EKKO\nJOIN EKPO ON EKKO.EBELN = EKPO.EBELN\nWHERE EKKO.AEDAT >= '2025-01-01'\n  AND EKKO.AEDAT < '2027-01-01'\nGROUP BY 年份\nORDER BY 年份",
+      "pass": true,
+      "tables_ok": true,
+      "must_have_ok": true,
+      "must_have_any_ok": true,
+      "executable_ok": true,
+      "missing_tables": [],
+      "missing_must_have": [],
+      "missing_must_have_any": [],
+      "row_count": 2,
+      "sql_error": "",
+      "latency_ms": 2001,
+      "usage": {
+        "prompt_tokens": 1965,
+        "completion_tokens": 104,
+        "total_tokens": 2069
+      },
+      "model": "",
+      "rag": {
+        "enabled": false,
+        "top_k": 0,
+        "latency_ms": 0,
+        "hits": []
+      },
+      "tools": {
+        "enabled": false,
+        "rounds": 1,
+        "call_count": 0,
+        "looked_up_tables": []
+      },
+      "agent": {
+        "enabled": false,
+        "attempts": 1,
+        "repair_used": false,
+        "repair_succeeded": false,
+        "history": []
+      }
+    },
+    {
+      "id": "D9-13",
+      "difficulty": "L5",
+      "question": "对比 2026 年 Q1 和 2025 年 Q4 的销售订单数量",
+      "sql": "SELECT \n    CASE \n        WHEN VBAK.ERDAT >= '2026-01-01' AND VBAK.ERDAT < '2026-04-01' THEN '2026 Q1'\n        WHEN VBAK.ERDAT >= '2025-10-01' AND VBAK.ERDAT < '2026-01-01' THEN '2025 Q4'\n    END AS QUARTER,\n    COUNT(DISTINCT VBAK.VBELN) AS ORDER_COUNT\nFROM VBAK\nWHERE VBAK.ERDAT >= '2025-10-01' AND VBAK.ERDAT < '2026-04-01'\nGROUP BY QUARTER\nHAVING QUARTER IS NOT NULL",
+      "pass": true,
+      "tables_ok": true,
+      "must_have_ok": true,
+      "must_have_any_ok": true,
+      "executable_ok": true,
+      "missing_tables": [],
+      "missing_must_have": [],
+      "missing_must_have_any": [],
+      "row_count": 2,
+      "sql_error": "",
+      "latency_ms": 1957,
+      "usage": {
+        "prompt_tokens": 1972,
+        "completion_tokens": 162,
+        "total_tokens": 2134
+      },
+      "model": "",
+      "rag": {
+        "enabled": false,
+        "top_k": 0,
+        "latency_ms": 0,
+        "hits": []
+      },
+      "tools": {
+        "enabled": false,
+        "rounds": 1,
+        "call_count": 0,
+        "looked_up_tables": []
+      },
+      "agent": {
+        "enabled": false,
+        "attempts": 1,
+        "repair_used": false,
+        "repair_succeeded": false,
+        "history": []
+      }
+    },
+    {
+      "id": "D9-14",
+      "difficulty": "L5",
+      "question": "物料 M000001 在 2024、2025、2026 三年的采购单价分别是多少（按年取平均）",
+      "sql": "SELECT \n    CAST(STRFTIME('%Y', EKKO.AEDAT) AS INTEGER) AS YEAR,\n    AVG(EKPO.NETPR) AS AVG_PRICE\nFROM EKKO\nJOIN EKPO ON EKKO.EBELN = EKPO.EBELN\nWHERE EKPO.MATNR = 'M000001'\n  AND EKKO.AEDAT >= '2024-01-01'\n  AND EKKO.AEDAT < '2027-01-01'\nGROUP BY STRFTIME('%Y', EKKO.AEDAT)\nORDER BY YEAR",
+      "pass": true,
+      "tables_ok": true,
+      "must_have_ok": true,
+      "must_have_any_ok": true,
+      "executable_ok": true,
+      "missing_tables": [],
+      "missing_must_have": [],
+      "missing_must_have_any": [],
+      "row_count": 0,
+      "sql_error": "",
+      "latency_ms": 2227,
+      "usage": {
+        "prompt_tokens": 1977,
+        "completion_tokens": 130,
+        "total_tokens": 2107
+      },
+      "model": "",
+      "rag": {
+        "enabled": false,
+        "top_k": 0,
+        "latency_ms": 0,
+        "hits": []
+      },
+      "tools": {
+        "enabled": false,
+        "rounds": 1,
+        "call_count": 0,
+        "looked_up_tables": []
+      },
+      "agent": {
+        "enabled": false,
+        "attempts": 1,
+        "repair_used": false,
+        "repair_succeeded": false,
+        "history": []
+      }
+    },
+    {
+      "id": "D9-15",
+      "difficulty": "L5",
+      "question": "销售额前 10 的客户，列出客户名称、所在城市和销售总额",
+      "sql": "SELECT \n    KNA1.NAME1 AS 客户名称,\n    KNA1.ORT01 AS 所在城市,\n    SUM(VBAK.NETWR) AS 销售总额\nFROM VBAK\nJOIN KNA1 ON VBAK.KUNNR = KNA1.KUNNR\nGROUP BY KNA1.KUNNR, KNA1.NAME1, KNA1.ORT01\nORDER BY 销售总额 DESC\nLIMIT 10",
+      "pass": true,
+      "tables_ok": true,
+      "must_have_ok": true,
+      "must_have_any_ok": true,
+      "executable_ok": true,
+      "missing_tables": [],
+      "missing_must_have": [],
+      "missing_must_have_any": [],
+      "row_count": 10,
+      "sql_error": "",
+      "latency_ms": 1805,
+      "usage": {
+        "prompt_tokens": 1967,
+        "completion_tokens": 98,
+        "total_tokens": 2065
+      },
+      "model": "",
+      "rag": {
+        "enabled": false,
+        "top_k": 0,
+        "latency_ms": 0,
+        "hits": []
+      },
+      "tools": {
+        "enabled": false,
+        "rounds": 1,
+        "call_count": 0,
+        "looked_up_tables": []
+      },
+      "agent": {
+        "enabled": false,
+        "attempts": 1,
+        "repair_used": false,
+        "repair_succeeded": false,
+        "history": []
+      }
+    },
+    {
+      "id": "D9-16",
+      "difficulty": "L5",
+      "question": "每个供应商各采购了哪些物料类型，按供应商和物料类型分组统计采购数量",
+      "sql": "SELECT \n    LFA1.LIFNR AS 供应商编号,\n    LFA1.NAME1 AS 供应商名称,\n    MARA.MTART AS 物料类型,\n    SUM(EKPO.MENGE) AS 采购总数量\nFROM EKKO\nJOIN EKPO ON EKKO.EBELN = EKPO.EBELN\nJOIN MARA ON EKPO.MATNR = MARA.MATNR\nJOIN LFA1 ON EKKO.LIFNR = LFA1.LIFNR\nGROUP BY LFA1.LIFNR, LFA1.NAME1, MARA.MTART\nORDER BY LFA1.LIFNR, MARA.MTART",
+      "pass": true,
+      "tables_ok": true,
+      "must_have_ok": true,
+      "must_have_any_ok": true,
+      "executable_ok": true,
+      "missing_tables": [],
+      "missing_must_have": [],
+      "missing_must_have_any": [],
+      "row_count": 200,
+      "sql_error": "",
+      "latency_ms": 2260,
+      "usage": {
+        "prompt_tokens": 1968,
+        "completion_tokens": 151,
+        "total_tokens": 2119
+      },
+      "model": "",
+      "rag": {
+        "enabled": false,
+        "top_k": 0,
+        "latency_ms": 0,
+        "hits": []
+      },
+      "tools": {
+        "enabled": false,
+        "rounds": 1,
+        "call_count": 0,
+        "looked_up_tables": []
+      },
+      "agent": {
+        "enabled": false,
+        "attempts": 1,
+        "repair_used": false,
+        "repair_succeeded": false,
+        "history": []
+      }
+    },
+    {
+      "id": "D9-17",
+      "difficulty": "L5",
+      "question": "2025 年按物料类型分组，哪种物料类型的销售总额最高，列出物料类型和销售总额",
+      "sql": "SELECT M.MTART AS 物料类型, SUM(VBAP.NETWR) AS 销售总额\nFROM VBAP\nJOIN VBAK ON VBAP.VBELN = VBAK.VBELN\nJOIN MARA M ON VBAP.MATNR = M.MATNR\nWHERE VBAK.ERDAT BETWEEN '2025-01-01' AND '2025-12-31'\nGROUP BY M.MTART\nORDER BY 销售总额 DESC",
+      "pass": true,
+      "tables_ok": true,
+      "must_have_ok": true,
+      "must_have_any_ok": true,
+      "executable_ok": true,
+      "missing_tables": [],
+      "missing_must_have": [],
+      "missing_must_have_any": [],
+      "row_count": 4,
+      "sql_error": "",
+      "latency_ms": 2044,
+      "usage": {
+        "prompt_tokens": 1972,
+        "completion_tokens": 101,
+        "total_tokens": 2073
+      },
+      "model": "",
+      "rag": {
+        "enabled": false,
+        "top_k": 0,
+        "latency_ms": 0,
+        "hits": []
+      },
+      "tools": {
+        "enabled": false,
+        "rounds": 1,
+        "call_count": 0,
+        "looked_up_tables": []
+      },
+      "agent": {
+        "enabled": false,
+        "attempts": 1,
+        "repair_used": false,
+        "repair_succeeded": false,
+        "history": []
+      }
+    },
+    {
+      "id": "D9-18",
+      "difficulty": "L5",
+      "question": "在系统里建过档但 2026 年从没下过订单的客户有多少个",
+      "sql": "SELECT COUNT(DISTINCT KNA1.KUNNR) \nFROM KNA1 \nWHERE KNA1.KUNNR NOT IN (\n    SELECT DISTINCT VBAK.KUNNR \n    FROM VBAK \n    WHERE VBAK.ERDAT >= '2026-01-01' \n      AND VBAK.ERDAT < '2027-01-01'\n)",
+      "pass": true,
+      "tables_ok": true,
+      "must_have_ok": true,
+      "must_have_any_ok": true,
+      "executable_ok": true,
+      "missing_tables": [],
+      "missing_must_have": [],
+      "missing_must_have_any": [],
+      "row_count": 1,
+      "sql_error": "",
+      "latency_ms": 1853,
+      "usage": {
+        "prompt_tokens": 1971,
+        "completion_tokens": 81,
+        "total_tokens": 2052
+      },
+      "model": "",
+      "rag": {
+        "enabled": false,
+        "top_k": 0,
+        "latency_ms": 0,
+        "hits": []
+      },
+      "tools": {
+        "enabled": false,
+        "rounds": 1,
+        "call_count": 0,
+        "looked_up_tables": []
+      },
+      "agent": {
+        "enabled": false,
+        "attempts": 1,
+        "repair_used": false,
+        "repair_succeeded": false,
+        "history": []
+      }
+    },
+    {
+      "id": "D9-19",
+      "difficulty": "L5",
+      "question": "既被销售过又被采购过的物料有多少种",
+      "sql": "SELECT COUNT(DISTINCT V.MATNR) AS MATERIAL_COUNT\nFROM VBAP V\nINNER JOIN EKPO E ON V.MATNR = E.MATNR",
+      "pass": true,
+      "tables_ok": true,
+      "must_have_ok": true,
+      "must_have_any_ok": true,
+      "executable_ok": true,
+      "missing_tables": [],
+      "missing_must_have": [],
+      "missing_must_have_any": [],
+      "row_count": 1,
+      "sql_error": "",
+      "latency_ms": 1722,
+      "usage": {
+        "prompt_tokens": 1960,
+        "completion_tokens": 38,
+        "total_tokens": 1998
+      },
+      "model": "",
+      "rag": {
+        "enabled": false,
+        "top_k": 0,
+        "latency_ms": 0,
+        "hits": []
+      },
+      "tools": {
+        "enabled": false,
+        "rounds": 1,
+        "call_count": 0,
+        "looked_up_tables": []
+      },
+      "agent": {
+        "enabled": false,
+        "attempts": 1,
+        "repair_used": false,
+        "repair_succeeded": false,
+        "history": []
+      }
+    },
+    {
+      "id": "D9-20",
+      "difficulty": "L5",
+      "question": "2025 年的销售净额最高的前 5 个客户，列出客户名称和销售总额",
+      "sql": "SELECT KNA1.NAME1 AS 客户名称, SUM(VBAK.NETWR) AS 销售总额\nFROM VBAK\nJOIN KNA1 ON VBAK.KUNNR = KNA1.KUNNR\nWHERE VBAK.ERDAT >= '2025-01-01' AND VBAK.ERDAT < '2026-01-01'\nGROUP BY KNA1.KUNNR, KNA1.NAME1\nORDER BY 销售总额 DESC\nLIMIT 5",
+      "pass": true,
+      "tables_ok": true,
+      "must_have_ok": true,
+      "must_have_any_ok": true,
+      "executable_ok": true,
+      "missing_tables": [],
+      "missing_must_have": [],
+      "missing_must_have_any": [],
+      "row_count": 5,
+      "sql_error": "",
+      "latency_ms": 2165,
+      "usage": {
+        "prompt_tokens": 1971,
+        "completion_tokens": 108,
+        "total_tokens": 2079
+      },
+      "model": "",
+      "rag": {
+        "enabled": false,
+        "top_k": 0,
+        "latency_ms": 0,
+        "hits": []
+      },
+      "tools": {
+        "enabled": false,
+        "rounds": 1,
+        "call_count": 0,
+        "looked_up_tables": []
+      },
+      "agent": {
+        "enabled": false,
+        "attempts": 1,
+        "repair_used": false,
+        "repair_succeeded": false,
+        "history": []
+      }
+    },
+    {
+      "id": "D9-21",
+      "difficulty": "L5",
+      "question": "销售订单的平均单笔金额是多少",
+      "sql": "SELECT AVG(NETWR) AS avg_order_amount FROM VBAK",
+      "pass": true,
+      "tables_ok": true,
+      "must_have_ok": true,
+      "must_have_any_ok": true,
+      "executable_ok": true,
+      "missing_tables": [],
+      "missing_must_have": [],
+      "missing_must_have_any": [],
+      "row_count": 1,
+      "sql_error": "",
+      "latency_ms": 1345,
+      "usage": {
+        "prompt_tokens": 1957,
+        "completion_tokens": 16,
+        "total_tokens": 1973
+      },
+      "model": "",
+      "rag": {
+        "enabled": false,
+        "top_k": 0,
+        "latency_ms": 0,
+        "hits": []
+      },
+      "tools": {
+        "enabled": false,
+        "rounds": 1,
+        "call_count": 0,
+        "looked_up_tables": []
+      },
+      "agent": {
+        "enabled": false,
+        "attempts": 1,
+        "repair_used": false,
+        "repair_succeeded": false,
+        "history": []
+      }
+    },
+    {
+      "id": "D9-22",
+      "difficulty": "L5",
+      "question": "采购订单里最常同时被一起采购的两种物料是哪两种",
+      "sql": "SELECT \n    A.MATNR AS MATERIAL_1,\n    B.MATNR AS MATERIAL_2,\n    COUNT(*) AS CO_OCCURRENCE_COUNT\nFROM EKPO A\nJOIN EKPO B \n    ON A.EBELN = B.EBELN \n    AND A.EBELP < B.EBELP\nGROUP BY A.MATNR, B.MATNR\nORDER BY CO_OCCURRENCE_COUNT DESC\nLIMIT 1",
+      "pass": true,
+      "tables_ok": true,
+      "must_have_ok": true,
+      "must_have_any_ok": true,
+      "executable_ok": true,
+      "missing_tables": [],
+      "missing_must_have": [],
+      "missing_must_have_any": [],
+      "row_count": 1,
+      "sql_error": "",
+      "latency_ms": 1921,
+      "usage": {
+        "prompt_tokens": 1964,
+        "completion_tokens": 98,
+        "total_tokens": 2062
+      },
+      "model": "",
+      "rag": {
+        "enabled": false,
+        "top_k": 0,
+        "latency_ms": 0,
+        "hits": []
+      },
+      "tools": {
+        "enabled": false,
+        "rounds": 1,
+        "call_count": 0,
+        "looked_up_tables": []
+      },
+      "agent": {
+        "enabled": false,
+        "attempts": 1,
+        "repair_used": false,
+        "repair_succeeded": false,
+        "history": []
+      }
+    },
+    {
+      "id": "D9-23",
+      "difficulty": "L5",
+      "question": "财务凭证里有没有借贷不平衡的记录（每张凭证借方总额应等于贷方总额）",
+      "sql": "SELECT \n    BKPF.BUKRS,\n    BKPF.BELNR,\n    BKPF.GJAHR,\n    BKPF.BLDAT,\n    BKPF.BUDAT,\n    BKPF.BLART,\n    BKPF.WAERS,\n    SUM(CASE WHEN BSEG.SHKZG = 'S' THEN BSEG.DMBTR ELSE 0 END) AS DEBIT_TOTAL,\n    SUM(CASE WHEN BSEG.SHKZG = 'H' THEN BSEG.DMBTR ELSE 0 END) AS CREDIT_TOTAL,\n    ABS(SUM(CASE WHEN BSEG.SHKZG = 'S' THEN BSEG.DMBTR ELSE 0 END) - SUM(CASE WHEN BSEG.SHKZG = 'H' THEN BSEG.DMBTR ELSE 0 END)) AS DIFFERENCE\nFROM BKPF\nJOIN BSEG ON BKPF.BUKRS = BSEG.BUKRS AND BKPF.BELNR = BSEG.BELNR AND BKPF.GJAHR = BSEG.GJAHR\nGROUP BY BKPF.BUKRS, BKPF.BELNR, BKPF.GJAHR, BKPF.BLDAT, BKPF.BUDAT, BKPF.BLART, BKPF.WAERS\nHAVING ABS(SUM(CASE WHEN BSEG.SHKZG = 'S' THEN BSEG.DMBTR ELSE 0 END) - SUM(CASE WHEN BSEG.SHKZG = 'H' THEN BSEG.DMBTR ELSE 0 END)) > 0.01",
+      "pass": true,
+      "tables_ok": true,
+      "must_have_ok": true,
+      "must_have_any_ok": true,
+      "executable_ok": true,
+      "missing_tables": [],
+      "missing_must_have": [],
+      "missing_must_have_any": [],
+      "row_count": 0,
+      "sql_error": "",
+      "latency_ms": 3438,
+      "usage": {
+        "prompt_tokens": 1969,
+        "completion_tokens": 335,
+        "total_tokens": 2304
+      },
+      "model": "",
+      "rag": {
+        "enabled": false,
+        "top_k": 0,
+        "latency_ms": 0,
+        "hits": []
+      },
+      "tools": {
+        "enabled": false,
+        "rounds": 1,
+        "call_count": 0,
+        "looked_up_tables": []
+      },
+      "agent": {
+        "enabled": false,
+        "attempts": 1,
+        "repair_used": false,
+        "repair_succeeded": false,
+        "history": []
+      }
+    },
+    {
+      "id": "D9-24",
+      "difficulty": "L5",
+      "question": "销售订单抬头的净额和它所有行项目净额之和不一致的订单有哪些",
+      "sql": "SELECT \n    VBAK.VBELN,\n    VBAK.NETWR AS HEADER_NETWR,\n    SUM(VBAP.NETWR) AS ITEM_NETWR_SUM\nFROM VBAK\nJOIN VBAP ON VBAK.VBELN = VBAP.VBELN\nGROUP BY VBAK.VBELN, VBAK.NETWR\nHAVING ABS(VBAK.NETWR - SUM(VBAP.NETWR)) > 0.01",
+      "pass": true,
+      "tables_ok": true,
+      "must_have_ok": true,
+      "must_have_any_ok": true,
+      "executable_ok": true,
+      "missing_tables": [],
+      "missing_must_have": [],
+      "missing_must_have_any": [],
+      "row_count": 0,
+      "sql_error": "",
+      "latency_ms": 2064,
+      "usage": {
+        "prompt_tokens": 1968,
+        "completion_tokens": 100,
+        "total_tokens": 2068
+      },
+      "model": "",
+      "rag": {
+        "enabled": false,
+        "top_k": 0,
+        "latency_ms": 0,
+        "hits": []
+      },
+      "tools": {
+        "enabled": false,
+        "rounds": 1,
+        "call_count": 0,
+        "looked_up_tables": []
+      },
+      "agent": {
+        "enabled": false,
+        "attempts": 1,
+        "repair_used": false,
+        "repair_succeeded": false,
+        "history": []
+      }
+    },
+    {
+      "id": "D9-25",
+      "difficulty": "L5",
+      "question": "2026 年销售业绩最好的销售员前 5 名（排除测试账号 TEST 开头的）",
+      "sql": "SELECT \n    VBAK.ERNAM AS 销售员,\n    ROUND(SUM(VBAK.NETWR), 2) AS 销售总额\nFROM VBAK\nWHERE VBAK.ERDAT >= '2026-01-01'\n  AND VBAK.ERDAT < '2027-01-01'\n  AND VBAK.ERNAM NOT LIKE 'TEST%'\nGROUP BY VBAK.ERNAM\nORDER BY 销售总额 DESC\nLIMIT 5",
+      "pass": true,
+      "tables_ok": true,
+      "must_have_ok": true,
+      "must_have_any_ok": true,
+      "executable_ok": true,
+      "missing_tables": [],
+      "missing_must_have": [],
+      "missing_must_have_any": [],
+      "row_count": 4,
+      "sql_error": "",
+      "latency_ms": 2131,
+      "usage": {
+        "prompt_tokens": 1973,
+        "completion_tokens": 105,
+        "total_tokens": 2078
+      },
+      "model": "",
+      "rag": {
+        "enabled": false,
+        "top_k": 0,
+        "latency_ms": 0,
+        "hits": []
+      },
+      "tools": {
+        "enabled": false,
+        "rounds": 1,
+        "call_count": 0,
+        "looked_up_tables": []
+      },
+      "agent": {
+        "enabled": false,
+        "attempts": 1,
+        "repair_used": false,
+        "repair_succeeded": false,
+        "history": []
+      }
+    }
+  ]
+}

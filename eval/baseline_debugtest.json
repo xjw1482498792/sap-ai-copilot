@@ -1,0 +1,106 @@
+{
+  "meta": {
+    "timestamp": "2026-06-14T00:03:27",
+    "today": "2026-05-20",
+    "tag": "debugtest",
+    "total_wall_time_sec": 23.6,
+    "use_rag": true,
+    "use_tools": true,
+    "use_agent": false,
+    "top_k": 5,
+    "max_tool_rounds": 3,
+    "max_repair_attempts": 3,
+    "avg_rag_latency_ms": 20424
+  },
+  "summary": {
+    "total_cases": 1,
+    "passed": 1,
+    "pass_rate": 1.0,
+    "by_difficulty": {
+      "L1": {
+        "total": 1,
+        "passed": 1,
+        "pass_rate": 1.0
+      }
+    },
+    "total_input_tokens": 1812,
+    "total_output_tokens": 13,
+    "avg_input_tokens": 1812,
+    "avg_output_tokens": 13,
+    "avg_latency_ms": 3169,
+    "tables_pass_rate": 1.0,
+    "must_have_pass_rate": 1.0,
+    "executable_pass_rate": 1.0,
+    "tool_calls_total": 0,
+    "cases_with_tool_call": 0,
+    "tool_usage_rate": 0.0,
+    "agent_repair_triggered": 0,
+    "agent_repair_succeeded": 0,
+    "agent_avg_attempts": 1
+  },
+  "cases": [
+    {
+      "id": "L1-01",
+      "difficulty": "L1",
+      "question": "目前数据库里一共有多少个客户？",
+      "sql": "SELECT COUNT(*) AS 客户总数 FROM KNA1",
+      "pass": true,
+      "tables_ok": true,
+      "must_have_ok": true,
+      "must_have_any_ok": true,
+      "executable_ok": true,
+      "missing_tables": [],
+      "missing_must_have": [],
+      "missing_must_have_any": [],
+      "row_count": 1,
+      "sql_error": "",
+      "latency_ms": 3169,
+      "usage": {
+        "prompt_tokens": 1812,
+        "completion_tokens": 13,
+        "total_tokens": 1825
+      },
+      "model": "",
+      "rag": {
+        "enabled": true,
+        "top_k": 5,
+        "latency_ms": 20424,
+        "hits": [
+          {
+            "table": "KNA1",
+            "score": 0.572
+          },
+          {
+            "table": "VBAP",
+            "score": 0.5139
+          },
+          {
+            "table": "LFA1",
+            "score": 0.501
+          },
+          {
+            "table": "VBAK",
+            "score": 0.4907
+          },
+          {
+            "table": "EKPO",
+            "score": 0.4316
+          }
+        ]
+      },
+      "tools": {
+        "enabled": true,
+        "rounds": 1,
+        "call_count": 0,
+        "looked_up_tables": []
+      },
+      "agent": {
+        "enabled": false,
+        "attempts": 1,
+        "repair_used": false,
+        "repair_succeeded": false,
+        "history": []
+      }
+    }
+  ]
+}

@@ -12,9 +12,20 @@ __pycache__/
 *.py[cod]
 *.egg-info/
 .venv/
+.venv*/
 venv/
 .pytest_cache/
 .ipynb_checkpoints/
+
+# 临时 / 调试输出
+out.txt
+dump*.txt
+pwd.txt
+tmp/
+src/MY/
+
+# 简历生成子项目（与 SAP 项目无关，单独管理）
+resume/
 
 # IDE
 .vscode/

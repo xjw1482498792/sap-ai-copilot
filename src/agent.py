@@ -96,6 +96,7 @@ class AgentState(TypedDict, total=False):
     total_latency_ms: int
     rounds_total: int          # 所有 attempt 的 LLM 调用次数之和（含 tool 轮）
     tool_calls_record: list[dict]
+    current_tool_calls: list[dict]  # 当前 attempt 的 tool calls，供 _execute 写入 history
 
     # 当前状态
     sql: str                   # 当前 attempt 生成的 SQL
@@ -167,6 +168,7 @@ def _generate(state: AgentState) -> dict:
         "total_latency_ms": state.get("total_latency_ms", 0) + gen["total_latency_ms"],
         "rounds_total": state.get("rounds_total", 0) + gen["rounds"],
         "tool_calls_record": state.get("tool_calls_record", []) + gen["tool_calls"],
+        "current_tool_calls": gen["tool_calls"],
     }
 
 
@@ -182,6 +184,7 @@ def _execute(state: AgentState) -> dict:
         "ok": result["ok"],
         "error": result.get("error", ""),
         "row_count": result.get("row_count", 0),
+        "tool_calls": state.get("current_tool_calls", []),
     }]
 
     log_event("agent_node", {
