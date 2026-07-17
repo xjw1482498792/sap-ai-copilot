@@ -12,7 +12,7 @@ DEEPSEEK_MODEL = os.getenv("DEEPSEEK_MODEL", "deepseek-chat")
 
 # Day 13-14 公网部署用：Web UI 访问密码。
 # 留空 = 不启用密码（本地开发 / CLI 评测场景），非空时 Streamlit 前置一个密码门
-APP_PASSWORD = os.getenv("APP_PASSWORD", "")
+APP_PASSWORD = os.getenv("APP_PASSWORD")
 
 
 def require_api_key() -> None:
