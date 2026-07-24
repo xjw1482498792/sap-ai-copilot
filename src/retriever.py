@@ -18,7 +18,7 @@ Schema RAG 检索层（Day 3）。
     retrieve_schema_text("...", top_k=5)   # 直接拿拼好的 prompt 文本
 """
 from __future__ import annotations
-
+# print("retriever加载成功")
 import os
 from pathlib import Path
 from typing import Optional

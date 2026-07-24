@@ -34,7 +34,7 @@ from src.llm import chat_stream_iter  # noqa: E402
 from src.log import log_ask  # noqa: E402
 from src.main import generate_sql_with_tools  # noqa: E402  (Day 4 直链备用)
 from src.prompts import build_sql_messages, build_explain_messages  # noqa: E402
-from src.retriever import retrieve_schema_text  # noqa: E402
+from src.retriever import retrieve_schema_text,_get_model, _get_client  # noqa: E402
 
 
 PAGE_TITLE = "SAP 智能查询助手"
@@ -60,7 +60,7 @@ def _cached_db_counts() -> dict[str, int]:
 def _warm_retriever() -> bool:
     """提前把 BGE 模型 + Chroma 客户端拉起来。
     没有这一步首次提问会卡 25 秒（加载模型）—— Web 端这种延迟体验很糟。"""
-    from src.retriever import _get_model, _get_client  # noqa: F401
+    # from src.retriever import _get_model, _get_client  # noqa: F401
     _get_model()
     _get_client()
     return True
