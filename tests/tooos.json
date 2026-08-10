@@ -1,0 +1,35 @@
+[{
+        "type": "function",
+        "function": {
+            "name": "schema_lookup",
+            "description": "查看一张或多张 SAP 表的完整字段定义。当你发现已给出的 schema 不够（例如：查询需要 JOIN 一张未在召回列表里的表，或某个字段的含义/类型不明），调用本工具补充。一次最多查 5 张表，传入大写表名。",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "table_names": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "想查看的表名列表，大写，例如 [\"MAKT\", \"MARA\"]",
+                        "minItems": 1,
+                        "maxItems": 5
+                    }
+                },
+                "required": [
+                    "table_names"
+                ]
+            }
+        }
+    },
+
+    {
+        "id": "call_00_DjG1v4sXQcZgn74VCLs38382",
+        "function": {
+            "arguments": "{\"table_names\": [\"MAKT\"]}",
+            "name": "schema_lookup"
+        },
+        "type": "function",
+        "index": 0
+    }
+]
