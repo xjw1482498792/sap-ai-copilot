@@ -16,3 +16,8 @@
 
 
 技术栈：主要以python语言开发为主，langgrapth框架维护流程和状态，BGE模型做中文向量化，Chroma向量库做向量检索，Deepseek API分析和生成SQL，SQLite数据库存储真实的业务数据。
+
+核心模块：主要分为rag，tool，generate，execute，reflect，log等模块
+
+bug与难点：
+优化：（协程）
