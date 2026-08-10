@@ -42,6 +42,10 @@ _client = None
 def _get_model():
     global _model
     if _model is None:
+        # 模型已缓存到本机；运行期禁止 Hugging Face 再发 HEAD 请求检查更新。
+        # 这也避免代理链路不稳定时出现 ReadTimeout / SSL EOF 重试。
+        os.environ.setdefault("HF_HUB_OFFLINE", "1")
+        os.environ.setdefault("TRANSFORMERS_OFFLINE", "1")
         from sentence_transformers import SentenceTransformer
         _model = SentenceTransformer(EMBED_MODEL_NAME)
     return _model

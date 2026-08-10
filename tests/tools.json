@@ -1,0 +1,130 @@
+// 随API传入的TOOL
+
+//import json
+//print(json.dumps(kwargs['tools'], ensure_ascii=False, indent=2))
+[
+  {
+    "type": "function",
+    "function": {
+      "name": "schema_lookup",
+      "description": "查看一张或多张 SAP 表的完整字段定义。当你发现已给出的 schema 不够（例如：查询需要 JOIN 一张未在召回列表里的表，或某个字段的含义/类型不明），调用本工具补充。一次最多查 5 张表，传入大写表名。",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "table_names": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "想查看的表名列表，大写，例如 [\"MAKT\", \"MARA\"]",
+            "minItems": 1,
+            "maxItems": 5
+          }
+        },
+        "required": [
+          "table_names"
+        ]
+      }
+    }
+  }
+]
+
+
+// LLM回应的结构
+//import json
+//print(json.dumps(
+    msg.tool_calls[0].model_dump(),
+    ensure_ascii=False,
+    indent=2
+))
+{
+  "id": "call_00_s2jFmgAqbpysTKHb3m5N0435",
+  "function": {
+    "arguments": "{\"table_names\": [\"MAKT\"]}",
+    "name": "schema_lookup"
+  },
+  "type": "function",
+  "index": 0
+}
+
+
+// messages追加的tool调用申请
+//import json
+//print(json.dumps(messages[2], ensure_ascii=False, indent=2))
+{
+  "role": "assistant",
+  "content": "",
+  "tool_calls": [
+    {
+      "id": "call_00_s2jFmgAqbpysTKHb3m5N0435",
+      "type": "function",
+      "function": {
+        "name": "schema_lookup",
+        "arguments": "{\"table_names\": [\"MAKT\"]}"
+      }
+    }
+  ]
+}
+
+//tool执行
+//tool_result = execute_tool(tc["name"], tc["arguments"])
+
+//messages最佳的tool回答
+//import json
+//print(json.dumps(messages[3], ensure_ascii=False, indent=2))
+{
+  "role": "tool",
+  "tool_call_id": "call_00_s2jFmgAqbpysTKHb3m5N0435",
+  "content": "表 MAKT (MM 模块): 物料描述（Material Descriptions）。多语言文本，一个物料一种语言一行。查物料名称必须 JOIN 这张表。\n  - MATNR (TEXT) [PK]: 物料编号，外键→MARA.MATNR\n  - SPRAS (TEXT) [PK]: 语言代码，1=中文 E=英文 D=德文\n  - MAKTX (TEXT): 物料描述文本"
+}
+
+
+///第二轮了
+//就是在user的content加了history(sql，结果，工具记录)
+        // messages = build_repair_messages(
+        //     user_question=question,
+        //     today=today,
+        //     schema_text=schema_text,
+        //     with_tool_catalog=use_tools,
+        //     history=history,
+        //     repeat_count=state.get("repeat_count", 0),
+        //     error_signature=state.get("last_error_signature", ""),
+        // )
+
+
+// 原问题：销售数量最高的 5 个物料，列出物料编号、中文名称和销售总数量
+
+// --- 第 1 次尝试 ---
+// 本轮工具调用：
+//   schema_lookup({'table_names': ['MAKT']}) 返回：
+//   表 MAKT (MM 模块): 物料描述（Material Descriptions）。多语言文本，一个物料一种语言一行。查物料名称必须 JOIN 这张表。
+//   - MATNR (TEXT) [PK]: 物料编号，外键→MARA.MATNR
+//   - SPRAS (TEXT) [PK]: 语言代码，1=中文 E=英文 D=德文
+//   - MAKTX (TEXT): 物料描述文本
+// SQL：
+// SELECT VBAP.MATNR AS 物料编号,
+//        MAKT.MAKTX AS 中文名称,
+//        SUM(VBAP.KWMENG) AS 销售总数量
+// FROM VBAP
+// LEFT JOIN MAKT ON VBAP.MATNR = MAKT.MATNR AND MAKT.SPRAS = '1'
+// GROUP BY VBAP.MATNR, MAKT.MAKTX
+// ORDER BY 销售总数量 DESC
+// LIMIT 5
+// 执行错误：
+
+// 上面是你之前生成 SQL 的失败历史。请基于错误信息修正 SQL。
+
+// 常见错误的诊断方向：
+// - "no such column: X.Y"  —— X 表里没有 Y 字段。**优先调 schema_lookup(["X"]) 核实真实字段**，
+//   不要凭印象写。例：EKKO 没有 NETWR，采购金额在 EKPO.NETPR
+// - "no such table: X"      —— 表名拼错或不存在，用大写 SAP 标准名
+// - "ambiguous column name" —— JOIN 后同名字段要加表别名前缀
+// - "syntax error"          —— 检查 SQLite 语法，不能用 ABAP OpenSQL
+// - "incomplete input"      —— SQL 不完整或被截断，请输出**完整一条 SQL**，
+//   不要用 ; 分多条语句，避免在 SQL 之外写任何中文解释
+// - 结果为空但语义对的时候    —— 检查日期/币种/客户编号等过滤条件是否过严
+
+// 修复要求：
+// - 只输出最终修正后的 SQL，**不要解释，不要 markdown 围栏**
+// - 如果不确定字段名，**先调 schema_lookup** 再写 SQL，不要凭猜测
+// - 不要重复之前已经失败的写法

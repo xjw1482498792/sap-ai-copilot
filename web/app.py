@@ -74,18 +74,18 @@ def _render_sidebar() -> dict:
 
     st.sidebar.subheader("能力开关")
     use_rag = st.sidebar.checkbox(
-        "Schema RAG（Day 3）",
+        "RAG 召回",
         value=st.session_state.get("use_rag", True),
         help="开：BGE 向量召回 top-K 相关表；关：把全量 10 张表 schema 都塞 prompt",
     )
     use_tools = st.sidebar.checkbox(
-        "Function Calling（Day 4）",
+        "Function Calling 补全",
         value=st.session_state.get("use_tools", True),
         disabled=not use_rag,
         help="开：LLM 可主动调 schema_lookup 补字段。--no-rag 时强制关",
     )
     use_agent = st.sidebar.checkbox(
-        "LangGraph 自修复 Agent（Day 6）",
+        "LangGraph 自修复",
         value=st.session_state.get("use_agent", True),
         disabled=not use_rag,
         help="开：SQL 执行报错时 reflect → 重新生成。关：单次生成，错就错",
