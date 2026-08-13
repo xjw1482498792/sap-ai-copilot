@@ -64,7 +64,7 @@ def my_func(seconds):
 
 #3. 反转字符串/单词反转
 def reverse_str(str1: str):
-	#前两个值表示左闭右开区间，第三个值表示间隔
+	#前两个值表示左闭右开区间，第三个值表示步长（带方向）
 	# tmp = "abcdefg"
 	# print(tmp[5:0:-2])	
 	#反转整个字符串
@@ -78,8 +78,21 @@ def reverse_str(str1: str):
 	res = " ".join(word for word in str1.split(" ")[::-1])
 	return res
 
+#4. 爬楼梯DP基础题
+def climb(n: int):
+
+    if n == 1:
+        return 1
+    if n == 2:
+        return 2    
+
+
+    return climb(n - 1) + climb(n - 2)
+
+print(climb(3))
 if __name__ == "__main__":
 	# print(sort_list([1,2,3,4,5,6]))
 	# print(my_func(2))
-	print(reverse_str("hello world"))
+	# print(reverse_str("hello world"))
+      print(climb(3))
 	
